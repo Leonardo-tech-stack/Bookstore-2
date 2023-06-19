@@ -1,90 +1,105 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
-import { DiVCadastroProduto, Form } from "./styles"
+import { mainApiMultipart } from '../../pages/Login/mainApi/config';
+import { Div, Title, Form } from '../Cadastro de adm/styles';
 
-const CadastroProduto: React.FC = () => {
-  // const [id, setId] = useState('');
+const ProductRegistrationPage: React.FC = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [inventory, setInventory] = useState('');
-  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState(0);
+  const [inventory, setInventory] = useState(0);
+  const [categories, setCategories] = useState('');
+  const [images, setImages] = useState<File | null>(null);
 
-  const handleCadastro = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+  };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(parseFloat(e.target.value));
+  };
+
+  const handleInventoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInventory(parseInt(e.target.value));
+  };
+
+  const handleCategoriesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCategories(e.target.value);
+  };
+
+  const handleImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const image = event.target.files[0];
+      setImages(image);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     const formData = new FormData();
-    // formData.append('id', id);
     formData.append('name', name);
     formData.append('description', description);
-    formData.append('price', price);
-    formData.append('inventory', inventory);
-    formData.append('category', category);
+    formData.append('price', price.toString());
+    formData.append('inventory', inventory.toString());
+    formData.append('categories', categories);
 
-    fetch('https://api-ecommerce-livraria.onrender.com/product', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      body: formData,
-    })
-      .then(response => {
-        if (response.ok) {
-          // Processar a resposta de sucesso (se necessário)
-          console.log('Produto cadastrado com sucesso!');
-        } else {
-          console.error('Falha ao cadastrar o produto');
-        }
-      })
-      .catch(error => console.error(error));
+    if (images) {
+      formData.append('images', images);
+    }
+
+    try {
+      const response = await mainApiMultipart.post('/product', formData);
+
+      if (response.status === 201) {
+        alert('Produto cadastrado com sucesso!');
+      } else {
+        alert('Erro ao cadastrar produto!');
+      }
+    } catch (error) {
+      console.error('Erro de conexão', error);
+    }
   };
 
   return (
     <div>
-    <Header />
-     {/* <Header userLoggedIn={true} /> */}
-      
-      <DiVCadastroProduto>
-        <h1>Cadastro de Produto</h1>
-    
-        <Form className="--bs-primary-rgb" onSubmit={handleCadastro}>
-          {/* <div>
-            <label htmlFor="id">ID:</label>
-            <input type="text" id="id" value={id} onChange={e => setId(e.target.value)} />
-          </div> */}
-
+      <Header />
+      <Div>
+        <Title>Cadastro de Produto</Title>
+        <Form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Nome:</label>
-            <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} />
+            <input type="text" id="name" value={name} onChange={handleNameChange} />
           </div>
-
           <div>
-          <label htmlFor="description">Descrição:</label>
-          <input type="text" id="description" value={description} onChange={e => setDescription(e.target.value)} />
+            <label htmlFor="description">Descrição:</label>
+            <input type="text" id="description" value={description} onChange={handleDescriptionChange} />
           </div>
-          
           <div>
             <label htmlFor="price">Preço:</label>
-            <input type="text" id="price" value={price} onChange={e => setPrice(e.target.value)} />
+            <input type="number" id="price" value={price} onChange={handlePriceChange} />
           </div>
-
           <div>
             <label htmlFor="inventory">Estoque:</label>
-            <input type="text" id="inventory" value={inventory} onChange={e => setInventory(e.target.value)} />
+            <input type="number" id="inventory" value={inventory} onChange={handleInventoryChange} />
           </div>
-
           <div>
-            <label htmlFor="category">Categoria:</label>
-            <input type="text" id="category" value={category} onChange={e => setCategory(e.target.value)} />
+            <label htmlFor="categories">Categorias:</label>
+            <input type="text" id="categories" value={categories} onChange={handleCategoriesChange} />
           </div>
-
           <div>
-           <button type="submit">Cadastrar</button>
+            <label htmlFor="images">Imagens:</label>
+            <input type="file" id="images" onChange={handleImagesChange} />
           </div>
+          <button type="submit">Cadastrar</button>
         </Form>
-      </DiVCadastroProduto>
+      </Div>
     </div>
   );
 };
 
-export default CadastroProduto;
+export default ProductRegistrationPage;

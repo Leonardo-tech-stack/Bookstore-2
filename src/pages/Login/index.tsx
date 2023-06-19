@@ -1,53 +1,28 @@
-import React, { FormEvent, useState } from "react";
-import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-import { mainApiJson } from "./mainApi/config";
+import { FormEvent, useState } from "react";
+import { mainApiJson } from "../Login/mainApi/config";
+import Header from "../../components/Header";
 import { Logar, Form, H1, Main } from "./styles";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function Login(): JSX.Element {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        'https://api-ecommerce-livraria.onrender.com/user/login',
-        { email, password },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      const accessToken = response.data.accessToken;
-
-      localStorage.setItem('accessToken', accessToken);
-
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-
-      console.log(axios.defaults.headers);
+      const response = await mainApiJson.post("/user/login", {
+        email,
+        password,
+      });
+      console.log(response.data);
+      alert("logado com sucesso");
     } catch (error) {
-      console.error('Erro ao efetuar login:', error);
+      alert("Algo deu errado");
     }
   };
-
-  axios.interceptors.request.use(
-    (config) => {
-      const accessToken = localStorage.getItem('accessToken');
-      if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
-      }
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
   return (
     <div>
+      <Header />
       <Main className="container-card">
         <H1>Login</H1>
         <Form onSubmit={submit}>
@@ -74,10 +49,13 @@ const Login = () => {
               Logar
             </Logar>
           </div>
+          {/* <div className="mb-3">
+            <Button type="submit">
+              Cadastrar
+            </Button>
+          </div> */}
         </Form>
       </Main>
     </div>
   );
 }
-
-export default Login;

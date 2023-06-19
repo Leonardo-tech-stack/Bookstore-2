@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header';
+import { mainApiJson } from '../../pages/Login/mainApi/config';
 import { Div, Title, Form } from './styles'
 
 const AdminRegistrationPage: React.FC = () => {
@@ -29,21 +30,18 @@ const AdminRegistrationPage: React.FC = () => {
     };
 
     try {
-      const response = await fetch('https://api-ecommerce-livraria.onrender.com/admin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const response = await mainApiJson.post("/admin", {
+        name,
+        email,
+        password,
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
 
-        console.log('Admin cadastrado com sucesso');
-      } else {
-        // Tratar erro de cadastro
-        console.error('Erro ao cadastrar admin');
-      }
+        alert('Admin cadastrado com sucesso!');
+      } else (response.status !== 201); {
+        alert('Erro ao cadastrar admin!');
+      };
     } catch (error) {
       console.error('Erro de conexão', error);
     }

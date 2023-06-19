@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Header from '../../components/Header';
+import { mainApiJson } from '../../pages/Login/mainApi/config';
 
 type User = {
   name: string;
   email: string;
-//   role
+  role: string;
 };
 
 const UserList: React.FC = () => {
@@ -13,9 +15,9 @@ const UserList: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('https://api-ecommerce-livraria.onrender.com/user');
-        if (response.ok) {
-          const data = await response.json();
+        const response = await mainApiJson.get('/user');
+        if (response.status === 200) {
+          const data = response.data;
           setUsers(data);
         } else {
           console.log('Erro ao obter a lista de usuários');
@@ -31,13 +33,12 @@ const UserList: React.FC = () => {
   return (
     <div>
       <Header />
-     {/* <Header userLoggedIn={true} /> */}
 
       <h1>Lista de Usuários</h1>
       <ul>
         {users.map((user) => (
           <li key={user.email}>
-            <strong>Nome:</strong> {user.name}, <strong>Email:</strong> {user.email}
+            <strong>Nome:</strong> {user.name}, <strong>Email:</strong> {user.email}, <strong>Role:</strong> {user.role}
           </li>
         ))}
       </ul>

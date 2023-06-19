@@ -1,30 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { noHeader } from '../../pages/Login/mainApi/config';
 import { Header1, Li, Logout, Login } from './styles';
 
-type HeaderProps = {
-  open: boolean;
-  // setOpen: (open: boolean) => void;
-  userLoggedIn: boolean;
-};
 const Header: React.FC = () => {
-// const Header: React.FC<HeaderProps> = ({ userLoggedIn }) => {
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('https://api-ecommerce-livraria.onrender.com/user/logout', {
-        method: 'GET',
-      });
+      const response = await noHeader.get("/user/logout");
 
-      if (response.ok) {
-        // alert('Fez logout');
+      if (response.status === 200) {
+        console.log('Logout feito com sucesso');
         navigate ('/');
       }
        else {
-        const errorData = await response.json();
-        console.log('Erro ao fazer logout:', errorData.message);
         alert ('erro else')
       }
     } catch (error) {
