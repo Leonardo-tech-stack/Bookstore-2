@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { mainApiJson } from "../Login/mainApi/config";
 import Header from "../../components/Header";
 import { Logar, Form, H1, Main } from "./styles";
@@ -6,6 +7,7 @@ import { Logar, Form, H1, Main } from "./styles";
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -16,6 +18,7 @@ export default function Login(): JSX.Element {
       });
       console.log(response.data);
       alert("logado com sucesso");
+      navigate('/cadastroadm')
     } catch (error) {
       alert("Algo deu errado");
     }

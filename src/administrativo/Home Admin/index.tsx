@@ -49,7 +49,7 @@ const App: React.FC = () => {
         <Ul>
           {filteredProducts.map((product: ProductAPI) => (
             <li key={product.id}>
-              {/* <img src={`https://api-ecommerce-livraria.onrender.com/images/${product.image}`} /> */}
+              <img src={`https://api-ecommerce-livraria.onrender.com/images/${product.image}`} />
               <h1>{product.name}</h1> 
               <p>Valor: R$ {product.price}</p>
               <p>Descrição: {product.description}</p>

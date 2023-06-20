@@ -13,7 +13,7 @@ const mainApiMultipart = axios.create({
 });
 
 const noHeader = axios.create({
-  baseURL: process.env.REACT_APP_BASE_API_URL,
+  baseURL: 'https://api-ecommerce-livraria.onrender.com',
   withCredentials: true,
 });
 

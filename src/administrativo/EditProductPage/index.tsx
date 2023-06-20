@@ -1,125 +1,101 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { mainApiMultipart } from '../../pages/Login/mainApi/config';
 import ProductAPI from '../../types/productAPI';
 import Header from '../../components/Header';
-import { DivEditProduct } from './styles';
 
 const EditProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<ProductAPI | null>(null);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState(0);
-  const [inventory, setInventory] = useState(0);
-  // const [categories, setCategories] = useState<string[]>([]);
-
+  const navigate = useNavigate();
+  const [product, setProduct] = useState<ProductAPI>({
+    id: 0,
+    name: '',
+    description: '',
+    price: 0,
+    inventory: 0,
+    categories: [],
+    image: null,
+  });
+  
   useEffect(() => {
-    fetch(`https://api-ecommerce-livraria.onrender.com/product/${id}`)
-      .then(response => response.json())
-      .then((data: ProductAPI) => {
-        setProduct(data);
-        setName(data.name);
-        setDescription(data.description);
-        setPrice(data.price);
-        setInventory(data.inventory);
-        // setCategories(data.categories);
-        console.log(id)
+    mainApiMultipart.get(`/product/${id}`)
+      .then(response => {
+        setProduct(response.data);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error('Failed to fetch product:', error);
+      });
   }, [id]);
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Enviar os dados atualizados do produto para o servidor
-    const updatedProduct = {
-      id: product?.id,
-      name,
-      description,
-      price,
-      inventory,
-      // categories,
-    };
-
-    fetch(`https://api-ecommerce-livraria.onrender.com/product/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedProduct),
-    })
-      .then(response => {
-        if (response.ok) {
-          console.log('Product updated successfully');
-          // Redirecionar para a página de detalhes do produto
-          // history.push(`/product/${id}`);
-        } else {
-          console.error('Failed to update product');
-        }
-      })
-      .catch(error => console.error(error));
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setProduct(prevProduct => ({
+      ...prevProduct,
+      [name]: value,
+    }));
   };
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    setProduct(prevProduct => ({
+      ...prevProduct,
+      image: file instanceof File ? file : null,
+    }));
+  };
+  
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('price', String(product.price));
+    formData.append('description', product.description);
+    formData.append('inventory', String(product.inventory));
+    formData.append('categories', String(product.categories));
+    if (product.image) {
+      formData.append('image', product.image);
+    }
+
+    mainApiMultipart.put(`/product/${id}`, formData)
+      .then(() => {
+        alert('sucesso');
+        navigate('/');
+      })
+      .catch(error => {
+        console.error('Failed to update product:', error);
+      });
+  };
 
   return (
     <div>
-    <Header />
-     {/* <Header userLoggedIn={true} /> */}
-
-      <DivEditProduct>
-        
-        <h1>Editar Produto</h1>
-        
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name">Nome:</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={event => setName(event.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="description">Descrição:</label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={event => setDescription(event.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor="price">Preço:</label>
-            <input
-              type="number"
-              id="price"
-              value={price}
-              onChange={event => setPrice(Number(event.target.value))}
-            />
-          </div>
-          <div>
-            <label htmlFor="inventory">Inventário:</label>
-            <input
-              type="number"
-              id="inventory"
-              value={inventory}
-              onChange={event => setInventory(Number(event.target.value))}
-            />
-          </div>
-          {/* <div>
-            <label htmlFor="categories">Categories:</label>
-            <input
-              type="text"
-              id="categories"
-              value={categories.join(',')}
-              onChange={event => setCategories(event.target.value.split(','))}
-            />
-          </div> */}
-          <button type="submit">Salvar</button>
-        </form>
-      </DivEditProduct>
+      <Header />
+      <h2>Editar Produto</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="name">Nome:</label>
+          <input type="text" id="name" name="name" value={product.name} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label htmlFor="price">Preço:</label>
+          <input type="number" id="price" name="price" value={product.price} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label htmlFor="description">Descrição:</label>
+          <textarea id="description" name="description" value={product.description} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label htmlFor="inventory">Quantidade no estoque:</label>
+          <input type="number" id="inventory" name="inventory" value={product.inventory} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label htmlFor="categories">Categoria:</label>
+          <textarea id="categories" name="categories" value={product.categories} onChange={handleInputChange} />
+        </div>
+        <div>
+          <label htmlFor="image">Imagem:</label>
+          <input type="file" id="image" name="image" onChange={handleImageChange} />
+        </div>
+        <button type="submit">Salvar</button>
+      </form>
     </div>
   );
 };

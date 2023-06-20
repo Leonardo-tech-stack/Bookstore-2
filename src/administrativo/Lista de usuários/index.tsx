@@ -10,7 +10,8 @@ type User = {
 };
 
 const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [adminUsers, setAdminUsers] = useState<User[]>([]);
+  const [clientUsers, setClientUsers] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -18,7 +19,10 @@ const UserList: React.FC = () => {
         const response = await mainApiJson.get('/user');
         if (response.status === 200) {
           const data = response.data;
-          setUsers(data);
+          const adminUsersData = data.filter((user: User) => user.role === 'admin');
+          const clientUsersData = data.filter((user: User) => user.role === 'client');
+          setAdminUsers(adminUsersData);
+          setClientUsers(clientUsersData);
         } else {
           console.log('Erro ao obter a lista de usuários');
         }
@@ -35,13 +39,41 @@ const UserList: React.FC = () => {
       <Header />
 
       <h1>Lista de Usuários</h1>
-      <ul>
-        {users.map((user) => (
-          <li key={user.email}>
-            <strong>Nome:</strong> {user.name}, <strong>Email:</strong> {user.email}, <strong>Role:</strong> {user.role}
-          </li>
-        ))}
-      </ul>
+      <h2>Administradores</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {adminUsers.map((user) => (
+            <tr key={user.email}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h2>Clientes</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {clientUsers.map((user) => (
+            <tr key={user.email}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

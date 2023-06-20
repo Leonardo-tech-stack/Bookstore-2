@@ -5,7 +5,7 @@ interface ProductAPI {
   price: number;
   inventory: number;
   categories: string[];
-  image: string;
+  image: File | null;
 }
 
 export default ProductAPI;

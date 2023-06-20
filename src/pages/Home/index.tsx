@@ -1,26 +1,47 @@
 import React, { useEffect, useState } from 'react';
-import ProductAPI from '../../types/productAPI';
+import axios from 'axios';
 import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
 
-const HomePage: React.FC = () => {
-  const [products, setProducts] = useState<ProductAPI[]>([]);
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  image: string;
+}
+
+const ProductList: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    fetch('https://api-ecommerce-livraria.onrender.com/product')
-      .then(response => response.json())
-      .then(data => setProducts(data));
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/product');
+        const productsData: Product[] = response.data;
+
+        setProducts(productsData);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchData();
   }, []);
+
+  const getImageUrl = (filename: string) => {
+    return `/images/${filename}`;
+  };
 
   return (
     <div>
       <NavbarNavigation />
-      <h1>Lista de Produtos</h1>
-      {products.map(product => (
+      <h2>Product List</h2>
+      {products.map((product) => (
         <div key={product.id}>
           <a href={`/product/${product.id}`}>
-            {/* <img src={`https://api-ecommerce-livraria.onrender.com/images/${product.image}`} alt={product.name} /> */}
-            <h2>{product.name}</h2>
-            <p>Preço: R${product.price}</p>
+            {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
+            <img src={getImageUrl(product.image)} />
+            <h1>{product.name}</h1>
+            <p>Price: ${product.price}</p>
           </a>
         </div>
       ))}
@@ -28,4 +49,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default ProductList;
