@@ -1,11 +1,13 @@
 import { Disclosure, Menu } from '@headlessui/react';
 import { Bars3Icon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { noHeader } from '../../services/mainAPI/config';
 import { StyledIconWrapper, CartItemCount, Login } from './styles';
 import axios from 'axios';
 
 const navigation = [
-  { name: 'Comprar', href: '/Produtos1', current: true },
+  { name: 'Comprar', href: '/lista-de-produtos', current: true },
   { name: 'Stories', href: '#', current: false },
   { name: 'Sobre', href: '#', current: false },
 ];
@@ -14,23 +16,15 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const NavbarNavigation = () => {
-  const isLoggedIn = localStorage.getItem('token');
+const NavbarNavigation: React.FC = ({}) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const isAdmin = location.pathname === '/homeadm' && isLoggedIn && localStorage.getItem('role') === 'admin';
 
   const handleLogout = async () => {
     try {
-      await axios.post('https://api-ecommerce-livraria.onrender.com/user/logout', null, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-
-      localStorage.removeItem('token');
-
-      console.log('Logout successful');
+      await noHeader.get('/user/logout',
+      );
+      console.log('Logout ok');
+      navigate('/login')
     } catch (error) {
       console.error('Logout failed', error);
     }
@@ -59,7 +53,7 @@ const NavbarNavigation = () => {
                     Bookstore
                   </a>
                 </div>
-                <div className="hidden sm:ml-6 sm:block">
+                <div className="hidden sm:ml-6 sm:block flex-grow">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
@@ -74,14 +68,22 @@ const NavbarNavigation = () => {
                         {item.name}
                       </a>
                     ))}
-                    <div className="relative">
-                      <MagnifyingGlassIcon className="absolute top-2 left-2 h-5 w-5 text-gray-400" aria-hidden="true" />
-                      <input
-                        className="pl-8 pr-2 py-2 rounded-md text-sm bg-[#0D0D0D] text-white placeholder-gray-400"
-                        type="text"
-                        placeholder="Procurar produtos"
-                      />
-                    </div>
+                  </div>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="relative">
+                    <button
+                      type="button"
+                      className="ml-2 rounded-md bg-gray-800 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    >
+                      <MagnifyingGlassIcon className="absolute top-2 left-2 h-5 w-5 text-gray-400" aria-hidden="false" />
+                    </button>
+                    <input
+                      className="pl-8 pr-2 py-2 rounded-md text-sm bg-[#0D0D0D] text-white placeholder-gray-400"
+                      type="text"
+                      placeholder="Procurar produtos"
+                      title="Desabilitado"
+                    />
                   </div>
                 </div>
               </div>
@@ -105,31 +107,16 @@ const NavbarNavigation = () => {
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      {isLoggedIn ? (
-                        <>
+                      <Link to="/login">Login</Link>
+                        <div>
                           <button type="button" onClick={handleLogout}>
                             Logout
                           </button>
-                        </>
-                      ) : (
-                        <>
-                          <Link to="/login">Login</Link>
-                        </>
-                      )}
-                     <Link to="/login">Login</Link>
+                        </div>
                     </Menu.Button>
                   </div>
                 </Menu>
               </div>
-              {isAdmin && (
-                <button
-                  type="button"
-                  className="rounded-md bg-white text-black px-4 py-2 ml-4"
-                  onClick={() => navigate('/homeadm')}
-                >
-                  Admin Home
-                </button>
-              )}
             </div>
           </div>
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { mainApiMultipart } from '../../pages/Login/mainApi/config';
-import ProductAPI from '../../types/productAPI';
-import Header from '../../components/Header';
+import { mainApiJson, mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
+import ProductAPI from '../../../types/productAPI';
+import NavbarNavigation from '../../../components/Navbar/NavbarNavigatio';
+import Modal from '../../../components/Modal';
 
 const EditProductPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<string>(); 
   const navigate = useNavigate();
   const [product, setProduct] = useState<ProductAPI>({
     id: 0,
@@ -14,16 +15,29 @@ const EditProductPage: React.FC = () => {
     price: 0,
     inventory: 0,
     categories: [],
-    image: null,
+    image: '',
   });
   
+  const [categories, setCategories] = useState<string[]>([]);
+  const [categoryProducts, setCategoryProducts] = useState<ProductAPI[]>([]);
+
   useEffect(() => {
-    mainApiMultipart.get(`/product/${id}`)
+    mainApiMultipart
+      .get(`/product/${id}`)
       .then(response => {
         setProduct(response.data);
       })
       .catch(error => {
         console.error('Failed to fetch product:', error);
+      });
+
+    noHeader
+      .get('/category') //erro
+      .then(response => {
+        setCategories(response.data);
+      })
+      .catch(error => {
+        console.error('Failed to fetch categories:', error);
       });
   }, [id]);
 
@@ -35,14 +49,26 @@ const EditProductPage: React.FC = () => {
     }));
   };
 
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategory = event.target.value;
+    mainApiJson
+      .put(`/category/${selectedCategory}`)
+      .then(response => {
+        setCategoryProducts(response.data);
+      })
+      .catch(error => {
+        console.error(`Failed to fetch products for category ${selectedCategory}:`, error);
+      });
+  };
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files && event.target.files[0];
     setProduct(prevProduct => ({
       ...prevProduct,
-      image: file instanceof File ? file : null,
+      image: file instanceof File ? URL.createObjectURL(file) : '',
     }));
   };
-  
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const formData = new FormData();
@@ -50,15 +76,18 @@ const EditProductPage: React.FC = () => {
     formData.append('price', String(product.price));
     formData.append('description', product.description);
     formData.append('inventory', String(product.inventory));
-    formData.append('categories', String(product.categories));
+    product.categories.forEach(category => {
+      formData.append('categories', category);
+    });
     if (product.image) {
       formData.append('image', product.image);
     }
 
-    mainApiMultipart.put(`/product/${id}`, formData)
+    mainApiMultipart
+      .put(`/product/${id}`, formData)
       .then(() => {
-        alert('sucesso');
-        navigate('/');
+        alert('Sucesso');
+        navigate('/homeadm');
       })
       .catch(error => {
         console.error('Failed to update product:', error);
@@ -67,7 +96,13 @@ const EditProductPage: React.FC = () => {
 
   return (
     <div>
-      <Header />
+      {/* <NavbarNavigation
+        onSearch={handleSearch}
+        searchQuery={searchQuery}
+        onChangeSearch={handleChangeSearch} 
+      /> */}
+      <h1>Em breve...</h1>
+      {/* <Modal />
       <h2>Editar Produto</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -88,14 +123,29 @@ const EditProductPage: React.FC = () => {
         </div>
         <div>
           <label htmlFor="categories">Categoria:</label>
-          <textarea id="categories" name="categories" value={product.categories} onChange={handleInputChange} />
+          <select id="categories" name="categories" value={product.categories[0]} onChange={handleCategoryChange}>
+            {categories.map(category => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="categoryProducts">Produtos da Categoria:</label>
+          <ul id="categoryProducts">
+            {categoryProducts.map(categoryProduct => (
+              <li key={categoryProduct.id}>{categoryProduct.name}</li>
+            ))}
+          </ul>
         </div>
         <div>
           <label htmlFor="image">Imagem:</label>
           <input type="file" id="image" name="image" onChange={handleImageChange} />
         </div>
         <button type="submit">Salvar</button>
-      </form>
+      </form> */}
     </div>
   );
 };

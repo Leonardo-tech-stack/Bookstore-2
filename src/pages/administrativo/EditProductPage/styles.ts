@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from '../../styles/themes'
+import { colors } from '../../../styles/themes';
 
 export const DivEditProduct = styled.div`
    margin: 3% 9%;

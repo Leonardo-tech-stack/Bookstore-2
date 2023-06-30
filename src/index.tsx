@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
 import './index.css';
+import NavbarNavigation from './components/Navbar/NavbarNavigatio';
 import Footer from '../src/components/Footer/Footer';
 
 const queryClient = new QueryClient();
@@ -18,7 +19,7 @@ const root = ReactDOM.createRoot(
     <BrowserRouter>
       {/* <Provider store={store}> */}
         <QueryClientProvider client={queryClient}>
-          {/* <NavbarNavigation /> */}
+          <NavbarNavigation />
           <Routes />
           <Footer />
         </QueryClientProvider>

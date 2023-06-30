@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { noHeader } from '../../pages/Login/mainApi/config';
+import { noHeader } from '../../services/mainAPI/config';
 import { Header1, Li, Logout, Login } from './styles';
 
 const Header: React.FC = () => {
@@ -32,32 +32,32 @@ const Header: React.FC = () => {
     <Header1>
       <nav>
         <ul>
-            <Li>
-              <a href="/" className="text-white font-bold">
-                Bookstore
-              </a>
-              <button className="text-white font-bold" onClick={() => navigate('/homeadm')}>
-                Painel
-              </button>
-              <button className="text-white font-bold" onClick={() => navigate('/lista-de-usuarios')}>
-                Usuários
-              </button>
-              <button className="text-white font-bold" onClick={() => navigate('/Cadastroadm')}>
-                Cadastrar novo adm
-              </button>
-              <button className="text-white font-bold" onClick={handleAddProduct}>
-                Cadastrar Produto
-              </button>
-            </Li>
+          <Li>
+            <a href="/">
+              Bookstore
+            </a>
+            <a href="/homeadm">
+              Painel
+            </a>
+            <a href="/lista-de-usuarios">
+              Usuários
+            </a>
+            <a href="/cadastroadm">
+              Cadastrar novo adm
+            </a>
+            <button onClick={handleAddProduct}>
+              Cadastrar Produto
+            </button>
+          </Li>
         </ul>
       </nav>
       <div>
-          <Login className="text-white font-bold" onClick={() => navigate('/Login')}>
+          <Login onClick={() => navigate('/Login')}>
             Login
           </Login>
         </div>
         <div>
-          <Logout className="text-white font-bold" onClick={handleLogout}>
+          <Logout onClick={handleLogout}>
             Logout
           </Logout>
         </div>

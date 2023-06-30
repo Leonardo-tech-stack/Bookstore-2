@@ -1,34 +1,32 @@
 import { Routes as RouterRoutes, Route } from "react-router-dom";
 import Home from "./pages/Home";
+import ProductList from "./pages/ProductList";
 import ProductPage from "../src/pages/ProductPage/index";
-// import ProductList from "./components/Products/ProductList";
-// import Cart from "./components/Cart/index";
-// import Sucesso from "./pages/Sucesso";
+import Cart from "./pages/Cart/index";
 import Login from "../src/pages/Login";
-import Cadastro from "../src/pages/Cadastro/cliente";
+import Cadastro from "./pages/Cadastro";
 import UserData from "./pages/UserData";
-import HomeAdmin from "./administrativo/Home Admin/index";
-import UserList from "./administrativo/Lista de usuários";
-import RegisterAdm from "../src/administrativo/Cadastro de adm/index";
-import RegisterProduct from "../src/administrativo/Cadastro de produto/index";
-import EditProduct from "./administrativo/EditProductPage/index";
+import HomeAdmin from "./pages/administrativo/Home Admin";
+import UserList from "./pages/administrativo/Lista de usuários";
+import RegisterAdm from "./pages/administrativo/Cadastro de adm";
+import RegisterProduct from "./pages/administrativo/Cadastro de produto/index";
+import EditProduct from "./pages/administrativo/EditProductPage/index";
 
 export default function Routes() {
   return (
     <RouterRoutes>
       <Route path="/" element={<Home />} />
+      <Route path="/lista-de-produtos" element={<ProductList />} /> 
       <Route path="/homeadm" element={<HomeAdmin />} />
       <Route path="/product/:productId" element={<ProductPage />} />
+      <Route path="/carrinho" element={<Cart />} />
       <Route path="/dados-de-usuarios" element={<UserList />} />
-      {/* <Route path="/produtos" element={<ProductList />} />
-      <Route path="/carrinho" element={<Cart />} /> 
-      <Route path="/sucesso" element={<Sucesso />} /> */}
-      <Route path="/Login" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
-      <Route path="/user/{email}" element={<UserData />} />
-      <Route path="/Cadastroadm" element={<RegisterAdm />} />
-      <Route path="/Cadastro-de-produto" element={<RegisterProduct />} />
-      <Route path="/edit-product/:id" element={<EditProduct />} />
+      <Route path="/user/" element={<UserData />} />
+      <Route path="/cadastroadm" element={<RegisterAdm />} />
+      <Route path="/cadastro-de-produto" element={<RegisterProduct />} />
+      {/* <Route path="/edit-product/:id" element={<EditProduct />} /> */}
       <Route path="/lista-de-usuarios" element={<UserList />} />
     </RouterRoutes>
   );

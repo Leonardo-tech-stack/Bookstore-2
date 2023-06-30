@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import ProductAPI from '../../types/productAPI';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { mainApiJson } from '../../services/mainAPI/config';
 import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
+import ProductAPI from '../../types/productAPI';
+import { Div, Description } from './styles';
 
 const ProductPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
   const location = useLocation();
   const [product, setProduct] = useState<ProductAPI | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`https://api-ecommerce-livraria.onrender.com/product/${productId}`)
@@ -32,24 +36,68 @@ const ProductPage: React.FC = () => {
     return options;
   };
 
+  const getImageUrl = (filename: string) => {
+    return `/images/${filename}`;
+  };
+
+  const handleAddToCart = () => {
+    // const userEmail = "...";
+  
+    if (productId) {
+      const parsedProductId = parseInt(productId);
+      const body = {
+        // userEmail,
+        productId: parsedProductId,
+        quantity
+      };
+  
+      mainApiJson.post('/cart/add', body)
+        .then(response => {
+          alert('adicionado')
+        })
+        .catch(error => {
+          alert('catch')
+          console.error('Erro ao adicionar o produto ao carrinho:', error);
+        });
+    }
+  };
+
+  const toggleFullDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+
   return (
     <div>
-      <NavbarNavigation />
       {product ? (
-        <div>
-          <h1>{product.name}</h1>
-          <p>{product.description}</p>
-          <p>Preço: R${product.price}</p>
-          <p>Categoria: {product.categories}</p>
-          <p>Quantidade em estoque: {product.inventory}</p>
-          <label>
-            Quantidade:
-            <select value={quantity} onChange={handleQuantityChange}>
-              {renderQuantityOptions()}
-            </select>
-          </label>
-          <button>Adicionar ao carrinho</button>
-        </div>
+        <Div>
+          <div className='img'>
+            {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
+            <img src={getImageUrl(product.image)} />
+          </div>
+          <div className='string'>
+            <h1>{product.name}</h1>
+            <Description showFullDescription={showFullDescription}>
+              {product.description}
+            </Description>
+            {product.description.length > 100 && (
+              <button className="hide" onClick={toggleFullDescription}>
+                {showFullDescription ? 'Mostrar menos' : 'Mostrar mais'}
+              </button>
+            )}
+            <p><strong>Preço:</strong> R$ {product.price}</p>
+            {/* <p>Categoria: {product.categories}</p> */}
+            {/* <p>Quantidade em estoque: {product.inventory}</p> */}
+            <label>
+              <strong>Quantidade:</strong>
+              <select value={quantity} onChange={handleQuantityChange}>
+                {renderQuantityOptions()}
+              </select>
+            </label>
+            <div>
+              <button className="add" onClick={handleAddToCart}>Adicionar ao carrinho</button>
+            </div>
+          </div>
+        </Div>
       ) : (
         <p>Carregando...</p>
       )}

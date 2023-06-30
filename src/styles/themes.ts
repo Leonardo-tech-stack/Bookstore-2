@@ -1,5 +1,6 @@
 // Cores
 export const colors = {
+  principal: "#0d0d0d",
   primaria: "#8B4513", /* Marrom escuro */
   secundaria: "#D2B48C", /* Marrom claro */
   fundo: "#F5F5F5", /* Branco suave */

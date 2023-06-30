@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
 
-          <div className="text-left"> {/* Adicionado: Alinhamento à esquerda */}
+          <div className="text-left">
             <h2 className="text-black text-2xl font-semibold mb-6">Sign up for our newsletter</h2>
             <p className="text-gray-400 mb-6">Be the first to know about our special offers, new product launches, and events</p>
             <div className="flex">
@@ -15,7 +15,7 @@ const Footer = () => {
                 placeholder="Enter your email"
                 className="border border-gray-500 rounded-l px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <button className="bg-black text-white rounded-r px-6 py-2 ml-2">Subscribe</button> {/* Modificado: Botão preto */}
+              <button className="bg-black text-white rounded-r px-6 py-2 ml-2">Subscribe</button> 
             </div>
           </div>
 
