@@ -33,6 +33,7 @@ export const Div = styled.div`
 
   .hide { 
     font-weight: 600;
+    
     &:hover {
         outline: none;
         box-shadow: 0px 2px 4px #000;
@@ -49,6 +50,7 @@ export const Div = styled.div`
     font-size: 1.2rem;
     font: bold;
     border-radius: 9px;
+
     &:hover {
       transition: 0.5s;
       background-color: ${props => lighten(0.11, colors.principal)};

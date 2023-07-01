@@ -3,12 +3,11 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ProductAPI from '../../types/productAPI';
 import { Body, Products } from './styles';
-import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
 
 const Home: React.FC = () => {
+  const [products, setProducts] = useState<ProductAPI[]>([]);
   // const [searchQuery, setSearchQuery] = useState('');
   // const [searchResults, setSearchResults] = useState([]);
-  const [products, setProducts] = useState<ProductAPI[]>([]);
   // const [isSearching, setIsSearching] = useState(false);
   const [bannerIndex, setBannerIndex] = useState(0);
   const bannerInterval = 7000;

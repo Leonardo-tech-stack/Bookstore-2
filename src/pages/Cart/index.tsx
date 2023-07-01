@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
+import { Titulo, Div } from './styles';
 
 const CartPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<ProductAPI[]>([]);
@@ -32,7 +33,9 @@ const CartPage: React.FC = () => {
 
   return (
     <div>
-      <h2>Carrinho</h2>
+      <Titulo>
+        <h2>Carrinho</h2>
+      </Titulo>
       {cartItems.length > 0 ? (
         <ul>
           {cartItems.map((item, index) => (
@@ -47,7 +50,10 @@ const CartPage: React.FC = () => {
           ))}
         </ul>
       ) : (
-        <p>O carrinho está vazio.</p>
+        <Div>
+          {/* <p>O carrinho está vazio.</p> */}
+          <p>Em breve...</p>
+        </Div>
       )}
     </div>
   );

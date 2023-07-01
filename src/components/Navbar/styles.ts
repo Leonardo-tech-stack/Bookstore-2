@@ -23,5 +23,5 @@ export const CartItemCount = styled.span<{ itemCount: number }>`
 
 export const Login = styled(Link)`
   color: white;
-  padding: 10px 11px;
+  /* padding: 10px 11px; */
 `

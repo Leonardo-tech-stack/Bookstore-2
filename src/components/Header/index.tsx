@@ -1,3 +1,4 @@
+//inutilizado
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { noHeader } from '../../services/mainAPI/config';
@@ -63,6 +64,6 @@ const Header: React.FC = () => {
         </div>
     </Header1>
   );
-  }
+};
 
 export default Header;

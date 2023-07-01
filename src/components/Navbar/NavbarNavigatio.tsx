@@ -103,16 +103,16 @@ const NavbarNavigation: React.FC = ({}) => {
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
+                <Menu as="div" className="relative ml-3 d-flex justify-content-center">
                   <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <Menu.Button className="flex rounded-full text-white font-bold bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <Link to="/login">Login</Link>
-                        <div>
+                      <Link className="h-6 w-12 mt-1 mb-1" to="/login">Login</Link>
+                        {/* <div>
                           <button type="button" onClick={handleLogout}>
                             Logout
                           </button>
-                        </div>
+                        </div> */}
                     </Menu.Button>
                   </div>
                 </Menu>

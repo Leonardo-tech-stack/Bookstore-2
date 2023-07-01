@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { mainApiJson } from '../../services/mainAPI/config';
-import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
+import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import { Div, Description } from './styles';
 
@@ -14,9 +13,8 @@ const ProductPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`https://api-ecommerce-livraria.onrender.com/product/${productId}`)
-      .then((response) => response.json())
-      .then((data) => setProduct(data))
+    noHeader.get(`/product/${productId}`)
+      .then((response) => setProduct(response.data))
       .catch((error) => {
         console.error('Erro ao carregar o produto:', error);
       });
@@ -94,7 +92,7 @@ const ProductPage: React.FC = () => {
               </select>
             </label>
             <div>
-              <button className="add" onClick={handleAddToCart}>Adicionar ao carrinho</button>
+              <button className="add" title="Desabilitado" onClick={handleAddToCart}>Adicionar ao carrinho</button>
             </div>
           </div>
         </Div>

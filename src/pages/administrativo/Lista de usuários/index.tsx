@@ -121,6 +121,7 @@ const UserList: React.FC = () => {
                 {getAdminPageNumbers()}
               </div>
             </Administradores>
+            
             <Clientes>
               <h2>Clientes</h2>
               <table>

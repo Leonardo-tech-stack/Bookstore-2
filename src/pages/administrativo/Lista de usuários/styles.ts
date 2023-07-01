@@ -20,22 +20,22 @@ h2 {
 
 table {
 
-    tbody {
+  tbody {
+    border: 1px solid ${colors.bgButton};
+    
+    tr {
+      border: 1px solid ${colors.bgButton};
+
+      td {
         border: 1px solid ${colors.bgButton};
-        
-        tr {
-            border: 1px solid ${colors.bgButton};
+        padding: 13px;
+      }
 
-            td {
-                border: 1px solid ${colors.bgButton};
-                padding: 13px;
-            }
-
-            .name {
-                font-weight: 600;
-            }
-        }
+      .name {
+        font-weight: 600;
+      }
     }
+  }
 
     thead {
       tr {
@@ -65,7 +65,6 @@ export const Administradores = styled.table`
       color: black; 
     }
   }
-
 `;
 
 export const Clientes = styled.table`

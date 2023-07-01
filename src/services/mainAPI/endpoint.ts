@@ -1,5 +1,5 @@
 import axios from "axios";
-import { mainApiJson } from "../../services/mainAPI/config";
+import { mainApiJson } from "./config";
 
 export const getUserData = (email: string) => {
     return mainApiJson.get(`/user/{email}`);

@@ -17,7 +17,7 @@ export default function CadastroCliente() {
         name,
         email,
         password,
-      }, { headers: { "Content-Type": "application/json" } });
+      });
       if (res.status === 201) {
         alert("Usuário cadastrado");
       }

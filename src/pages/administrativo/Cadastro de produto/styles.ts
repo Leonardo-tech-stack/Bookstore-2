@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { lighten } from "polished";
 import { colors } from '../../../styles/themes';
 
 export const Flex = styled.div`
@@ -74,17 +75,18 @@ input, textarea {
     }
 }
 
-/* label, input, textarea {
-    font-weight: 600;
-} */
-
 button {
     padding: 6px 15px;
     margin: 2% 0;
     margin-left: 5%;
     color: white;
-    background-color: #17a99b;
+    background-color: ${colors.principal};
     border-radius: 30px;
+
+    &:hover {
+      transition: 0.5s;
+      background-color: ${props => lighten(0.11, colors.principal)};
+    }
 }
 
 #name {

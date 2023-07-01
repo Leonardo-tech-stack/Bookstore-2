@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import { lighten } from 'polished';
 import { colors } from '../../../styles/themes';
-
 
 export const Flex = styled.div`
 display: flex;
@@ -49,6 +49,7 @@ input {
     padding: 0.6% 1.4%;
     border: 1px solid ${colors.bgButton};
     border-radius: 5px;
+    
     :focus {
         outline: none;
         box-shadow: 0px 2px 4px #000;
@@ -62,9 +63,14 @@ label {
 button {
     padding: 6px 15px;
     margin: 7% 0;
-
     color: white;
-    background-color: #17a99b;
+    /* background-color: #17a99b; */
+    background-color: ${colors.principal};
     border-radius: 30px;
+
+    &:hover {
+      transition: 0.5s;
+      background-color: ${props => lighten(0.11, colors.principal)};
+    }
 }
 `;

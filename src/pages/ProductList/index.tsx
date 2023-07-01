@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
-import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
 import { Products, Limiter } from './styles';
 
 const ProductList: React.FC = () => {
@@ -67,7 +66,7 @@ const ProductList: React.FC = () => {
 
   return (
     <div>
-      <h2>Product List</h2>
+      <h2>Product List - Em andamento...</h2>
       <ul>
         {filteredProducts.map((product) => (
           <li key={product.id}>
@@ -85,7 +84,7 @@ const ProductList: React.FC = () => {
       </ul>
       <Limiter>
         <div className="page-numbers">
-            {getPageNumbers()}
+          {getPageNumbers()}
         </div>
       </Limiter>
     </div>
