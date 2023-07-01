@@ -1,11 +1,10 @@
 <h1 align="center"> Bookstore - Projeto Gama Academy XP48 </h1>
 
 O objetivo do projeto é um MVP de ecommerce com o
-intuito de colocarmos em prática todo o conhecimento
-adquirido ao longo da nossa jornada. Idealmente tentamos
+intuito de colocar em prática todo o conhecimento
+adquirido na Gama Academy. A idéia é
 trazer o máximo de imersão em relação ao mercado de
-trabalho, logo mapeamos e criamos as histórias de cada feature
-a ser realizada pela equipe.
+trabalho.
 
 > E-comerce de vendas de livros Bookstore (empresa fictícia).
 
@@ -16,7 +15,6 @@ a ser realizada pela equipe.
 
 # 📁 Objetivos de estudo
 - Analisar e organizar o desenvolvimento de uma aplicação complexa do zero.
-- Organização do projeto usando os princípios da Metodologia Ágil Scrum.
 - Construir uma E-commerce utilizando boas práticas em React e suas libs.
 
 ## Desafios
@@ -28,6 +26,8 @@ a ser realizada pela equipe.
 * Responsividade em todas as páginas;
 * Fluxo de navegação conciso;
 
-## Link para acesso
+## API utilizada
+https://github.com/tcx42/API-ecommerce-livraria
 
-https://bookstore-gules-xi.vercel.app/
+## Link para acesso
+Em breve
