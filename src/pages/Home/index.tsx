@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ProductAPI from '../../types/productAPI';
 import { Body, Products } from './styles';
+import { noHeader } from '../../services/mainAPI/config';
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/product');
+        const response = await noHeader.get('/product');
         const productsData: ProductAPI[] = response.data;
 
         setProducts(productsData);
