@@ -32,6 +32,6 @@ https://www.linkedin.com/in/leonardo-carvalho-3708bb260/)
 https://github.com/tcx42/API-ecommerce-livraria
 
 ## Link para acesso
-Em breve
+https://bookstore-2-7fijymzsh-leonardo-tech-stack.vercel.app/
 
 <h2 align="center"> Projeto em andamento... </h2>
