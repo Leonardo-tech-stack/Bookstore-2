@@ -36,7 +36,7 @@ const Modal: React.FC = () => {
         className="arrow-button"
         onClick={() => setIsModalOpen(!isModalOpen)}
       >
-        {isModalOpen ? '' : 'Painel >'}
+        {isModalOpen ? '' : 'Painel administrativo >>>'}
       </ArrowButton>
       <ReactModal
         isOpen={isModalOpen}
@@ -53,7 +53,7 @@ const Modal: React.FC = () => {
             <ul>
               <Li>
                 <a href="/">Bookstore</a>
-                <a href="/homeadm">Painel</a>
+                <a href="/homeadm">Produtos</a>
                 <a href="/lista-de-usuarios">Usuários</a>
                 <a href="/cadastroadm">Cadastrar novo adm</a>
                 <a href="/cadastro-de-produto">Cadastrar Produto</a>

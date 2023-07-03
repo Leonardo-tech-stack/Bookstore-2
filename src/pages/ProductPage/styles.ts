@@ -6,7 +6,7 @@ export const Div = styled.div`
   display: flex;
   justify-content: center;
   width: 65%;
-  min-height: 400px;
+  min-height: 25rem;
   margin: 5%;
   margin-right: 0;
 
@@ -48,7 +48,7 @@ export const Div = styled.div`
     background-color: ${colors.principal};
     color: white;
     font-size: 1.2rem;
-    font: bold;
+    font-weight: 500;
     border-radius: 9px;
 
     &:hover {
@@ -72,4 +72,12 @@ export const Description = styled.p<DescriptionProps>`
   ${({ showFullDescription }) => showFullDescription && `
     -webkit-line-clamp: unset;
   `}
+`;
+
+export const Loading = styled.div`
+display: flex;
+justify-content: center;
+font-size: 2rem;
+font-weight: 600;
+margin: 15% 0;
 `;

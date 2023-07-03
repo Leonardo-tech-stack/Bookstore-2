@@ -3,6 +3,7 @@ import { mainApiJson } from '../../../services/mainAPI/config';
 import User from '../../../types/User';
 import Modal from '../../../components/Modal';
 import { H1, Tabelas, Administradores, Clientes } from './styles';
+import { Loading } from '../../ProductPage/styles';
 
 const UserList: React.FC = () => {
   const [adminUsers, setAdminUsers] = useState<User[]>([]);
@@ -28,6 +29,7 @@ const UserList: React.FC = () => {
         }
       } catch (error) {
         console.log('Erro na requisição:', error);
+        alert('Faça login como administrador');
       }
     };
 
@@ -91,11 +93,13 @@ const UserList: React.FC = () => {
 
   return (
     <div>
+      <Modal />
       {isLoading ? (
-        <p>Aguarde, carregando usuários...</p> 
+        <Loading>
+          <p>Aguarde, carregando usuários...</p> 
+        </Loading>
       ) : (
         <>
-          <Modal />
           <H1>Lista de Usuários</H1>
           
           <Tabelas>

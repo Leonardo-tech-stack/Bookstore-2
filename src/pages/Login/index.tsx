@@ -62,7 +62,7 @@ export default function Login(): JSX.Element {
           <div>
             <input
               type="checkbox"
-              className="lembrar"
+              className="remember"
               checked={rememberMe}
               onChange={(event) => setRememberMe(event.target.checked)}
             />
@@ -71,7 +71,7 @@ export default function Login(): JSX.Element {
           </div>
           <div>
             {isLoading ? (
-              <p>Realizando login...</p>
+              <p className="loading"><strong>Realizando login...</strong></p>
             ) : (
               <Logar type="submit">Logar</Logar>
             )}

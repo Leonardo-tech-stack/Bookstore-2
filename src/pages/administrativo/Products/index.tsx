@@ -54,6 +54,10 @@ const App: React.FC = () => {
     }
   };
 
+  const getImageUrl = (filename: string) => {
+    return `/images/${filename}`;
+  };
+  
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const changePage = (page: number) => {
@@ -100,7 +104,7 @@ const App: React.FC = () => {
               {filteredProducts.map((product: ProductAPI) => (
                 <Linha2 key={product.id}>
                   <Unidade className="img">
-                    <img src={product.image} />
+                  <img src={getImageUrl(product.image)} />
                   </Unidade>
                   <Unidade className="nome">
                     <h1>{product.name}</h1>

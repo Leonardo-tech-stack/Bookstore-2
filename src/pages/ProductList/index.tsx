@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
+import Sobre from '../../components/About';
 import { Products, Limiter } from './styles';
+import { Loading } from '../ProductPage/styles';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<ProductAPI[]>([]); 
+  const [filteredProducts, setFilteredProducts] = useState<ProductAPI[][]>([]); 
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage] = useState<number>(5);
+  const [productsPerPage] = useState<number>(6);
+  const [isLoading, setIsLoading] = useState<boolean>(true); // Estado para controlar o carregamento
 
   const getImageUrl = (filename: string) => {
     return `/images/${filename}`;
@@ -22,11 +25,12 @@ const ProductList: React.FC = () => {
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-    setFilteredProducts(currentProducts);
+    setFilteredProducts(chunk(currentProducts, 3)); // Divide os produtos em grupos de 3 elementos
   }, [currentPage, products, productsPerPage]);
 
   const fetchProducts = async (searchQuery?: string) => {
     try {
+      setIsLoading(true);
       let response;
       if (searchQuery) {
         response = await noHeader.get(`/product/search/${searchQuery}`);
@@ -35,8 +39,11 @@ const ProductList: React.FC = () => {
       }
       const data = response.data;
       setProducts(data);
+      setCurrentPage(1);
+      setIsLoading(false); 
     } catch (error) {
       console.error('Error fetching products:', error);
+      setIsLoading(false);
     }
   };  
 
@@ -64,24 +71,49 @@ const ProductList: React.FC = () => {
     return pageNumbers;
   };
 
+  // Função auxiliar para dividir um array em grupos de tamanho específico
+  const chunk = <T extends unknown>(arr: T[], size: number): T[][] => {
+    const chunkedArr: T[][] = [];
+    let index = 0;
+
+    while (index < arr.length) {
+      chunkedArr.push(arr.slice(index, index + size));
+      index += size;
+    }
+
+    return chunkedArr;
+  };
+
   return (
     <div>
-      <h2>Product List - Em andamento...</h2>
-      <ul>
-        {filteredProducts.map((product) => (
-          <li key={product.id}>
-            <Products>
-              <Link to={`/product/${product.id}`}>
-                {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
-                <img src={getImageUrl(product.image)} />
-                <h1>{product.name}</h1>
-                <p>Preço: R${product.price}</p>
-                {/* <p>Categoria: {product.categories}</p> */}
-              </Link>
-            </Products>
-          </li>
-        ))}
-      </ul>
+      <Sobre />
+
+      {isLoading ? (
+        <Loading>
+          <div>Carregando...</div>
+        </Loading>
+      ) : (
+        <Products>
+          {filteredProducts.map((row, rowIndex) => (
+            <ul key={rowIndex}>
+              {row.map((product) => (
+                <li key={product.id}>
+                  <div className="products-container">
+                    <Link to={`/product/${product.id}`}>
+                      <img src={getImageUrl(product.image)} />
+                      <h1 className="name">
+                        <strong>{product.name}</strong>
+                      </h1>
+                      <p><strong>Preço: </strong>R${product.price}</p>
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ))}
+        </Products>
+      )}
+
       <Limiter>
         <div className="page-numbers">
           {getPageNumbers()}

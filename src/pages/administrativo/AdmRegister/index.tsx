@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { AxiosError } from 'axios';
 import { mainApiJson } from '../../../services/mainAPI/config';
 import Adm from '../../../assets/images/adm.png'
 import { Flex, Div, Title, Form } from './styles';
-// import '../../../global.css';
 import Modal from '../../../components/Modal';
 
 const AdminRegistrationPage: React.FC = () => {
@@ -24,29 +24,29 @@ const AdminRegistrationPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const data = {
       name,
       email,
       password,
     };
-
+  
     try {
-      const response = await mainApiJson.post('/admin', {
-        name,
-        email,
-        password,
-      });
-
+      const response = await mainApiJson.post('/admin', data);
+  
       if (response.status === 201) {
         alert('Administrador cadastrado com sucesso!');
       } else {
         alert('Erro ao cadastrar administrador!');
       }
-    } catch (error) {
-      console.error('Erro de conexão', error);
+    } catch (error: any) {
+      if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+        alert('Faça login como administrador');
+      } else {
+        console.error('Erro de conexão', error);
+      }
     }
-  };
+  };  
 
   return (
     <div>

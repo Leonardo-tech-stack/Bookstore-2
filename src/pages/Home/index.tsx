@@ -79,7 +79,7 @@ const Home: React.FC = () => {
                 {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
                 <img src={getImageUrl(product.image)} />
                 <h1>{product.name}</h1>
-                <p>Preço: ${product.price}</p>
+                <p>$ {product.price}</p>
               </Link>
             </div>
           ))}

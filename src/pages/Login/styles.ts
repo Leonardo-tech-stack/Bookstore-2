@@ -42,7 +42,7 @@ margin-top: 5%;
       margin: 3% 0;
    }
 
-   .lembrar {
+   .remember {
       width: 2%;
       margin-left: 15%;
       margin-right: 1%;
@@ -60,6 +60,11 @@ margin-top: 5%;
          cursor: pointer;
          text-decoration: underline;
       }
+   }
+
+   .loading {
+      margin-top: 2%;
+      margin-left: 15%;
    }
 `;
 

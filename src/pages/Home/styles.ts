@@ -3,39 +3,35 @@ import { colors } from '../../styles/themes'
 import Bg from '../../assets/images/background.jpg'
 
 export const Body = styled.body`
-  background-image: url(${Bg});
+  /* background-image: url(${Bg});
   background-position: center;
-  background-size: cover;
+  background-size: cover; */
+  background-color: ${colors.fundo};
   height: 100vh;
 `;
 
 export const Products = styled.div`
-  /* flex-wrap: wrap; */
-  /* justify-content: space-between; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 200px;
 
   h2 {
     font-size: 2.3rem;
     font-weight: 800;
-    color: white;
+    color: ${colors.principal};
     margin-top: 5%;
   }
 
   .products-container {
     display: flex;
-    /* justify-content: center; */
     width: 100%;
   }
 
   .product {
-    display: flex;
-    align-items: center;
+    text-align: center;
     width: calc(33.33%);
     margin: 7%;
-    margin-top: 5%;
+    margin-top: 1%;
   }
 
   > div {  
@@ -49,19 +45,17 @@ export const Products = styled.div`
   }
 
   p {
+    max-width: 25rem;
     font-size: 1.6rem;
     margin: 1% 0;
+    font-weight: 600;
   }
-`;
 
-export const BannerHeading = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  h2 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: white;
+  img {
+    width: 25rem;
+    height: 25rem;
+    border: 1px solid ${colors.bgButton};
+    border-radius: 35px;
   }
 `;
 

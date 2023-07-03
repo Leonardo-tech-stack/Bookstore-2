@@ -46,10 +46,6 @@ h1 {
 
 export const Form = styled.form`
 
-.div-desc {
-    
-}
-
 label {
     margin: 1% 0;
     margin-left: 5%;

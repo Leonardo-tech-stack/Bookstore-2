@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
-import { Div, Description } from './styles';
+import { Div, Description, Loading } from './styles';
 
 const ProductPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -86,7 +86,7 @@ const ProductPage: React.FC = () => {
             {/* <p>Categoria: {product.categories}</p> */}
             {/* <p>Quantidade em estoque: {product.inventory}</p> */}
             <label>
-              <strong>Quantidade:</strong>
+              <strong>Quantidade: </strong>
               <select value={quantity} onChange={handleQuantityChange}>
                 {renderQuantityOptions()}
               </select>
@@ -97,7 +97,9 @@ const ProductPage: React.FC = () => {
           </div>
         </Div>
       ) : (
-        <p>Carregando...</p>
+        <Loading>
+          <p>Carregando...</p>
+        </Loading>
       )}
     </div>
   );

@@ -10,8 +10,9 @@ export const Li = styled.li`
   flex-direction: column;
   font-weight: 700;
   margin-top: -130px;
+
   a {
-    width: 30%;
+    width: 35%;
     margin: 6% 5%;
     border-bottom: 1px solid white;
   }
@@ -28,7 +29,7 @@ export const Login = styled.button`
 `;
 
 export const ArrowButton = styled.button`
-  width: 8%;
+  width: 12%;
   background-color: #0d0d0d;
   color: white;
   padding: 0.2% 0.6%;
@@ -46,6 +47,7 @@ export const ModalContent = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 0;
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
+  
   .back {
     margin-left: 91%;
     margin-top: 20%;

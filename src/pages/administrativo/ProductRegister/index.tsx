@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AxiosError } from 'axios';
 import { mainApiMultipart } from '../../../services/mainAPI/config';
 import { Flex, Div, Title, Form } from './styles';
 import Produto from '../../../assets/images/produto.png'
@@ -54,12 +55,19 @@ const ProductRegistrationPage: React.FC = () => {
   
       if (response.status === 201) {
         alert('Produto cadastrado com sucesso!');
-        window.location.reload(); 
+        window.location.reload();
       } else {
         alert('Erro ao cadastrar produto!');
       }
     } catch (error) {
-      console.error('Erro de conexão', error);
+      if (
+        (error as AxiosError).response &&
+        ((error as AxiosError).response!.status === 401 || (error as AxiosError).response!.status === 403)
+      ) {
+        alert('Faça login como administrador');
+      } else {
+        console.error('Erro de conexão', error);
+      }
     }
   };
   

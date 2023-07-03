@@ -4,12 +4,12 @@ import ProductList from "./pages/ProductList";
 import ProductPage from "../src/pages/ProductPage/index";
 import Cart from "./pages/Cart/index";
 import Login from "../src/pages/Login";
-import Cadastro from "./pages/Cadastro";
+import Register from "./pages/Register";
 import UserData from "./pages/UserData";
-import HomeAdmin from "./pages/administrativo/Home Admin";
-import UserList from "./pages/administrativo/Lista de usuários";
-import RegisterAdm from "./pages/administrativo/Cadastro de adm";
-import RegisterProduct from "./pages/administrativo/Cadastro de produto/index";
+import HomeAdmin from "./pages/administrativo/Products";
+import UserList from "./pages/administrativo/UserList";
+import RegisterAdm from "./pages/administrativo/AdmRegister";
+import RegisterProduct from "./pages/administrativo/ProductRegister/index";
 import EditProduct from "./pages/administrativo/EditProductPage/index";
 
 export default function Routes() {
@@ -22,8 +22,8 @@ export default function Routes() {
       <Route path="/carrinho" element={<Cart />} />
       <Route path="/dados-de-usuarios" element={<UserList />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/cadastro" element={<Cadastro />} />
-      <Route path="/user/" element={<UserData />} />
+      <Route path="/cadastro" element={<Register />} />
+      <Route path="/usuario/" element={<UserData />} />
       <Route path="/cadastroadm" element={<RegisterAdm />} />
       <Route path="/cadastro-de-produto" element={<RegisterProduct />} />
       {/* <Route path="/edit-product/:id" element={<EditProduct />} /> */}
