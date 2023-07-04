@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BeatLoader } from 'react-spinners';
 import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import Sobre from '../../components/About';
 import { Products, Limiter } from './styles';
-import { Loading } from '../ProductPage/styles';
+import { Loading } from '../../styles/loading';
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
@@ -90,7 +91,7 @@ const ProductList: React.FC = () => {
 
       {isLoading ? (
         <Loading>
-          <div>Carregando...</div>
+          <BeatLoader color="#000" loading={isLoading} size={15} />
         </Loading>
       ) : (
         <Products>

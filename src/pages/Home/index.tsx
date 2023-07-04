@@ -14,19 +14,19 @@ const Home: React.FC = () => {
   // const bannerInterval = 7000 * 100;
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await noHeader.get('/product');
-        const productsData: ProductAPI[] = response.data;
-
-        setProducts(productsData);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-      }
-    };
-
-    fetchData();
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await noHeader.get('/product');
+      const data = response.data;
+      setProducts(data);
+      // setIsLoading(false); 
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
 
   useEffect(() => {
     const bannerTimer = setInterval(() => {

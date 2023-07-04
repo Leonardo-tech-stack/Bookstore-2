@@ -35,10 +35,10 @@ export const Div = styled.div`
     font-weight: 600;
     
     &:hover {
-        outline: none;
-        box-shadow: 0px 2px 4px #000;
-        border-radius: 35px;
-        padding: 1px 4px;
+      outline: none;
+      box-shadow: 0px 2px 4px #000;
+      border-radius: 35px;
+      padding: 1px 4px;
     }
   }
 
@@ -72,12 +72,4 @@ export const Description = styled.p<DescriptionProps>`
   ${({ showFullDescription }) => showFullDescription && `
     -webkit-line-clamp: unset;
   `}
-`;
-
-export const Loading = styled.div`
-display: flex;
-justify-content: center;
-font-size: 2rem;
-font-weight: 600;
-margin: 15% 0;
 `;

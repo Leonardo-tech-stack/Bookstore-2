@@ -20,32 +20,32 @@ const Footer = () => {
           </div>
 
           <div>
-            <h2 className="text-black text-2xl font-semibold mb-6">Quick Links</h2>
+            <h2 className="text-black text-2xl font-semibold mb-6">Links rápidos</h2>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-black">Home</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Shop</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">About</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Contact</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Início da página</a></li>
+              <li><a href="/lista-de-produtos" className="text-gray-400 hover:text-black">Comprar</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Sobre</a></li>
+              <li><a href="/contato" target="_blank" className="text-gray-400 hover:text-black">Contato</a></li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-black text-2xl font-semibold mb-6">Support</h2>
+            <h2 className="text-black text-2xl font-semibold mb-6">Suporte</h2>
             <ul className="space-y-2">
               <li><a href="#" className="text-gray-400 hover:text-black">FAQs</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Shipping</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Returns</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Terms of Service</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Envio</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Retorno</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Termos de serviço</a></li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-black text-2xl font-semibold mb-6">About</h2>
+            <h2 className="text-black text-2xl font-semibold mb-6">Contato</h2>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-400 hover:text-black">FAQs</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Shipping</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Returns</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-black">Terms of Service</a></li>
+              <li><a href="https://linkedin.com/in/leonardo-carvalho-3708bb260/" target="_blank" className="text-gray-400 hover:text-black">Linkedin</a></li>
+              <li><a href="https://github.com/Leonardo-tech-stack" target="_blank" className="text-gray-400 hover:text-black">Github</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Retorno</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-black">Termos de serviço</a></li>
             </ul>
           </div>
         </div>
@@ -54,4 +54,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer;

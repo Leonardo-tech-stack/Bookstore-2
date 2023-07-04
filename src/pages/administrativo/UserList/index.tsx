@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { BeatLoader } from 'react-spinners';
 import { mainApiJson } from '../../../services/mainAPI/config';
 import User from '../../../types/User';
 import Modal from '../../../components/Modal';
 import { H1, Tabelas, Administradores, Clientes } from './styles';
-import { Loading } from '../../ProductPage/styles';
+import { Loading } from '../../../styles/loading';
 
 const UserList: React.FC = () => {
   const [adminUsers, setAdminUsers] = useState<User[]>([]);
@@ -96,7 +97,7 @@ const UserList: React.FC = () => {
       <Modal />
       {isLoading ? (
         <Loading>
-          <p>Aguarde, carregando usuários...</p> 
+          <BeatLoader color="#000" loading={isLoading} size={15} />
         </Loading>
       ) : (
         <>

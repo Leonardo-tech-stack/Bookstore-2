@@ -17,18 +17,33 @@ function classNames(...classes: string[]) {
 }
 
 const NavbarNavigation: React.FC = ({}) => {
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+
+  const handleSearch = () => {
+    navigate(`/search-results?query=${encodeURIComponent(searchTerm)}`);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
 
   const handleLogout = async () => {
     try {
-      await noHeader.get('/user/logout',
-      );
+      await noHeader.get('/user/logout');
       console.log('Logout ok');
-      navigate('/login')
+      navigate('/login');
     } catch (error) {
       console.error('Logout failed', error);
     }
   };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
 
   return (
     <Disclosure as="nav" className="bg-[#0D0D0D]">
@@ -75,6 +90,7 @@ const NavbarNavigation: React.FC = ({}) => {
                     <button
                       type="button"
                       className="ml-2 rounded-md bg-gray-800 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      onClick={handleSearch}
                     >
                       <MagnifyingGlassIcon className="absolute top-2 left-2 h-5 w-5 text-gray-400" aria-hidden="false" />
                     </button>
@@ -83,6 +99,9 @@ const NavbarNavigation: React.FC = ({}) => {
                       type="text"
                       placeholder="Procurar produtos"
                       title="Desabilitado"
+                      value={searchTerm}
+                      onChange={handleInputChange}
+                      onKeyPress={handleKeyPress}
                     />
                   </div>
                 </div>
