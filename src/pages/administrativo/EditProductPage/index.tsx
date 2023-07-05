@@ -14,6 +14,7 @@ const EditProductPage: React.FC = () => {
     description: '',
     price: 0,
     inventory: 0,
+    quantity: 0,
     categories: [],
     image: '',
   });

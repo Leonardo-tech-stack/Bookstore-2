@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { BeatLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import { noHeader, mainApiJson } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import { Div, Description } from '../ProductPage/styles';
 import { Loading } from '../../styles/loading';
+import Book from '../../assets/images/Book-1.png'
 
 const SearchResultsPage = () => {
   const location = useLocation();
@@ -12,7 +13,6 @@ const SearchResultsPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState<ProductAPI | null>(null);
-  const [quantity, setQuantity] = useState(1);
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
@@ -35,11 +35,18 @@ const SearchResultsPage = () => {
     }
   };
 
-  const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setQuantity(Number(event.target.value));
+  const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>, productId: number) => {
+    const updatedProducts = searchResults.map((p) => {
+      if (p.id === productId) {
+        return { ...p, quantity: Number(event.target.value) };
+      }
+      return p;
+    });
+    setSearchResults(updatedProducts);
   };
 
-  const renderQuantityOptions = () => {
+  const renderQuantityOptions = (productId: number) => {
+    const product = searchResults.find((p) => p.id === productId);
     const options = [];
 
     for (let i = 1; i <= (product?.inventory || 1); i++) {
@@ -61,7 +68,7 @@ const SearchResultsPage = () => {
       const body = {
         // userEmail,
         productId: parsedProductId,
-        quantity
+        quantity: product?.quantity || 1
       };
   
       mainApiJson.post('/cart/add', body)
@@ -87,7 +94,7 @@ const SearchResultsPage = () => {
     <div>
       {isLoading ? (
         <Loading>
-          <BeatLoader color="#000" loading={isLoading} size={15} />
+          <BarLoader color="#000" loading={isLoading} />
         </Loading>
         ) : (
           searchResults.map((product) => (
@@ -95,7 +102,7 @@ const SearchResultsPage = () => {
               <Div>
                 <div className='img'>
                   {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
-                  <img src={getImageUrl(product.image)} />
+                  <img src={Book} />
                 </div>
 
                 <div className='string'>
@@ -118,8 +125,8 @@ const SearchResultsPage = () => {
                   {/* <p>Quantidade em estoque: {product.inventory}</p> */}
                   <label>
                     <strong>Quantidade: </strong>
-                    <select value={quantity} onChange={handleQuantityChange}>
-                      {renderQuantityOptions()}
+                    <select value={product.quantity} onChange={(event) => handleQuantityChange(event, product.id)}>
+                      {renderQuantityOptions(product.id)}
                     </select>
                   </label>
 

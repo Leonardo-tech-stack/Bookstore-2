@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BeatLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import ProductAPI from '../../../types/productAPI';
 import { noHeader } from '../../../services/mainAPI/config';
 import { Lista, Excluir, Tabela, Linha1, Linha2, TbTitulo, Unidade } from './styles';
 import Modal from '../../../components/Modal';
 import { Loading } from '../../../styles/loading';
+import Book from '../../../assets/images/Book-1.png';
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
@@ -88,7 +89,7 @@ const App: React.FC = () => {
     <div>
       {isLoading ? ( 
         <Loading>
-          <BeatLoader color="#000" loading={isLoading} size={15} />
+          <BarLoader color="#000" loading={isLoading} />
         </Loading>
       ) : (
         <>

@@ -11,8 +11,8 @@ export const Div = styled.div`
   margin-right: 0;
 
   img {
-    width: 400px;
-    height: 400px;
+    width: 25rem;
+    height: 25rem;
     border: 1px solid ${colors.bgButton};
     border-radius: 35px;
   }

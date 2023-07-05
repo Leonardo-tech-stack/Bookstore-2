@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BeatLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import { Div, Description } from './styles';
 import { Loading } from '../../styles/loading'; 
+import Book from '../../assets/images/Book-1.png'
 
 const ProductPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();
@@ -72,7 +73,7 @@ const ProductPage: React.FC = () => {
     <div>
       {isLoading ? (
         <Loading>
-          <BeatLoader color="#000" loading={isLoading} size={15} />
+          <BarLoader color="#000" loading={isLoading} />
         </Loading>
       ) : (
         <Div>

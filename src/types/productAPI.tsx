@@ -4,6 +4,7 @@ interface ProductAPI {
   description: string;
   price: number;
   inventory: number;
+  quantity: number;
   categories: string[];
   image: string;
 }

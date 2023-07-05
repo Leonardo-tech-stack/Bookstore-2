@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { BeatLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import Sobre from '../../components/About';
 import { Products, Limiter } from './styles';
 import { Loading } from '../../styles/loading';
+import Book from '../../assets/images/Book-1.png'
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductAPI[][]>([]); 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [productsPerPage] = useState<number>(6);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // Estado para controlar o carregamento
-
-  const getImageUrl = (filename: string) => {
-    return `/images/${filename}`;
-  };
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetchProducts();
@@ -91,7 +88,7 @@ const ProductList: React.FC = () => {
 
       {isLoading ? (
         <Loading>
-          <BeatLoader color="#000" loading={isLoading} size={15} />
+          <BarLoader color="#000" loading={isLoading} />
         </Loading>
       ) : (
         <Products>
@@ -101,7 +98,7 @@ const ProductList: React.FC = () => {
                 <li key={product.id}>
                   <div className="products-container">
                     <Link to={`/product/${product.id}`}>
-                      <img src={getImageUrl(product.image)} />
+                      <img src={Book} />
                       <h1 className="name">
                         <strong>{product.name}</strong>
                       </h1>

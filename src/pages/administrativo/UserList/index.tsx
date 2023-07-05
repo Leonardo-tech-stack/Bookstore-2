@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BeatLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 import { mainApiJson } from '../../../services/mainAPI/config';
 import User from '../../../types/User';
 import Modal from '../../../components/Modal';
@@ -97,7 +97,7 @@ const UserList: React.FC = () => {
       <Modal />
       {isLoading ? (
         <Loading>
-          <BeatLoader color="#000" loading={isLoading} size={15} />
+          <BarLoader color="#000" loading={isLoading} />
         </Loading>
       ) : (
         <>

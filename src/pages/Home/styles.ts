@@ -7,7 +7,7 @@ export const Body = styled.body`
   background-position: center;
   background-size: cover; */
   background-color: ${colors.fundo};
-  height: 100vh;
+  height: 1200px;
 `;
 
 export const Products = styled.div`
@@ -25,6 +25,7 @@ export const Products = styled.div`
   .products-container {
     display: flex;
     width: 100%;
+    margin-top: 18%;
   }
 
   .product {
@@ -32,6 +33,10 @@ export const Products = styled.div`
     width: calc(33.33%);
     margin: 7%;
     margin-top: 1%;
+  }
+
+  .middle-card {
+    margin-top: -10%;
   }
 
   > div {  
@@ -58,4 +63,3 @@ export const Products = styled.div`
     border-radius: 35px;
   }
 `;
-

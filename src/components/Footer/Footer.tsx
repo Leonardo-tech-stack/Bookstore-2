@@ -7,15 +7,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12">
 
           <div className="text-left">
-            <h2 className="text-black text-2xl font-semibold mb-6">Sign up for our newsletter</h2>
-            <p className="text-gray-400 mb-6">Be the first to know about our special offers, new product launches, and events</p>
+            <h2 className="text-black text-2xl font-semibold mb-6">Assine a nossa newsletter!</h2>
+            <p className="text-gray-400 mb-6">Seja o primeiro a saber sobre nossas ofertas especiais, lançamentos de novos produtos e eventos.</p>
             <div className="flex">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Insira seu e-mail"
                 className="border border-gray-500 rounded-l px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              <button className="bg-black text-white rounded-r px-6 py-2 ml-2">Subscribe</button> 
+              <button title="Desabilitado" className="subs bg-black text-white rounded-r px-6 py-2 ml-2">Inscreva-se</button> 
             </div>
           </div>
 
@@ -25,7 +25,7 @@ const Footer = () => {
               <li><a href="#" className="text-gray-400 hover:text-black">Início da página</a></li>
               <li><a href="/lista-de-produtos" className="text-gray-400 hover:text-black">Comprar</a></li>
               <li><a href="#" className="text-gray-400 hover:text-black">Sobre</a></li>
-              <li><a href="/contato" target="_blank" className="text-gray-400 hover:text-black">Contato</a></li>
+              <li><a href="/contato" className="text-gray-400 hover:text-black">Contato</a></li>
             </ul>
           </div>
 

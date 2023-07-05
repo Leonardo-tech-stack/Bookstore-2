@@ -49,7 +49,7 @@ const NavbarNavigation: React.FC = ({}) => {
     <Disclosure as="nav" className="bg-[#0D0D0D]">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -65,7 +65,7 @@ const NavbarNavigation: React.FC = ({}) => {
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <a href="/" className="text-white font-bold">
-                    Bookstore
+                    ChapterOne
                   </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block flex-grow">
@@ -115,7 +115,7 @@ const NavbarNavigation: React.FC = ({}) => {
                   <span className="sr-only">Ver notificação</span>
                   <StyledIconWrapper className="relative">
                     <Link to="/carrinho">
-                      <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                      <ShoppingCartIcon className="h-6 w-5" aria-hidden="true" />
                       {/* {itemCount > 0 && <CartItemCount itemCount={itemCount}>{itemCount}</CartItemCount>} */}
                     </Link>
                   </StyledIconWrapper>
