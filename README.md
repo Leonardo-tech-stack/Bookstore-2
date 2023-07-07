@@ -1,4 +1,4 @@
-<h1 align="center"> ChapterOne - Projeto Gama Academy XP48 (remake) </h1>
+<h1 align="center"> ChapterOne </h1>
 
 O objetivo do projeto é um MVP de ecommerce com o
 intuito de colocar em prática todo o conhecimento
@@ -31,6 +31,6 @@ https://www.linkedin.com/in/leonardo-carvalho-3708bb260/)
 https://github.com/tcx42/API-ecommerce-livraria
 
 ## Link para acesso
-https://bookstore-2-7fijymzsh-leonardo-tech-stack.vercel.app/
+chapterone.vercel.app
 
 <h2 align="center"> Projeto em andamento... </h2>
