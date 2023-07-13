@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import { AxiosError } from 'axios';
 import { mainApiMultipart } from '../../../services/mainAPI/config';
 import { Flex, Div, Title, Form } from './styles';
-import Produto from '../../../assets/images/produto.png'
+import Produto from '../../../assets/images/produto.png';
 import Modal from '../../../components/Modal';
+import Swal from 'sweetalert2';
 
 const ProductRegistrationPage: React.FC = () => {
   const [productData, setProductData] = useState({
     name: '',
     description: '',
-    price: 1.1,
-    inventory: 0,
+    price: '',
+    inventory: '',
     categories: [] as { id: string; name: string; description: string }[],
   });
 
@@ -20,7 +21,7 @@ const ProductRegistrationPage: React.FC = () => {
     const { name, value } = e.target;
     setProductData((prevData) => ({
       ...prevData,
-      [name]: name === 'categories' ? value.split(',') : value
+      [name]: name === 'categories' ? value.split(',') : value,
     }));
   };
 
@@ -28,10 +29,9 @@ const ProductRegistrationPage: React.FC = () => {
     const { value } = e.target;
     setProductData((prevData) => ({
       ...prevData,
-      description: value
+      description: value,
     }));
   };
-  
 
   const handleImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -42,41 +42,67 @@ const ProductRegistrationPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
     formData.append('data', JSON.stringify(productData));
-  
+
     if (images) {
       formData.append('images', images);
     }
-  
+
     try {
-      const response = await mainApiMultipart.post('/product', formData);
-  
+      const response = await mainApiMultipart.post('/admin/product', formData);
+
       if (response.status === 201) {
-        alert('Produto cadastrado com sucesso!');
-        window.location.reload();
+        Swal.fire({
+          icon: 'success',
+          title: 'Produto cadastrado com sucesso!',
+          timer: 2000,
+          showConfirmButton: true,
+          showCancelButton: false,
+          allowOutsideClick: true,
+          allowEscapeKey: false,
+          showLoaderOnConfirm: true,
+          preConfirm: (): Promise<void> => {
+            return new Promise<void>((resolve) => {
+              setTimeout(() => {
+                resolve();
+              });
+            });
+          },
+        }).then(() => {
+          window.location.reload();
+        });      
       } else {
-        alert('Erro ao cadastrar produto!');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao cadastrar produto!',
+          timer: 2000,
+        });
       }
     } catch (error) {
       if (
         (error as AxiosError).response &&
         ((error as AxiosError).response!.status === 401 || (error as AxiosError).response!.status === 403)
       ) {
-        alert('Faça login como administrador');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro na requisição',
+          text: 'Faça login como administrador',
+          timer: 2000,
+        });
       } else {
         console.error('Erro de conexão', error);
       }
     }
   };
-  
+
   return (
     <div>
       <Modal />
       <Flex>
         <div>
-          <img src={Produto} ></img>
+          <img src={Produto} alt="Produto" />
         </div>
         <Div>
           <Title>Cadastro de Produto</Title>
@@ -92,7 +118,9 @@ const ProductRegistrationPage: React.FC = () => {
               />
             </div>
             <div className="div-desc">
-              <label className="textarea-label" htmlFor="description">Descrição:</label>
+              <label className="textarea-label" htmlFor="description">
+                Descrição:
+              </label>
               <textarea
                 id="description"
                 name="description"
@@ -128,12 +156,16 @@ const ProductRegistrationPage: React.FC = () => {
                 type="text"
                 id="categories"
                 name="categories"
-                value={productData.categories.map((category) => `${category.id}|${category.name}|${category.description}`).join(',')}
+                value={productData.categories
+                  .map((category) => `${category.id}|${category.name}|${category.description}`)
+                  .join(',')}
                 onChange={handleInputChange}
               />
             </div> */}
             <div>
-              <label className="img-label" htmlFor="images">Imagem:</label>
+              <label className="img-label" htmlFor="images">
+                Imagem:
+              </label>
               <input type="file" id="images" onChange={handleImagesChange} />
             </div>
             <button type="submit">Cadastrar</button>

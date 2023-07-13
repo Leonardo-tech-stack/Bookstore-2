@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { colors } from '../../styles/themes'
 import Bg from '../../assets/images/background.jpg'
+import { Description } from "../ProductPage/styles";
 
 export const Body = styled.body`
   /* background-image: url(${Bg});
   background-position: center;
   background-size: cover; */
   background-color: ${colors.fundo};
-  height: 1200px;
+  height: 1400px;
 `;
 
 export const Products = styled.div`
@@ -25,7 +26,7 @@ export const Products = styled.div`
   .products-container {
     display: flex;
     width: 100%;
-    margin-top: 18%;
+    margin-top: 10%;
   }
 
   .product {
@@ -58,8 +59,40 @@ export const Products = styled.div`
 
   img {
     width: 25rem;
-    height: 25rem;
+    height: 27rem;
     border: 1px solid ${colors.bgButton};
     border-radius: 35px;
+  }
+`;
+
+export const Desc = styled.div`
+  text-align: center;
+  color: #4d4d4d;
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: -15%;
+  }
+
+  span {
+    white-space: nowrap;
+    margin-right: 5px;
+  }
+
+  button {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 7%;
+    width: 35%;
+    background-color: white;
+    color: ${colors.principal};
+    border: 2px solid ${colors.principal};
+
+    &:hover {
+      box-shadow: 0px 2px 4px #000;
+    }
   }
 `;

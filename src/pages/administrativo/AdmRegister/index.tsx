@@ -4,6 +4,7 @@ import { mainApiJson } from '../../../services/mainAPI/config';
 import Adm from '../../../assets/images/adm.png'
 import { Flex, Div, Title, Form } from './styles';
 import Modal from '../../../components/Modal';
+import Swal from 'sweetalert2';
 
 const AdminRegistrationPage: React.FC = () => {
   const [name, setName] = useState('');
@@ -32,16 +33,42 @@ const AdminRegistrationPage: React.FC = () => {
     };
   
     try {
-      const response = await mainApiJson.post('/admin', data);
+      const response = await mainApiJson.post('/admin/register', data);
   
       if (response.status === 201) {
-        alert('Administrador cadastrado com sucesso!');
+
+        if (response.status === 201) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Administrador cadastrado com sucesso!',
+            timer: 2000,
+            showConfirmButton: true,
+            showCancelButton: false,
+            allowOutsideClick: true,
+            allowEscapeKey: false,
+            showLoaderOnConfirm: true,
+            preConfirm: (): Promise<void> => {
+              return new Promise<void>((resolve) => {
+                setTimeout(() => {
+                  resolve();
+                });
+              });
+            },
+          }).then(() => {
+            window.location.reload();
+          });      
+        }
       } else {
         alert('Erro ao cadastrar administrador!');
       }
     } catch (error: any) {
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-        alert('Faça login como administrador');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro na requisição',
+          text: 'Faça login como administrador',
+          timer: 2000,
+        });
       } else {
         console.error('Erro de conexão', error);
       }

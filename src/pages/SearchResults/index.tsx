@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { noHeader, mainApiJson } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
+import { NFound } from './styles';
 import { Div, Description } from '../ProductPage/styles';
 import { Loading } from '../../styles/loading';
 import Book from '../../assets/images/Book-1.png'
@@ -25,6 +26,7 @@ const SearchResultsPage = () => {
   }, [location]);
 
   const performSearch = async (searchTerm: string) => {
+
     try {
       const response = await noHeader.get<ProductAPI[]>(`/product/search/${searchTerm}`);
       setSearchResults(response.data);
@@ -60,18 +62,17 @@ const SearchResultsPage = () => {
     return `/images/${filename}`;
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (productId: string) => {
     // const userEmail = "...";
-  
+    
     if (productId) {
-      const parsedProductId = parseInt(productId);
       const body = {
         // userEmail,
-        productId: parsedProductId,
+        productId: productId,
         quantity: product?.quantity || 1
       };
-  
-      mainApiJson.post('/cart/add', body)
+    
+      mainApiJson.post('/client/cart/add', body)
         .then(response => {
           alert('adicionado')
         })
@@ -80,7 +81,7 @@ const SearchResultsPage = () => {
           console.error('Erro ao adicionar o produto ao carrinho:', error);
         });
     }
-  };
+  };    
 
   const toggleFullDescription = () => {
     setShowFullDescription(!showFullDescription);
@@ -97,12 +98,24 @@ const SearchResultsPage = () => {
           <BarLoader color="#000" loading={isLoading} />
         </Loading>
         ) : (
+          searchResults.length === 0 ? (
+            <NFound>
+              <p className='n-1'>Não temos nenhum produto com esse nome :(</p>
+              <p className='n-2'>
+                Talvez encontre algo parecido
+                <a href="/lista-de-produtos">
+                  <strong> aqui!</strong>
+                </a>
+              </p>
+            </NFound>
+          ) : (
           searchResults.map((product) => (
             <div key={product.id} onClick={() => handleProductClick(product)}>
               <Div>
                 <div className='img'>
                   {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
-                  <img src={Book} />
+                  <img src={getImageUrl(product.image)} />
+                  {/* <img src={Book} /> */}
                 </div>
 
                 <div className='string'>
@@ -131,12 +144,13 @@ const SearchResultsPage = () => {
                   </label>
 
                   <div>
-                    <button className="add" title="Desabilitado" onClick={handleAddToCart}>Adicionar ao carrinho</button>
+                    <button className="add" title="Desabilitado" onClick={() => handleAddToCart(product.id.toString())}>Adicionar ao carrinho</button>
                   </div>
                 </div>
               </Div>
             </div>
           ))
+        )
       )}
     </div>
   );

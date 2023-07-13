@@ -120,7 +120,7 @@ button {
 #images {
     position: relative;
     top: -18px;
-    padding-bottom: 2%;
+    padding-bottom: 4%;
     margin-left: 11.8%;
     border: none;
 }

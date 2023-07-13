@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { lighten } from 'polished';
 import { colors } from "../../../styles/themes";
 
 export const H1 = styled.h1`
@@ -63,6 +64,24 @@ export const Administradores = styled.table`
     button.current-page {
       background-color: white;
       color: black; 
+    }
+  }
+
+  .actions {
+    padding: 0 4.25rem;
+  }
+
+  button {
+    padding: 3px 8px;
+    margin-left: 10%;
+    font-weight: 500;
+    background-color: ${colors.principal};
+    color: white;
+    border-radius: 14px;
+
+    &:hover {
+      transition: 0.5s;
+      background-color: ${props => lighten(0.11, colors.principal)};
     }
   }
 `;

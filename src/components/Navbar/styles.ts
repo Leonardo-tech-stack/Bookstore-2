@@ -3,8 +3,8 @@ import Link from '../../types/Link';
 import { colors } from '../../styles/themes'
 
 export const StyledIconWrapper = styled.div`
-  padding: 3px 35px 3px 6px;
-  position: relative;
+  /* padding: 3px 35px 3px 6px;
+  position: relative; */
   a {
     text-decoration: none;
   }

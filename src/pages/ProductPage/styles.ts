@@ -22,6 +22,7 @@ export const Div = styled.div`
   }
 
   h1 {
+    width: 75%;
     font-size: 1.6rem;
     font-weight: 600;
     margin-bottom: 5%;

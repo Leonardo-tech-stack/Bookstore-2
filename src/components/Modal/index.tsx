@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { noHeader } from '../../services/mainAPI/config';
-import { Div, Li, Logout, Login, ArrowButton, ModalContent } from './styles';
+import { Li, Logout, Login, ArrowButton, ModalContent } from './styles';
 
 ReactModal.setAppElement('#root');
 
@@ -30,7 +30,7 @@ const Modal: React.FC = () => {
   };
 
   return (
-    <Div>
+    <div>
       <ArrowButton
         // isOpen={isModalOpen}
         className="arrow-button"
@@ -64,7 +64,7 @@ const Modal: React.FC = () => {
                 </div>
                 <div>
                   <Logout onClick={handleLogout}>
-                    Logout
+                    Sair
                   </Logout>
                 </div>
               </Li>
@@ -72,7 +72,7 @@ const Modal: React.FC = () => {
           </nav>
         </ModalContent>
       </ReactModal>
-    </Div>
+    </div>
   );
 }
 

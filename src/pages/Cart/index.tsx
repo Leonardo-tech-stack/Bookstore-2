@@ -1,61 +1,213 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
-import ProductAPI from '../../types/productAPI';
-import { Titulo, Div } from './styles';
+import CartItem from '../../types/CartItem';
+import CuponBar from '../../components/Bars/CuponBar/CuponBar';
+import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
+import Book from '../../assets/images/Book-1.png';
+import { BarLoader } from 'react-spinners';
+import { Loading } from '../../styles/loading';
+import { Body, Titulo, Vazio, Voltar, DivFlex, Div, Detalhes, Ul } from './styles';
 
 const CartPage: React.FC = () => {
-  const [cartItems, setCartItems] = useState<ProductAPI[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    noHeader.get('/cart/{id}')
+    setIsLoading(true);
+
+    noHeader
+      .get('/client/cart')
       .then((response) => {
-        setCartItems(response.data);
+        const products = response.data.products.map((item: any) => {
+          return mainApiJson
+            .get(`/product/${item.productId}`)
+            .then((productResponse) => productResponse.data)
+            .catch((error) => {
+              console.error('Erro ao obter informações do produto:', error);
+              return null;
+            });
+        });
+
+        Promise.all(products)
+          .then((productData) => {
+            const updatedCartItems = response.data.products.map((item: any, index: number) => {
+              return {
+                quantity: item.quantity,
+                product: productData[index],
+              };
+            });
+
+            setCartItems(updatedCartItems);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error('Erro ao obter informações do produto:', error);
+            setIsLoading(false);
+          });
       })
       .catch((error) => {
         console.error('Erro ao carregar o carrinho:', error);
+        setIsLoading(false);
       });
   }, []);
 
   const handleRemoveFromCart = (productId: number) => {
+    console.log('productId:', productId);
+
     const body = {
-      productId
+      productId,
     };
 
-    mainApiJson.post('/cart/remove', body)
+    mainApiJson
+      .post('client/cart/remove', body)
       .then((response) => {
-        setCartItems(cartItems.filter((item) => item.id !== productId));
-        console.error(response.data)
+        setCartItems(cartItems.filter((item) => item.product.id !== productId));
+        console.error(response.data);
       })
       .catch((error) => {
         console.error('Erro ao remover o produto do carrinho:', error);
       });
   };
 
+  const handleQuantityChange = (productId: number, newQuantity: number) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.product.id === productId) {
+        return {
+          ...item,
+          quantity: newQuantity,
+        };
+      }
+      return item;
+    });
+
+    setCartItems(updatedCartItems);
+  };
+
+  const handleUpdateQuantity = (productId: number, newQuantity: number) => {
+    console.log('productId:', productId, 'newQuantity:', newQuantity);
+
+    const body = {
+      productId,
+      quantity: newQuantity,
+    };
+
+    mainApiJson
+      .post('client/cart/update', body)
+      .then((response) => {
+        console.log('Quantity updated:', response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao atualizar a quantidade do produto:', error);
+      });
+  };
+
+  const handleDecreaseQuantity = (productId: number) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.product.id === productId && item.quantity > 1) {
+        return {
+          ...item,
+          quantity: item.quantity - 1,
+        };
+      }
+      return item;
+    });
+
+    setCartItems(updatedCartItems);
+    handleUpdateQuantity(productId, updatedCartItems.find((item) => item.product.id === productId)?.quantity || 1);
+  };
+
+  const handleIncreaseQuantity = (productId: number) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.product.id === productId && item.quantity < item.product.inventory) {
+        return {
+          ...item,
+          quantity: item.quantity + 1,
+        };
+      }
+      return item;
+    });
+
+    setCartItems(updatedCartItems);
+    handleUpdateQuantity(productId, updatedCartItems.find((item) => item.product.id === productId)?.quantity || 1);
+  };
+
   return (
-    <div>
-      <Titulo>
-        <h2>Carrinho</h2>
-      </Titulo>
-      {cartItems.length > 0 ? (
-        <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
-              <p>Produto: {item.name}</p>
-              {/* Use item.quantity instead of item.quantity */}
-              {/* <p>Quantidade: {item.quantity}</p> */}
-              <button onClick={() => handleRemoveFromCart(item.id)}>
-                Remover do carrinho
-              </button>
-            </li>
-          ))}
-        </ul>
+    <Body>
+      {isLoading ? (
+        <Loading>
+          <BarLoader color="#000" loading={isLoading} />
+        </Loading>
       ) : (
-        <Div>
-          {/* <p>O carrinho está vazio.</p> */}
-          <p>Em breve...</p>
-        </Div>
+        <div>
+          {cartItems.length > 0 ? (
+            <>
+              <Titulo>
+                <h2>Carrinho</h2>
+              </Titulo>
+              <Voltar>
+                <a href="/lista-de-produtos">Não está pronto para finalizar a compra? Continue comprando</a>
+              </Voltar>
+              <DivFlex>
+              <div>
+                {cartItems.map((item, index) => (
+                  <Div key={index}>
+                  <Ul>
+                    <li>
+                      <div>
+                        {/* <img src={item.product.image} /> */}
+                        <img src={Book} />
+                      </div>
+
+                      <div className="strings">
+                        <p><strong>Produto: </strong>{item.product.name}</p>
+                        <p><strong>Preço: </strong>${item.product.price}</p>
+                        <p>
+                          <strong>Quantidade: </strong>
+                          <button className="less" onClick={() => handleDecreaseQuantity(item.product.id)}>-</button>
+                          <span>{item.quantity}</span>
+                          <button onClick={() => handleIncreaseQuantity(item.product.id)}>+</button>
+                        </p>
+                      </div>
+                    </li>
+                  </Ul>
+
+                  <div className="remove">
+                    <button onClick={() => handleRemoveFromCart(item.product.id)}>X Remover</button>
+                  </div>
+                </Div>
+              ))}
+              </div>
+              
+              
+                <Detalhes>
+                  <div className="details"> 
+                    <h3>Detalhes do pedido</h3>
+                    <CuponBar onSearch={NavbarNavigation} />
+                    <p>Itens no Carrinho: ({cartItems.reduce((total, item) => total + item.quantity, 0)})</p>
+                    <b>Total: <span>$ {cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0)}</span></b>
+                  </div>
+
+                  <div className="checkout">
+                    <button title="Desabilitado">Finalizar pedido</button>
+                  </div>
+                </Detalhes>
+              </DivFlex>
+
+            </>
+          ) : (
+            <Vazio>
+              <div>
+                <p>Carrinho Vazio</p>
+              </div>
+              <a href="/lista-de-produtos">
+                <button>Ir às compras agora</button>
+              </a>
+            </Vazio>
+          )}
+        </div>
       )}
-    </div>
+    </Body>
   );
 };
 

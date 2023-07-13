@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductAPI from '../../types/productAPI';
-import { Body, Products } from './styles';
+import { Body, Products, Desc } from './styles';
 import { noHeader } from '../../services/mainAPI/config';
 import Book from '../../assets/images/Book-1.png'
 
 const Home: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
   const [bannerIndex, setBannerIndex] = useState(0);
-  const bannerInterval = 7000;
-  // const bannerInterval = 7000 * 100;
+  const bannerInterval = 6000;
+  // const bannerInterval = 6000 * 100;
 
   useEffect(() => {
     fetchProducts();
@@ -46,6 +46,14 @@ const Home: React.FC = () => {
     <Body>
       <Products>
         <h2>Nossas últimas aquisições</h2>
+        <Desc>
+          <p>
+            <span>Bem-vindo à nossa livraria! Aqui você encontrará </span>uma seleção incrível de livros para todos os gostos e idades. 
+          </p>
+          <Link to={'/lista-de-produtos'}>
+            <button>Ir às compras</button>
+          </Link>
+        </Desc>
         <div className="products-container">
           {getBannerProducts().map((product: ProductAPI, index: number) => (
             <div className={`product ${index === 1 ? 'middle-card' : ''}`} key={product.id}>

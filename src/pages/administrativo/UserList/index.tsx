@@ -5,6 +5,7 @@ import User from '../../../types/User';
 import Modal from '../../../components/Modal';
 import { H1, Tabelas, Administradores, Clientes } from './styles';
 import { Loading } from '../../../styles/loading';
+import Swal from 'sweetalert2';
 
 const UserList: React.FC = () => {
   const [adminUsers, setAdminUsers] = useState<User[]>([]);
@@ -17,7 +18,7 @@ const UserList: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await mainApiJson.get('/user');
+        const response = await mainApiJson.get('/admin/user');
         if (response.status === 200) {
           const data = response.data;
           const adminUsersData = data.filter((user: User) => user.role === 'admin');
@@ -30,12 +31,52 @@ const UserList: React.FC = () => {
         }
       } catch (error) {
         console.log('Erro na requisição:', error);
-        alert('Faça login como administrador');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro na requisição',
+          text: 'Faça login como administrador',
+          timer: 2000,
+        });
       }
     };
 
     fetchUsers();
   }, []);
+
+  const handleDeleteUser = (userId: string) => {
+    Swal.fire({
+      icon: 'question',
+      title: 'Tem certeza que deseja excluir este usuário?',
+      showCancelButton: true,
+      confirmButtonText: 'Excluir',
+      cancelButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteUser(userId);
+      }
+    });
+  };
+
+  const deleteUser = async (userId: string) => {
+    try {
+      await mainApiJson.delete(`/admin/user/${userId}`);
+      setAdminUsers(adminUsers.filter((user) => user.id !== userId));
+      Swal.fire({
+        icon: 'success',
+        title: 'Usuário excluído',
+        text: 'O usuário foi excluído com sucesso.',
+        timer: 2000,
+      });
+    } catch (error) {
+      console.log('Erro na exclusão do usuário:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Erro na exclusão do usuário',
+        text: 'Ocorreu um erro ao excluir o usuário. Por favor, tente novamente.',
+        timer: 2000,
+      });
+    }
+  };
 
   const indexOfLastAdminUser = currentAdminPage * usersPerPage;
   const indexOfFirstAdminUser = indexOfLastAdminUser - usersPerPage;
@@ -98,11 +139,11 @@ const UserList: React.FC = () => {
       {isLoading ? (
         <Loading>
           <BarLoader color="#000" loading={isLoading} />
-        </Loading>
+        </Loading>  
       ) : (
         <>
           <H1>Lista de Usuários</H1>
-          
+
           <Tabelas>
             <Administradores>
               <h2>Administradores</h2>
@@ -111,6 +152,7 @@ const UserList: React.FC = () => {
                   <tr>
                     <th>Nome</th>
                     <th>Email</th>
+                    <th className='actions'>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -118,15 +160,16 @@ const UserList: React.FC = () => {
                     <tr key={user.email}>
                       <td className="name">{user.name}</td>
                       <td>{user.email}</td>
+                      <td>
+                        <button onClick={() => handleDeleteUser(user.id)}>Excluir Usuário</button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <div className="page-numbers">
-                {getAdminPageNumbers()}
-              </div>
+              <div className="page-numbers">{getAdminPageNumbers()}</div>
             </Administradores>
-            
+
             <Clientes>
               <h2>Clientes</h2>
               <table>
@@ -145,9 +188,7 @@ const UserList: React.FC = () => {
                   ))}
                 </tbody>
               </table>
-              <div className="page-numbers">
-                {getClientPageNumbers()}
-              </div>
+              <div className="page-numbers">{getClientPageNumbers()}</div>
             </Clientes>
           </Tabelas>
         </>

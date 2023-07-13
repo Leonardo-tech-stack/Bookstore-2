@@ -1,154 +1,179 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { mainApiJson, mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
-import ProductAPI from '../../../types/productAPI';
-import NavbarNavigation from '../../../components/Navbar/NavbarNavigatio';
-import Modal from '../../../components/Modal';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BarLoader } from 'react-spinners';
+import { noHeader, mainApiMultipart } from '../../../services/mainAPI/config';
+import { Loading } from '../../../styles/loading';
+import Swal from 'sweetalert2';
 
-const EditProductPage: React.FC = () => {
-  const { id } = useParams<string>(); 
-  const navigate = useNavigate();
-  const [product, setProduct] = useState<ProductAPI>({
-    id: 0,
-    name: '',
-    description: '',
-    price: 0,
-    inventory: 0,
-    quantity: 0,
-    categories: [],
-    image: '',
-  });
+const EditProduct: React.FC = () => {
+  // const { product_id } = useParams();
+  // const navigate = useNavigate();
+  // const [product, setProduct] = useState({});
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [formData, setFormData] = useState({
+  //   name: '',
+  //   description: '',
+  //   price: 0,
+  //   inventory: 0,
+  //   categories: [],
+  // });
+
+  // const [images, setImages] = useState([]);
+
+  // useEffect(() => {
+  //   fetchProduct();
+  // }, []);
+
+  // const fetchProduct = async () => {
+  //   try {
+  //     const response = await noHeader.get(`/product/${product_id}`);
+  //     const data = response.data;
+  //     setProduct(data);
+  //     setFormData({
+  //       name: data.name,
+  //       description: data.description,
+  //       price: data.price,
+  //       inventory: data.inventory,
+  //       categories: data.categories,
+  //     });
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.error('Error fetching product:', error);
+  //   }
+  // };
+
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   const { name, value } = event.target;
+  //   setFormData(prevFormData => ({
+  //     ...prevFormData,
+  //     [name]: value,
+  //   }));
+  // };  
+
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('name', formData.name);
+  //     formData.append('description', formData.description);
+  //     formData.append('price', formData.price);
+  //     formData.append('inventory', formData.inventory);
+  //     formData.append('categories', formData.categories);
   
-  const [categories, setCategories] = useState<string[]>([]);
-  const [categoryProducts, setCategoryProducts] = useState<ProductAPI[]>([]);
+  //     // Adicione as imagens ao FormData
+  //     images.forEach((image) => {
+  //       formData.append('images', image);
+  //     });
+  
+  //     const response = await mainApiMultipart.post(`/admin/product/${product_id}/images`, formData, {
+  //     });
+  //     if (response.status === 200) {
+  //       Swal.fire({
+  //         icon: 'success',
+  //         title: 'Produto atualizado com sucesso!',
+  //         timer: 2000,
+  //         showConfirmButton: true,
+  //         showCancelButton: false,
+  //         allowOutsideClick: false,
+  //         allowEscapeKey: false,
+  //         showLoaderOnConfirm: true,
+  //       }).then(() => {
+  //         navigate('/homeadm');
+  //       });
+  //     } else {
+  //       console.error('Failed to update product');
+  //     }
+  //   } catch (error: any) {
+  //     console.error(error);
+  //     if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+  //       Swal.fire({
+  //         icon: 'error',
+  //         title: 'Erro na requisição',
+  //         text: 'Faça login como administrador',
+  //         timer: 2000,
+  //       });
+  //     }
+  //   }
+  // };  
 
-  useEffect(() => {
-    mainApiMultipart
-      .get(`/product/${id}`)
-      .then(response => {
-        setProduct(response.data);
-      })
-      .catch(error => {
-        console.error('Failed to fetch product:', error);
-      });
-
-    noHeader
-      .get('/category') //erro
-      .then(response => {
-        setCategories(response.data);
-      })
-      .catch(error => {
-        console.error('Failed to fetch categories:', error);
-      });
-  }, [id]);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    setProduct(prevProduct => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
-
-  const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategory = event.target.value;
-    mainApiJson
-      .put(`/category/${selectedCategory}`)
-      .then(response => {
-        setCategoryProducts(response.data);
-      })
-      .catch(error => {
-        console.error(`Failed to fetch products for category ${selectedCategory}:`, error);
-      });
-  };
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files && event.target.files[0];
-    setProduct(prevProduct => ({
-      ...prevProduct,
-      image: file instanceof File ? URL.createObjectURL(file) : '',
-    }));
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('name', product.name);
-    formData.append('price', String(product.price));
-    formData.append('description', product.description);
-    formData.append('inventory', String(product.inventory));
-    product.categories.forEach(category => {
-      formData.append('categories', category);
-    });
-    if (product.image) {
-      formData.append('image', product.image);
-    }
-
-    mainApiMultipart
-      .put(`/product/${id}`, formData)
-      .then(() => {
-        alert('Sucesso');
-        navigate('/homeadm');
-      })
-      .catch(error => {
-        console.error('Failed to update product:', error);
-      });
-  };
+  // const handleImageChange = (event) => {
+  //   const fileList = Array.from(event.target.files);
+  //   setImages(fileList);
+  // };  
 
   return (
     <div>
-      {/* <NavbarNavigation
-        onSearch={handleSearch}
-        searchQuery={searchQuery}
-        onChangeSearch={handleChangeSearch} 
-      /> */}
-      <h1>Em breve...</h1>
-      {/* <Modal />
-      <h2>Editar Produto</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="name">Nome:</label>
-          <input type="text" id="name" name="name" value={product.name} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label htmlFor="price">Preço:</label>
-          <input type="number" id="price" name="price" value={product.price} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label htmlFor="description">Descrição:</label>
-          <textarea id="description" name="description" value={product.description} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label htmlFor="inventory">Quantidade no estoque:</label>
-          <input type="number" id="inventory" name="inventory" value={product.inventory} onChange={handleInputChange} />
-        </div>
-        <div>
-          <label htmlFor="categories">Categoria:</label>
-          <select id="categories" name="categories" value={product.categories[0]} onChange={handleCategoryChange}>
-            {categories.map(category => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="categoryProducts">Produtos da Categoria:</label>
-          <ul id="categoryProducts">
-            {categoryProducts.map(categoryProduct => (
-              <li key={categoryProduct.id}>{categoryProduct.name}</li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <label htmlFor="image">Imagem:</label>
-          <input type="file" id="image" name="image" onChange={handleImageChange} />
-        </div>
-        <button type="submit">Salvar</button>
-      </form> */}
+      {/* {isLoading ? (
+        <Loading>
+          <BarLoader color="#000" loading={isLoading} />
+        </Loading>
+      ) : (
+        <form onSubmit={handleFormSubmit}>
+          <h2>Editar Produto</h2>
+          <div>
+            <label htmlFor="name">Nome:</label>
+            <input
+              type="text"
+              className="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="description">Descrição:</label>
+            <textarea
+              className="description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="price">Preço:</label>
+            <input
+              type="number"
+              className="price"
+              name="price"
+              value={formData.price}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="inventory">Estoque:</label>
+            <input
+              type="number"
+              className="inventory"
+              name="inventory"
+              value={formData.inventory}
+              onChange={handleInputChange}
+            />
+          </div> */}
+          {/* <div>
+            <label htmlFor="categories">Categorias:</label>
+            <input
+              type="text"
+              className="categories"
+              name="categories"
+              value={formData.categories}
+              onChange={handleInputChange}
+            />
+          </div> */}
+            {/* <div>
+              <label htmlFor="images">Imagens:</label>
+              <input
+                type="file"
+                multiple
+                className="images"
+                name="images"
+                onChange={handleImageChange}
+              />
+            </div>
+          <button type="submit">Salvar</button>
+        </form>
+      )} */}
     </div>
   );
 };
 
-export default EditProductPage;
+export default EditProduct;

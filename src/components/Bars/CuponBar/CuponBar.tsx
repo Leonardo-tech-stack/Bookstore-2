@@ -19,7 +19,7 @@ const CuponBar: React.FC<CuponBarProps> = ({ onSearch }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input placeholder="Enter cupon code here" type="text" value={query} onChange={handleChange} />
+      <Input title="Desabilitado" placeholder="Enter cupon code here" type="text" value={query} onChange={handleChange} />
     </form>
   );
 };

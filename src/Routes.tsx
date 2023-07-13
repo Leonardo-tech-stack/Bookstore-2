@@ -1,4 +1,4 @@
-import { Routes as RouterRoutes, Route } from "react-router-dom";
+import { Link, useNavigate, Routes as RouterRoutes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductPage from "../src/pages/ProductPage/index";
@@ -26,10 +26,11 @@ export default function Routes() {
       <Route path="/dados-de-usuarios" element={<UserList />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Register />} />
-      <Route path="/usuario/" element={<UserData />} />
+      <Route path="/meus-dados" element={<UserData />} />
       <Route path="/cadastroadm" element={<RegisterAdm />} />
       <Route path="/cadastro-de-produto" element={<RegisterProduct />} />
       {/* <Route path="/edit-product/:id" element={<EditProduct />} /> */}
+      <Route path="/edit-product/:product_id" element={<EditProduct />} />
       <Route path="/lista-de-usuarios" element={<UserList />} />
       <Route path="/contato" element={<Contact />} />
     </RouterRoutes>

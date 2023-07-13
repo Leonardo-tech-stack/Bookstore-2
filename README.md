@@ -6,14 +6,12 @@ adquirido na Gama Academy. A idéia é
 trazer o máximo de imersão em relação ao mercado de
 trabalho.
 
-> E-comerce de vendas de livros ChapterOne (empresa fictícia).
+> E-comerce de venda de livros ChapterOne (empresa fictícia).
 
 # Intruções para utilizar o projeto
 - Clone o repositorio para a sua máquina utilizando o git clone 
 - No terminal, dentro do projeto, instale todos os pacotes e depêndencias usando o npm install
 - Inicie o projeto usando npm start
-(Obs. precisará fazer login como administrador para acessar o painel administrativo, entre em contato comigo no linkedin:
-https://www.linkedin.com/in/leonardo-carvalho-3708bb260/)
 
 # 📁 Objetivos de estudo
 - Analisar e organizar o desenvolvimento de uma aplicação complexa do zero.
@@ -32,5 +30,9 @@ https://github.com/tcx42/API-ecommerce-livraria
 
 ## Link para acesso
 chapterone.vercel.app
+
+Painel administrativo:
+chapterone.vercel.app/homeadm
+
 
 <h2 align="center"> Projeto em andamento... </h2>

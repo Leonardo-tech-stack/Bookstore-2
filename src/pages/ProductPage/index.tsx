@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
@@ -13,7 +13,7 @@ const ProductPage: React.FC = () => {
   const [quantity, setQuantity] = useState(1);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-
+  
   useEffect(() => {
     setIsLoading(true);
 
@@ -54,8 +54,9 @@ const ProductPage: React.FC = () => {
         quantity
       };
   
-      mainApiJson.post('/cart/add', body)
+      mainApiJson.post('/client/cart/add', body)
         .then(response => {
+          console.log(productId)
           alert('Adicionado ao carrinho');
         })
         .catch(error => {

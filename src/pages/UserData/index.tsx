@@ -1,59 +1,116 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { noHeader } from '../../services/mainAPI/config';
-import Header from '../../components/Header';
-
-interface User {
-  name: string;
-  password: string;
-  email: string;
-}
+import { useNavigate } from 'react-router-dom';
+import { mainApiJson, noHeader } from '../../services/mainAPI/config';
+import User from '../../types/User'; 
+import { Flex, Form, Title, Div } from '../administrativo/AdmRegister/styles';
+import { Alternate } from './styles';
 
 const UserPage: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<User>({
+    id: '',
+    name: '',
+    email: '',
+    password: '',
+    role: ''
+  });
+
+  const navigate = useNavigate();
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   useEffect(() => {
-    const fetchUser = async () => {
+    const fetchUserData = async () => {
       try {
-        const response = await noHeader.get('/user/{email}', {
-          headers: {
-            Authorization: `Bearer ${getTokenFromCookies()}`,
-          },
-        });
-        const userData = response.data;
-        setUser(userData);
+        const response = await noHeader.get('/client/user');
+        setUserData(response.data);
       } catch (error) {
-        console.error('Erro ao buscar dados do usuário:', error);
+        console.error('Erro ao obter os dados do usuário:', error);
       }
     };
 
-    fetchUser();
+    fetchUserData();
   }, []);
 
-  const getTokenFromCookies = () => {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.startsWith('token=')) {
-        return cookie.substring('token='.length);
-      }
-    }
-    return '';
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = event.target;
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: value,
+    }));
   };
 
-  if (!user) {
-    return <div>Loading...</div>;
-  }
+  const handleFormSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      await mainApiJson.put('/client/user', userData);
+      alert('Dados atualizados com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar os dados do usuário:', error);
+    }
+  };
+
+  const handleDeleteConfirmation = () => {
+    setConfirmDelete(true);
+  };
+
+  const handleDeleteCancel = () => {
+    setConfirmDelete(false);
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      await noHeader.delete('/client/user');
+      alert('Usuário excluído com sucesso!');
+      navigate('/login')
+    } catch (error) {
+      console.error('Erro ao excluir o usuário:', error);
+    }
+  };
 
   return (
     <div>
-      <Header />
-      <div>
-        <h1>Sua conta - aguardando API...</h1>
-        <p>Nome: {user.name}</p>
-        <p>Senha: {user.password}</p>
-        <p>E-mail: {user.email}</p>
-      </div>
+      <Flex>
+        <Div>
+          <Form onSubmit={handleFormSubmit}>
+            <Title>Meus dados</Title>
+            <label htmlFor="name">Nome:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={userData.name}
+              onChange={handleInputChange}
+            />
+            <div>
+              <label htmlFor="password">Senha:</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={userData.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            <Alternate>
+              <button className="update" type="submit">Atualizar Dados</button>
+
+              {confirmDelete ? (
+                <div>
+                  <p>Tem certeza de que deseja excluir o cadastro?</p>
+                  <Alternate>
+                    <button onClick={handleDeleteUser}>Sim</button>
+                    <button onClick={handleDeleteCancel}>Não</button>
+                  </Alternate>
+                </div>
+              ) : (
+                <button onClick={handleDeleteConfirmation}>Excluir Cadastro</button>
+              )}
+            </Alternate>
+          </Form>
+        </Div>
+      </Flex>
     </div>
   );
 };

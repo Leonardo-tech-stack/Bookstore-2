@@ -110,12 +110,12 @@ const NavbarNavigation: React.FC = ({}) => {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full bg-gray-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">Ver notificação</span>
                   <StyledIconWrapper className="relative">
                     <Link to="/carrinho">
-                      <ShoppingCartIcon className="h-6 w-5" aria-hidden="true" />
+                      <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                       {/* {itemCount > 0 && <CartItemCount itemCount={itemCount}>{itemCount}</CartItemCount>} */}
                     </Link>
                   </StyledIconWrapper>
@@ -123,10 +123,19 @@ const NavbarNavigation: React.FC = ({}) => {
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 d-flex justify-content-center">
-                  <div>
-                    <Menu.Button className="flex rounded-full text-white font-bold bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <div className='flex'>
+                    <Menu.Button className="flex rounded-full mr-3 text-white font-bold bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <Link className="h-6 w-12 mt-1 mb-1" to="/login">Login</Link>
+                      <Link className="h-6 w-14 mt-1 mb-1 " to="/login">Login</Link>
+                        {/* <div>
+                          <button type="button" onClick={handleLogout}>
+                            Logout
+                          </button>
+                        </div> */}
+                    </Menu.Button>
+
+                    <Menu.Button className="flex rounded-full text-white font-bold bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                      <Link className="h-6 w-16 mt-1 mb-1" to="/meus-dados">Dados</Link>
                         {/* <div>
                           <button type="button" onClick={handleLogout}>
                             Logout

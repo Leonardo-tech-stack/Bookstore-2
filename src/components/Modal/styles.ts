@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import Modal from "../../assets/images/painel.jpg";
-
-export const Div = styled.div`
-`;
+import Modal from "../../assets/images/lampada.png";
 
 export const Li = styled.li`
   width: 85%;
