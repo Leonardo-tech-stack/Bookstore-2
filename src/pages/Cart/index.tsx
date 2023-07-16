@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import CartItem from '../../types/CartItem';
 import CuponBar from '../../components/Bars/CuponBar/CuponBar';
@@ -51,6 +50,25 @@ const CartPage: React.FC = () => {
         setIsLoading(false);
       });
   }, []);
+
+  const handleFinalizarCompra = () => {
+    const body = {
+      products: cartItems.map((item) => ({
+        productId: item.product.id,
+        quantity: item.quantity,
+      })),
+    };
+
+    mainApiJson
+      .post('/client/order', body)
+      .then((response) => {
+        console.log('Pedido gerado:', response.data);
+        // Redirecionar para a página de confirmação do pedido ou realizar outras ações necessárias
+      })
+      .catch((error) => {
+        console.error('Erro ao gerar pedido:', error);
+      });
+  };
 
   const handleRemoveFromCart = (productId: number) => {
     console.log('productId:', productId);
@@ -189,7 +207,7 @@ const CartPage: React.FC = () => {
                   </div>
 
                   <div className="checkout">
-                    <button title="Desabilitado">Finalizar pedido</button>
+                    <button onClick={handleFinalizarCompra}>Finalizar pedido</button>
                   </div>
                 </Detalhes>
               </DivFlex>

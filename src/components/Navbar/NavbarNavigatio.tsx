@@ -44,7 +44,6 @@ const NavbarNavigation: React.FC = ({}) => {
     }
   };
 
-
   return (
     <Disclosure as="nav" className="bg-[#0D0D0D]">
       {({ open }) => (
@@ -123,26 +122,65 @@ const NavbarNavigation: React.FC = ({}) => {
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3 d-flex justify-content-center">
-                  <div className='flex'>
-                    <Menu.Button className="flex rounded-full mr-3 text-white font-bold bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
-                      <Link className="h-6 w-14 mt-1 mb-1 " to="/login">Login</Link>
-                        {/* <div>
-                          <button type="button" onClick={handleLogout}>
-                            Logout
-                          </button>
-                        </div> */}
-                    </Menu.Button>
-
-                    <Menu.Button className="flex rounded-full text-white font-bold bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <Link className="h-6 w-16 mt-1 mb-1" to="/meus-dados">Dados</Link>
-                        {/* <div>
-                          <button type="button" onClick={handleLogout}>
-                            Logout
-                          </button>
-                        </div> */}
-                    </Menu.Button>
-                  </div>
+                  <Menu.Button className="flex rounded-full text-white font-bold  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                    <span className="sr-only">Open user menu</span>
+                    Conta
+                  </Menu.Button>
+                  <Menu.Items className="absolute text-black font-bold right-0 mt-2 w-40 bg-black rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none"><Menu.Item>
+                      {({ active }) => (
+                        <Link
+                        to="/login"
+                        className={classNames(
+                          active ? 'text-white bg-gray-800' : 'text-white',
+                          'block px-4 py-2 text-sm'
+                        )}
+                        >
+                          Login
+                        </Link>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link
+                          to="/meus-dados"
+                          className={classNames(
+                            active ? 'bg-gray-800 text-white' : 'text-white',
+                            'block px-4 py-2 text-sm'
+                          )}
+                        >
+                          Dados
+                        </Link>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                        <Link
+                          to="/pedidos"
+                          className={classNames(
+                            active ? 'bg-gray-800 text-white' : 'text-white',
+                            'block px-4 py-2 text-sm'
+                          )}
+                        >
+                          Pedidos
+                        </Link>
+                      )}
+                    </Menu.Item>
+                    <Menu.Item>
+                      {({ active }) => (
+                          <a 
+                            href="/"
+                            type="button" 
+                            onClick={handleLogout}
+                            className={classNames(
+                              active ? 'bg-gray-800 text-white' : 'text-white',
+                              'block px-4 py-2 text-sm'
+                            )}
+                          >
+                            Sair
+                          </a>
+                      )}
+                    </Menu.Item>
+                  </Menu.Items>
                 </Menu>
               </div>
             </div>

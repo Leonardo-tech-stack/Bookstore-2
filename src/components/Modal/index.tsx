@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { noHeader } from '../../services/mainAPI/config';
+import ReactModal from 'react-modal';
 import { Li, Logout, Login, ArrowButton, ModalContent } from './styles';
 
 ReactModal.setAppElement('#root');
 
 const Modal: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  let back = '<'
-
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      const response = await noHeader.get("/user/logout");
+  let back = '<';
 
-      if (response.status === 200) {
-        console.log('Logout feito com sucesso');
-        navigate ('/');
-      } else {
-        alert ('erro else')
-      }
+  useEffect(() => {
+    if (isLoggedOut) {
+      navigate('/login');
+    }
+  }, [isLoggedOut, navigate]);
+
+  const logout = async () => {
+    try {
+      await noHeader.get('/user/logout');
+      setIsLoggedOut(true);
+      alert('sucesso')
     } catch (error) {
-      console.log('Erro na requisição:', error);
-      alert ('erro catch')
+      console.error('Erro ao fazer logout:', error);
+      alert('catch')
     }
   };
 
@@ -58,14 +59,12 @@ const Modal: React.FC = () => {
                 <a href="/cadastroadm">Cadastrar novo adm</a>
                 <a href="/cadastro-de-produto">Cadastrar Produto</a>
                 <div>
-                  <Login onClick={() => navigate('/Login')}>
+                  <Login onClick={() => navigate('/login')}>
                     Login
                   </Login>
                 </div>
                 <div>
-                  <Logout onClick={handleLogout}>
-                    Sair
-                  </Logout>
+                  <Logout onClick={logout}>Sair</Logout>
                 </div>
               </Li>
             </ul>
@@ -74,6 +73,6 @@ const Modal: React.FC = () => {
       </ReactModal>
     </div>
   );
-}
+};
 
 export default Modal;

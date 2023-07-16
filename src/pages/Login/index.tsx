@@ -23,7 +23,6 @@ export default function Login(): JSX.Element {
 
       const response = await mainApiJson.post("/user/login", loginData);
       console.log(response.data);
-      alert("logado com sucesso");
       navigate("/");
     } catch (error) {
       alert("Algo deu errado");

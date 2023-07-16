@@ -50,6 +50,10 @@ margin-top: 5%;
       &:hover {
          cursor: pointer;
       }
+
+      :focus {
+         box-shadow: none;
+      }
    }
 
    .esqueceu-a-senha {

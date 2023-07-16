@@ -4,6 +4,7 @@ import ProductList from "./pages/ProductList";
 import ProductPage from "../src/pages/ProductPage/index";
 import SearchResultsPage from "./pages/SearchResults";
 import Cart from "./pages/Cart/index";
+import Ordereds from "./pages/Ordereds";
 import Login from "../src/pages/Login";
 import Register from "./pages/Register";
 import UserData from "./pages/UserData";
@@ -23,6 +24,7 @@ export default function Routes() {
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/search-results" element={<SearchResultsPage />} />
       <Route path="/carrinho" element={<Cart />} />
+      <Route path="/pedidos" element={<Ordereds />} />
       <Route path="/dados-de-usuarios" element={<UserList />} />
       <Route path="/login" element={<Login />} />
       <Route path="/cadastro" element={<Register />} />
