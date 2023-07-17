@@ -197,7 +197,6 @@ const CartPage: React.FC = () => {
               ))}
               </div>
               
-              
                 <Detalhes>
                   <div className="details"> 
                     <h3>Detalhes do pedido</h3>

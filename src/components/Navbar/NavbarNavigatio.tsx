@@ -124,7 +124,7 @@ const NavbarNavigation: React.FC = ({}) => {
                 <Menu as="div" className="relative ml-3 d-flex justify-content-center">
                   <Menu.Button className="flex rounded-full text-white font-bold  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open user menu</span>
-                    Conta
+                    Minha Conta
                   </Menu.Button>
                   <Menu.Items className="absolute text-black font-bold right-0 mt-2 w-40 bg-black rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none"><Menu.Item>
                       {({ active }) => (
@@ -165,7 +165,7 @@ const NavbarNavigation: React.FC = ({}) => {
                         </Link>
                       )}
                     </Menu.Item>
-                    <Menu.Item>
+                    {/* <Menu.Item>
                       {({ active }) => (
                           <a 
                             href="/"
@@ -179,7 +179,7 @@ const NavbarNavigation: React.FC = ({}) => {
                             Sair
                           </a>
                       )}
-                    </Menu.Item>
+                    </Menu.Item> */}
                   </Menu.Items>
                 </Menu>
               </div>

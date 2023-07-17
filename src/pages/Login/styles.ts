@@ -80,6 +80,23 @@ margin-bottom: 10%;
 margin-left: 15%;
 `;
 
+export const Validation = styled.p`
+font-size: 1rem;
+font-weight: 500;
+margin-left: 15%;
+color: red;
+
+   a {
+      color: black;
+      font-weight: 500;
+
+      &:hover{
+         text-decoration: underline;
+         
+      }
+   }
+`;
+
 export const Logar = styled.button`
 border: none;
 background-color: ${colors.principal};
@@ -87,7 +104,7 @@ color: white;
 font-weight: 500;
 border-radius: 10px;
 padding: 10px 30px;
-margin-top: 7%;
+margin-top: 4%;
 margin-left: 15%;
 
    &:hover{
@@ -96,7 +113,7 @@ margin-left: 15%;
    }
 `;
 
-export const Cadastrar = styled.div`
+export const Register = styled.div`
 display: flex;
 justify-content: center;
 

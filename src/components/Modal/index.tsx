@@ -63,9 +63,9 @@ const Modal: React.FC = () => {
                     Login
                   </Login>
                 </div>
-                <div>
+                {/* <div>
                   <Logout onClick={logout}>Sair</Logout>
-                </div>
+                </div> */}
               </Li>
             </ul>
           </nav>

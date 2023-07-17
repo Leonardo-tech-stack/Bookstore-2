@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import { BarLoader } from 'react-spinners';
+import { Vazio } from '../Cart/styles';
 import { Loading } from '../../styles/loading';
+import { Pedidos, Margin } from './styles';
 
 const OrderPage: React.FC = () => {
   const [orders, setOrders] = useState([]);
@@ -37,16 +39,17 @@ const OrderPage: React.FC = () => {
 
   return (
     <div>
-      <h1>Meus Pedidos</h1>
       {isLoading ? (
         <Loading>
           <BarLoader color="#000" loading={isLoading} />
         </Loading>
       ) : (
-        <div>
+        <Pedidos>
+          
           {orders.length > 0 ? (
             orders.map((order: any) => (
               <div key={order.id}>
+                <h2>Meus Pedidos</h2>
                 <p>ID do Pedido: {order.id}</p>
                 <p>Usuário: {order.userEmail}</p>
                 <p>Status: {order.status}</p>
@@ -56,9 +59,18 @@ const OrderPage: React.FC = () => {
               </div>
             ))
           ) : (
-            <p>Nenhum pedido encontrado.</p>
+            <Margin>
+              <Vazio>
+                <div>
+                  <p>Você não possui pedidos</p>
+                </div>
+                <a href="/lista-de-produtos">
+                  <button>Ir às compras agora</button>
+                </a>
+              </Vazio>
+            </Margin>
           )}
-        </div>
+        </Pedidos>
       )}
     </div>
   );

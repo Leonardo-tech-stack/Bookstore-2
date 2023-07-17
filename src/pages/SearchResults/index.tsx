@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { noHeader, mainApiJson } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
@@ -7,6 +7,7 @@ import { NFound } from './styles';
 import { Div, Description } from '../ProductPage/styles';
 import { Loading } from '../../styles/loading';
 import Book from '../../assets/images/Book-1.png'
+import Swal from 'sweetalert2';
 
 const SearchResultsPage = () => {
   const location = useLocation();
@@ -15,6 +16,7 @@ const SearchResultsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState<ProductAPI | null>(null);
   const [showFullDescription, setShowFullDescription] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const searchTerm = new URLSearchParams(location.search).get('query');
@@ -63,25 +65,35 @@ const SearchResultsPage = () => {
   };
 
   const handleAddToCart = (productId: string) => {
-    // const userEmail = "...";
     
     if (productId) {
       const body = {
-        // userEmail,
         productId: productId,
         quantity: product?.quantity || 1
       };
     
       mainApiJson.post('/client/cart/add', body)
         .then(response => {
-          alert('adicionado')
+          Swal.fire({
+            icon: 'success',
+            text: 'Adicionado com sucesso.',
+            timer: 1000,
+          });
         })
         .catch(error => {
-          alert('catch')
           console.error('Erro ao adicionar o produto ao carrinho:', error);
+          if (error.response && (error.response.status === 401)) {
+            Swal.fire({
+              icon: 'info',
+              text: 'Faça login para continuar.',
+              timer: 2000,
+            }).then(() => {
+              navigate('/login');
+            });
+          }
         });
-    }
-  };    
+      }
+    };   
 
   const toggleFullDescription = () => {
     setShowFullDescription(!showFullDescription);
