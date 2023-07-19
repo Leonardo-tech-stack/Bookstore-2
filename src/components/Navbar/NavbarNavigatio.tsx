@@ -97,7 +97,6 @@ const NavbarNavigation: React.FC = ({}) => {
                       className="pl-8 pr-2 py-2 rounded-md text-sm bg-[#0D0D0D] text-white placeholder-gray-400"
                       type="text"
                       placeholder="Procurar produtos"
-                      title="Desabilitado"
                       value={searchTerm}
                       onChange={handleInputChange}
                       onKeyPress={handleKeyPress}
@@ -148,7 +147,7 @@ const NavbarNavigation: React.FC = ({}) => {
                             'block px-4 py-2 text-sm'
                           )}
                         >
-                          Dados
+                          Alterar Dados
                         </Link>
                       )}
                     </Menu.Item>

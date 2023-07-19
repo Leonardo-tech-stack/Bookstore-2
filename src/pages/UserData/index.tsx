@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
-import User from '../../types/User'; 
+import User from '../../types/User';
 import { Flex, Form, Title, Div } from '../administrativo/AdmRegister/styles';
 import { Alternate } from './styles';
 import Swal from 'sweetalert2';
@@ -31,9 +31,7 @@ const UserPage: React.FC = () => {
     fetchUserData();
   }, []);
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUserData((prevUserData) => ({
       ...prevUserData,
@@ -46,14 +44,14 @@ const UserPage: React.FC = () => {
 
     try {
       await mainApiJson.put('/client/user', userData);
-        Swal.fire({
-          icon: 'success',
-          text: 'Sucesso',
-          timer: 1000,
-        });
+      Swal.fire({
+        icon: 'success',
+        text: 'Dados atualizados com sucesso!',
+        timer: 2000,
+      });
     } catch (error: any) {
       console.error('Erro ao atualizar os dados do usuário:', error);
-      if (error.response && (error.response.status === 401)) {
+      if (error.response && error.response.status === 401) {
         Swal.fire({
           icon: 'info',
           text: 'Faça login para continuar.',
@@ -76,15 +74,16 @@ const UserPage: React.FC = () => {
   const handleDeleteUser = async () => {
     try {
       await noHeader.delete('/client/user');
-        Swal.fire({
-          icon: 'info',
-          text: 'Cadastro excluído',
-          timer: 2000,
-        });
-      navigate('/login')
+      Swal.fire({
+        icon: 'info',
+        text: 'Cadastro excluído',
+        timer: 2000,
+      }).then(() => {
+        navigate('/login');
+      });
     } catch (error: any) {
       console.error('Erro ao excluir o usuário:', error);
-      if (error.response && (error.response.status === 401)) {
+      if (error.response && error.response.status === 401) {
         Swal.fire({
           icon: 'info',
           text: 'Faça login para continuar.',

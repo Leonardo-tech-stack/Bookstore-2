@@ -33,6 +33,23 @@ height: 100vh;
     justify-content: space-around;
     margin-bottom: 1%;
 
+    .filter {
+      display: flex;
+      flex-direction: row;
+      width: 18%;
+      font-weight: 500;
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      select {
+        margin-left: 2%;
+        border: 1px solid ${colors.bgButton};
+        border-radius: 2px;
+      }
+    }
+
     div {
       width: 15%;
     }

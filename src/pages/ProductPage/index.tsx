@@ -121,7 +121,7 @@ const ProductPage: React.FC = () => {
             </label>
 
             <div>
-              <button className="add" title="Desabilitado" onClick={handleAddToCart}>
+              <button className="add" onClick={handleAddToCart}>
                 Adicionar ao Carrinho
               </button>
             </div>

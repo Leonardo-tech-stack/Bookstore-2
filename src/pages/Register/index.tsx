@@ -13,7 +13,7 @@ export default function CadastroCliente() {
   async function criarCadastro(e: FormEvent) {
     try {
       e.preventDefault();
-      const res = await mainApiJson.post("/user", {
+      const res = await mainApiJson.post("/user/signin", {
         name,
         email,
         password,

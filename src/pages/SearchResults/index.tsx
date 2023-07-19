@@ -156,7 +156,7 @@ const SearchResultsPage = () => {
                   </label>
 
                   <div>
-                    <button className="add" title="Desabilitado" onClick={() => handleAddToCart(product.id.toString())}>Adicionar ao carrinho</button>
+                    <button className="add" onClick={() => handleAddToCart(product.id.toString())}>Adicionar ao carrinho</button>
                   </div>
                 </div>
               </Div>

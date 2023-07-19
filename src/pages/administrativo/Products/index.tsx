@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import ProductAPI from '../../../types/productAPI';
+import Category from '../../../types/Category';
 import { noHeader } from '../../../services/mainAPI/config';
 import { Lista, Excluir, Tabela, Linha1, Linha2, TbTitulo, Unidade, NEncontrado } from './styles';
 import Modal from '../../../components/Modal';
@@ -14,12 +15,15 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [productsPerPage] = useState<number>(10);
   const [filteredProducts, setFilteredProducts] = useState<ProductAPI[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -33,6 +37,16 @@ const App: React.FC = () => {
     }
   };
   
+  const fetchCategories = async () => {
+    try {
+      const response = await noHeader.get('/category');
+      const data = response.data;
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
   const getImageUrl = (filename: string) => {
     return `/images/${filename}`;
   };
@@ -45,6 +59,8 @@ const App: React.FC = () => {
       showCancelButton: true,
       confirmButtonText: 'Excluir',
       cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
     }).then((result) => {
       if (result.isConfirmed) {
         noHeader
@@ -86,10 +102,22 @@ const App: React.FC = () => {
   useEffect(() => {
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+    const currentProducts = selectedCategory !== ""
+      ? products.filter((product) => {
+          return product.categories && product.categories.some(
+            (category) => {
+              if (typeof category === 'string') {
+                return category === selectedCategory;
+              } else {
+                return category && category['name'] === selectedCategory;
+              }
+            }
+          );
+        })
+      : products.slice(indexOfFirstProduct, indexOfLastProduct);
     setFilteredProducts(currentProducts);
-  }, [currentPage, products, productsPerPage]);
-  
+  }, [currentPage, products, productsPerPage, selectedCategory]);
+
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const changePage = (page: number) => {
@@ -98,7 +126,7 @@ const App: React.FC = () => {
 
   const getPageNumbers = () => {
     const pageNumbers = [];
-  
+
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
         <button
@@ -110,7 +138,7 @@ const App: React.FC = () => {
         </button>
       );
     }
-  
+
     return pageNumbers;
   };
 
@@ -119,7 +147,7 @@ const App: React.FC = () => {
       const response = await noHeader.get(`/product/search/${searchTerm}`);
       const data = response.data;
       setProducts(data);
-      // setFilteredProducts(data);
+      setSelectedCategory("");
       setCurrentPage(1);
     } catch (error) {
       console.error('Error searching products:', error);
@@ -149,6 +177,25 @@ const App: React.FC = () => {
             <h2>Lista de Produtos</h2>
 
             <div className="search">
+              
+              <div className='filter'>
+                <p>Filtrar por categoria: </p>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => {
+                    const category = e.target.value;
+                    setSelectedCategory(category);
+                  }}
+                >
+                  <option value="">Todas as categorias</option>
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <Link to={`/cadastro-de-produto`}>
                 <button>Adicionar produtos</button>
               </Link>
@@ -170,8 +217,6 @@ const App: React.FC = () => {
                   <TbTitulo className="t-img"></TbTitulo>
                   <TbTitulo className="t-nome">Nome</TbTitulo>
                   <TbTitulo className="t-valor">Valor (R$)</TbTitulo>
-                  {/* <TbTitulo>Descrição</TbTitulo> */}
-                  {/* <TbTitulo>Categoria</TbTitulo> */}
                   <TbTitulo className="t-quantidade">Quantidade em estoque</TbTitulo>
                   <TbTitulo className="t-ações">Ações</TbTitulo>
                 </Linha1>
@@ -179,7 +224,7 @@ const App: React.FC = () => {
                 {filteredProducts.map((product: ProductAPI) => (
                   <Linha2 key={product.id}>
                     <Unidade className="img">
-                    <img src={getImageUrl(product.image)} />
+                      <img src={getImageUrl(product.image)} />
                     </Unidade>
                     <Unidade className="nome">
                       <h1>{product.name}</h1>
@@ -187,20 +232,14 @@ const App: React.FC = () => {
                     <Unidade className="valor">
                       <p>{product.price}</p>
                     </Unidade>
-                    {/* <Unidade>
-                      <p>Descrição: {product.description}</p>
-                    </Unidade> */}
-                    {/* <Unidade>
-                      <p>{product.categories}</p>
-                    </Unidade> */}
                     <Unidade className="quantidade">
                       <p>{product.inventory}</p>
                     </Unidade>
                     <Unidade>
-                      <Link to={`/edit-product/${product.id}`}>
-                          <button>Editar</button>
-                      </Link>
-                      {/* <button title="Desabilitado">Editar</button> */}
+                      {/* <Link to={`/edit-product/${product.id}`}>
+                        <button>Editar</button>
+                      </Link> */}
+                      <button title="Desabilitado">Editar</button>
                       <Excluir className="btn-excluir" onClick={() => handleDeleteProduct(product.id)}>
                         Excluir
                       </Excluir>

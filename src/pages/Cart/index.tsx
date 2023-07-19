@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { format } from 'date-fns';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import CartItem from '../../types/CartItem';
 import CuponBar from '../../components/Bars/CuponBar/CuponBar';
@@ -63,7 +64,7 @@ const CartPage: React.FC = () => {
       .post('/client/order', body)
       .then((response) => {
         console.log('Pedido gerado:', response.data);
-        // Redirecionar para a página de confirmação do pedido ou realizar outras ações necessárias
+        // adicionar Swal / redirecionamento
       })
       .catch((error) => {
         console.error('Erro ao gerar pedido:', error);
@@ -111,7 +112,7 @@ const CartPage: React.FC = () => {
     };
 
     mainApiJson
-      .post('client/cart/update', body)
+      .post('client/cart/add', body)
       .then((response) => {
         console.log('Quantity updated:', response.data);
       })

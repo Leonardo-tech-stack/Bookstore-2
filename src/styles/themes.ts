@@ -7,6 +7,7 @@ export const colors = {
   // texto: "#333333", /* Cinza escuro */
   // destaque: "#006400", /* Verde escuro */
   bgButton: "#4d5d6b", /* outro cinza */
+  warning: "#f3a43e",
 };
 
 // Fontes

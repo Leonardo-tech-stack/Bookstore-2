@@ -63,14 +63,14 @@ const EditProductPage: React.FC = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const loadingAlert = Swal.fire({
-        title: 'Carregando...',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        showCancelButton: false,
-        showConfirmButton: false,
-      });
-      Swal.showLoading();
+      // const loadingAlert = Swal.fire({
+      //   title: 'Carregando...',
+      //   allowOutsideClick: false,
+      //   allowEscapeKey: true,
+      //   showCancelButton: false,
+      //   showConfirmButton: false,
+      // });
+      // Swal.showLoading();
   
       const response = await mainApiMultipart.put(`/admin/product/${product_id}`, formData);
       if (response.status === 200) {
