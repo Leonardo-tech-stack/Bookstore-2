@@ -8,6 +8,7 @@ import { Loading } from "../../../styles/loading";
 import { Title, Div, Pages } from "./styles";
 import { BarLoader } from "react-spinners";
 import OrderDetailsModal from "../../../components/OrderDetailsModal";
+import Swal from "sweetalert2";
 
 const OrderList: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,9 +28,16 @@ const OrderList: React.FC = () => {
         setOrders(response.data);
         setIsLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching orders:", error);
-        setIsLoading(false);
+      .catch(error => {
+        console.error(error);
+        if (error.response && (error.response.status === 403 || error.response.status === 401)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro na requisição',
+            text: 'Faça login como administrador',
+            timer: 2000,
+          });
+        }
       });
   }, []);
 

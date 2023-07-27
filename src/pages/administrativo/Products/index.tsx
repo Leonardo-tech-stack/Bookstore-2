@@ -166,13 +166,13 @@ const App: React.FC = () => {
   
   return (
     <div>
+      <Modal />
       {isLoading ? ( 
         <Loading>
           <BarLoader color="#000" loading={isLoading} />
         </Loading>
       ) : (
         <>
-          <Modal />
           <Lista>
             <h2>Lista de Produtos</h2>
 

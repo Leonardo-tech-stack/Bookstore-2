@@ -1,10 +1,15 @@
 import { Disclosure, Menu } from '@headlessui/react';
 import { Bars3Icon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { noHeader } from '../../services/mainAPI/config';
-import { StyledIconWrapper, CartItemCount, Login } from './styles';
-import axios from 'axios';
+import ProductAPI from '../../types/productAPI';
+import { StyledIconWrapper, Login } from './styles';
+import CartItemCount from '../CartCounter';
+
+interface CartResponse {
+  products: ProductAPI[];
+}
 
 const navigation = [
   { name: 'Comprar', href: '/lista-de-produtos', current: true },
@@ -18,6 +23,7 @@ function classNames(...classes: string[]) {
 
 const NavbarNavigation: React.FC = ({}) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [cartItemCount, setCartItemCount] = useState<number>(0);
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -43,6 +49,20 @@ const NavbarNavigation: React.FC = ({}) => {
       handleSearch();
     }
   };
+
+  useEffect(() => {
+    const fetchCartItemCount = async () => {
+      try {
+        const response = await noHeader.get<CartResponse>('/client/cart');
+        const itemCount = response.data.products.reduce((total, item) => total + item.quantity, 0);
+        setCartItemCount(itemCount);
+      } catch (error) {
+        console.error('Erro ao buscar a quantidade total de produtos no carrinho:', error);
+      }
+    };
+
+    fetchCartItemCount();
+  }, []);
 
   return (
     <Disclosure as="nav" className="bg-[#0D0D0D]">
@@ -111,10 +131,10 @@ const NavbarNavigation: React.FC = ({}) => {
                   className="rounded-full bg-gray-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">Ver notificação</span>
-                  <StyledIconWrapper className="relative">
+                  <StyledIconWrapper itemCount={cartItemCount} className="relative">
                     <Link to="/carrinho">
                       <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                      {/* {itemCount > 0 && <CartItemCount itemCount={itemCount}>{itemCount}</CartItemCount>} */}
+                      {cartItemCount > 0 && <CartItemCount itemCount={cartItemCount} />}
                     </Link>
                   </StyledIconWrapper>
                 </button>

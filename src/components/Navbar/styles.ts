@@ -2,26 +2,26 @@ import styled from "styled-components";
 import Link from '../../types/Link';
 import { colors } from '../../styles/themes'
 
-export const StyledIconWrapper = styled.div`
-  /* padding: 3px 35px 3px 6px;
-  position: relative; */
+export const StyledIconWrapper = styled.div<{ itemCount: number }>`
+  position: relative;
+  padding: ${({ itemCount }) => (itemCount > 0 ? '3px 35px 3px 6px' : '0')};
+
   a {
     text-decoration: none;
   }
 `;
 
 export const CartItemCount = styled.span<{ itemCount: number }>`
-  /* position: absolute;
+  position: absolute;
   top: 0px;
   right: 5px;
   background-color: ${colors.bgButton};
   color: #fff;
   border-radius: 50%;
   padding: ${({ itemCount }) => (itemCount > 9 ? '2px 4px' : '2px 9px')};
-  left: ${({ itemCount }) => (itemCount > 9 ? '31px' : '33px')}; */
+  left: ${({ itemCount }) => (itemCount > 9 ? '31px' : '33px')};
 `;
 
 export const Login = styled(Link)`
   color: white;
-  /* padding: 10px 11px; */
-`
+`;

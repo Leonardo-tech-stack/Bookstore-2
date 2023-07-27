@@ -4,6 +4,7 @@ import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import CartItem from '../../types/CartItem';
 import CuponBar from '../../components/Bars/CuponBar/CuponBar';
 import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
+import Footer from '../../components/Footer/Footer';
 import Swal from 'sweetalert2';
 import Book from '../../assets/images/Book-1.png';
 import { BarLoader } from 'react-spinners';
@@ -212,7 +213,7 @@ const CartPage: React.FC = () => {
                 <Detalhes>
                   <div className="details"> 
                     <h3>Detalhes do pedido</h3>
-                    <CuponBar onSearch={NavbarNavigation} />
+                    <CuponBar onSearch={Footer} />
                     <p>Itens no Carrinho: ({cartItems.reduce((total, item) => total + item.quantity, 0)})</p>
                     <b>Total: <span>$ {cartItems.reduce((total, item) => total + (item.product.price * item.quantity), 0)}</span></b>
                   </div>
