@@ -30,7 +30,7 @@ height: 100vh;
 
   .search {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-bottom: 1%;
 
     .filter {
@@ -88,7 +88,7 @@ export const Tabela = styled.table`
 
 export const Linha1 = styled.tr`
 border-right: 1px solid ${colors.bgButton};
-background-color: #d4d4d4;
+background-color: ${colors.titulo};
 
   .t-img {
     padding: 0 3%;

@@ -13,6 +13,7 @@ import UserList from "./pages/administrativo/UserList";
 import RegisterAdm from "./pages/administrativo/AdmRegister";
 import RegisterProduct from "./pages/administrativo/ProductRegister/index";
 import EditProduct from "./pages/administrativo/EditProductPage/index";
+import UsersRequests from "./pages/administrativo/UsersRequests";
 import Contact from "./pages/Contact";
 
 export default function Routes() {
@@ -33,6 +34,7 @@ export default function Routes() {
       <Route path="/cadastro-de-produto" element={<RegisterProduct />} />
       {/* <Route path="/edit-product/:id" element={<EditProduct />} /> */}
       <Route path="/edit-product/:product_id" element={<EditProduct />} />
+      <Route path="/lista-de-pedidos" element={<UsersRequests />} />
       <Route path="/lista-de-usuarios" element={<UserList />} />
       <Route path="/contato" element={<Contact />} />
     </RouterRoutes>

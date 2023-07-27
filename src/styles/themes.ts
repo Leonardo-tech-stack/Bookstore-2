@@ -1,13 +1,11 @@
 // Cores
 export const colors = {
-  principal: "#0d0d0d",
+  principal: "#0d0d0d", /* Preto */
   primaria: "#8B4513", /* Marrom escuro */
-  secundaria: "#D2B48C", /* Marrom claro */
   fundo: "#F5F5F5", /* Branco suave */
-  // texto: "#333333", /* Cinza escuro */
-  // destaque: "#006400", /* Verde escuro */
+  titulo: "#d4d4d4", /* Cinza escuro */
   bgButton: "#4d5d6b", /* outro cinza */
-  warning: "#f3a43e",
+  warning: "#f3a43e", /* Laranjado*/
 };
 
 // Fontes

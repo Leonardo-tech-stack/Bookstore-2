@@ -55,6 +55,7 @@ const Modal: React.FC = () => {
               <Li>
                 <a href="/">ChapterOne</a>
                 <a href="/homeadm">Produtos</a>
+                <a href="/lista-de-pedidos">Pedidos</a>
                 <a href="/lista-de-usuarios">Usuários</a>
                 <a href="/cadastroadm">Cadastrar novo adm</a>
                 <a href="/cadastro-de-produto">Cadastrar Produto</a>

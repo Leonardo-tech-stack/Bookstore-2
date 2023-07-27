@@ -15,7 +15,8 @@ const SearchResultsPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const [isLoading, setIsLoading] = useState(true);
   const [product, setProduct] = useState<ProductAPI | null>(null);
-  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [selectedQuantities, setSelectedQuantities] = useState<{ [productId: string]: number }>({});
+  const [productDescriptionVisibility, setProductDescriptionVisibility] = useState<{ [key: string]: boolean }>({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,7 +29,6 @@ const SearchResultsPage = () => {
   }, [location]);
 
   const performSearch = async (searchTerm: string) => {
-
     try {
       const response = await noHeader.get<ProductAPI[]>(`/product/search/${searchTerm}`);
       setSearchResults(response.data);
@@ -40,9 +40,15 @@ const SearchResultsPage = () => {
   };
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLSelectElement>, productId: number) => {
+    const updatedQuantities = {
+      ...selectedQuantities,
+      [productId.toString()]: Number(event.target.value),
+    };
+    setSelectedQuantities(updatedQuantities);
+
     const updatedProducts = searchResults.map((p) => {
       if (p.id === productId) {
-        return { ...p, quantity: Number(event.target.value) };
+        return { ...p, quantity: updatedQuantities[productId.toString()] };
       }
       return p;
     });
@@ -65,13 +71,13 @@ const SearchResultsPage = () => {
   };
 
   const handleAddToCart = (productId: string) => {
-    
+    const quantity = selectedQuantities[productId] || 1;
+
     if (productId) {
       const body = {
         productId: productId,
-        quantity: product?.quantity || 1
+        quantity: quantity,
       };
-    
       mainApiJson.post('/client/cart/add', body)
         .then(response => {
           Swal.fire({
@@ -92,15 +98,14 @@ const SearchResultsPage = () => {
             });
           }
         });
-      }
-    };   
-
-  const toggleFullDescription = () => {
-    setShowFullDescription(!showFullDescription);
+    }
   };
 
-  const handleProductClick = (clickedProduct: ProductAPI) => {
-    setProduct(clickedProduct);
+  const toggleDescriptionVisibility = (productId: string) => {
+    setProductDescriptionVisibility((prevState) => ({
+      ...prevState,
+      [productId]: !prevState[productId],
+    }));
   };
 
   return (
@@ -109,20 +114,20 @@ const SearchResultsPage = () => {
         <Loading>
           <BarLoader color="#000" loading={isLoading} />
         </Loading>
+      ) : (
+        searchResults.length === 0 ? (
+          <NFound>
+            <p className='n-1'>Não temos nenhum produto com esse nome :(</p>
+            <p className='n-2'>
+              Talvez encontre algo parecido
+              <a href="/lista-de-produtos">
+                <strong> aqui!</strong>
+              </a>
+            </p>
+          </NFound>
         ) : (
-          searchResults.length === 0 ? (
-            <NFound>
-              <p className='n-1'>Não temos nenhum produto com esse nome :(</p>
-              <p className='n-2'>
-                Talvez encontre algo parecido
-                <a href="/lista-de-produtos">
-                  <strong> aqui!</strong>
-                </a>
-              </p>
-            </NFound>
-          ) : (
           searchResults.map((product) => (
-            <div key={product.id} onClick={() => handleProductClick(product)}>
+            <div key={product.id}>
               <Div>
                 <div className='img'>
                   {/* <img src={getImageUrl(product.image)} alt={product.name} /> */}
@@ -133,24 +138,25 @@ const SearchResultsPage = () => {
                 <div className='string'>
                   <h1>{product.name}</h1>
 
-                  <Description showFullDescription={showFullDescription}>
+                  <Description showFullDescription={productDescriptionVisibility[product.id.toString()]}>
                     {product.description}
                   </Description>
 
                   {product.description.length > 100 && (
-                    <button className="hide" onClick={toggleFullDescription}>
-                      {showFullDescription ? 'Mostrar menos' : 'Mostrar mais'}
+                    <button className="hide" onClick={() => toggleDescriptionVisibility(product.id.toString())}>
+                      {productDescriptionVisibility[product.id.toString()] ? 'Mostrar menos' : 'Mostrar mais'}
                     </button>
                   )}
 
                   <p>
                     <strong>Preço:</strong> R$ {product.price}
                   </p>
-                  {/* <p>Categoria: {product.categories}</p> */}
-                  {/* <p>Quantidade em estoque: {product.inventory}</p> */}
                   <label>
                     <strong>Quantidade: </strong>
-                    <select value={product.quantity} onChange={(event) => handleQuantityChange(event, product.id)}>
+                    <select
+                      value={selectedQuantities[product.id.toString()] || product.quantity}
+                      onChange={(event) => handleQuantityChange(event, product.id)}
+                    >
                       {renderQuantityOptions(product.id)}
                     </select>
                   </label>

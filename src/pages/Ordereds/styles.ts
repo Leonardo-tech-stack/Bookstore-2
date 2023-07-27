@@ -37,7 +37,7 @@ export const Pedidos = styled.div`
         .info {
             display: flex;
             justify-content: center;
-            background-color: #d4d4d4;
+            background-color: ${colors.titulo};
             border-radius: 10px 10px 0 0;
             border: 10px 10px 0px 0px solid ${colors.bgButton};
 

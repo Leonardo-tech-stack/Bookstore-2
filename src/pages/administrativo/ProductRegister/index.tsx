@@ -1,31 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { AxiosError } from 'axios';
-import { mainApiMultipart } from '../../../services/mainAPI/config';
+import { mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
 import { Flex, Div, Title, Form } from './styles';
 import Produto from '../../../assets/images/produto.png';
 import Modal from '../../../components/Modal';
 import Swal from 'sweetalert2';
 
+interface Category {
+  id: string;
+  name: string;
+  description: string;
+}
+
 const ProductRegistrationPage: React.FC = () => {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [productData, setProductData] = useState({
     name: '',
     description: '',
     price: '',
     inventory: '',
-    categories: [] as { id: string; name: string; description: string }[],
+    categories: [] as string[], 
   });
 
   const [images, setImages] = useState<File | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProductData((prevData) => ({
       ...prevData,
-      [name]: name === 'categories' ? value.split(',') : value,
+      [name]: value,
     }));
   };
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const selectedCategoryId = e.target.value;
+    setSelectedCategory(selectedCategoryId);
+  };
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
     setProductData((prevData) => ({
       ...prevData,
@@ -33,7 +46,7 @@ const ProductRegistrationPage: React.FC = () => {
     }));
   };
 
-  const handleImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const image = event.target.files[0];
       setImages(image);
@@ -43,13 +56,18 @@ const ProductRegistrationPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Check if a category is selected before updating the productData
+    const updatedProductData = selectedCategory
+      ? { ...productData, categories: [String(selectedCategory)] } // Converta o ID para uma string
+      : productData;
+
     const formData = new FormData();
-    formData.append('data', JSON.stringify(productData));
+    formData.append('data', JSON.stringify(updatedProductData));
 
     if (images) {
       formData.append('images', images);
     }
-
+  
     try {
       const response = await mainApiMultipart.post('/admin/product', formData);
 
@@ -72,7 +90,7 @@ const ProductRegistrationPage: React.FC = () => {
           },
         }).then(() => {
           window.location.reload();
-        });      
+        });
       } else {
         Swal.fire({
           icon: 'error',
@@ -96,6 +114,19 @@ const ProductRegistrationPage: React.FC = () => {
       }
     }
   };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await noHeader.get('/category');
+      setCategories(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar categorias:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <div>
@@ -146,21 +177,24 @@ const ProductRegistrationPage: React.FC = () => {
                 id="inventory"
                 name="inventory"
                 value={productData.inventory}
-                // multiple
                 onChange={handleInputChange}
               />
             </div>
             {/* <div>
               <label htmlFor="categories">Categorias:</label>
-              <input
-                type="text"
+              <select
                 id="categories"
                 name="categories"
-                value={productData.categories
-                  .map((category) => `${category.id}|${category.name}|${category.description}`)
-                  .join(',')}
-                onChange={handleInputChange}
-              />
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+              >
+                <option value="">Selecione uma categoria</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
             </div> */}
             <div>
               <label className="img-label" htmlFor="images">

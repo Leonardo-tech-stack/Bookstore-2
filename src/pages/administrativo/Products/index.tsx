@@ -78,7 +78,7 @@ const App: React.FC = () => {
                 allowEscapeKey: false,
                 showLoaderOnConfirm: true,
               }).then(() => {
-                window.location.reload();
+                // window.location.reload();
               });
             } else {
               console.error('Failed to delete product');

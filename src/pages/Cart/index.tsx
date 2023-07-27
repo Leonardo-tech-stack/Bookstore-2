@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import CartItem from '../../types/CartItem';
 import CuponBar from '../../components/Bars/CuponBar/CuponBar';
 import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
+import Swal from 'sweetalert2';
 import Book from '../../assets/images/Book-1.png';
 import { BarLoader } from 'react-spinners';
 import { Loading } from '../../styles/loading';
@@ -12,6 +13,7 @@ import { Body, Titulo, Vazio, Voltar, DivFlex, Div, Detalhes, Ul } from './style
 const CartPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -64,7 +66,16 @@ const CartPage: React.FC = () => {
       .post('/client/order', body)
       .then((response) => {
         console.log('Pedido gerado:', response.data);
-        // adicionar Swal / redirecionamento
+
+        setCartItems([]);
+
+        Swal.fire({
+          icon: 'success',
+          text: 'Pedido finalizado com sucesso!',
+          timer: 2000,
+        }).then(() => {
+          navigate('/pedidos');
+        });
       })
       .catch((error) => {
         console.error('Erro ao gerar pedido:', error);
