@@ -17,3 +17,5 @@ export const noHeader = axios.create({
   withCredentials: true,
 });
 
+export const getImageUrl = (filename: string) =>
+  `${noHeader.defaults.baseURL}/images/${filename}`;

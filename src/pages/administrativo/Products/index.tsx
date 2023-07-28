@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import ProductAPI from '../../../types/productAPI';
 import Category from '../../../types/Category';
-import { noHeader } from '../../../services/mainAPI/config';
+import { noHeader, getImageUrl } from '../../../services/mainAPI/config';
 import { Lista, Excluir, Tabela, Linha1, Linha2, TbTitulo, Unidade, NEncontrado } from './styles';
 import Modal from '../../../components/Modal';
 import { Loading } from '../../../styles/loading';
@@ -225,6 +225,10 @@ const App: React.FC = () => {
                   <Linha2 key={product.id}>
                     <Unidade className="img">
                       <img src={getImageUrl(product.image)} />
+                      {/* <img
+                        src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
+                        alt={``}
+                      /> */}
                     </Unidade>
                     <Unidade className="nome">
                       <h1>{product.name}</h1>

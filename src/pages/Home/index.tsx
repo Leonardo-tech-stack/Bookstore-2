@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductAPI from '../../types/productAPI';
 import { Body, Products, Desc } from './styles';
-import { noHeader } from '../../services/mainAPI/config';
+import { noHeader, getImageUrl } from '../../services/mainAPI/config';
 import Book from '../../assets/images/Book-1.png'
 
 const Home: React.FC = () => {
@@ -58,7 +58,11 @@ const Home: React.FC = () => {
           {getBannerProducts().map((product: ProductAPI, index: number) => (
             <div className={`product ${index === 1 ? 'middle-card' : ''}`} key={product.id}>
               <Link to={`/product/${product.id}`}>
-                <img src={Book} />
+                {/* <img
+                  src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
+                  alt={`Imagem do produto ${product.name}`}
+                /> */}
+                <img src={Book}></img>
                 <h1>{product.name}</h1>
                 <p>$ {product.price}</p>
               </Link>

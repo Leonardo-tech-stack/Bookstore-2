@@ -32,7 +32,6 @@ export default function Routes() {
       <Route path="/meus-dados" element={<UserData />} />
       <Route path="/cadastroadm" element={<RegisterAdm />} />
       <Route path="/cadastro-de-produto" element={<RegisterProduct />} />
-      {/* <Route path="/edit-product/:id" element={<EditProduct />} /> */}
       <Route path="/edit-product/:product_id" element={<EditProduct />} />
       <Route path="/lista-de-pedidos" element={<UsersRequests />} />
       <Route path="/lista-de-usuarios" element={<UserList />} />

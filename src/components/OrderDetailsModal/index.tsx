@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Order } from "../../types/Order";
 import ProductAPI from "../../types/productAPI";
+import { noHeader } from "../../services/mainAPI/config";
 import Book from "../../assets/images/Book-1.png";
 import { ModalContent, ModalOverlay } from "./styles";
 import { Div } from './styles';
@@ -26,12 +27,12 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
     const fetchProductsDetails = async () => {
       const productsIds = selectedOrder?.products.map((product) => product.productId) || [];
       const fetchedProducts: ProductAPI[] = [];
-
+  
       for (const productId of productsIds) {
         try {
-          const response = await fetch(`/product/${productId}`);
-          if (response.ok) {
-            const productData = await response.json();
+          const response = await noHeader.get(`/product/${productId}`);
+          if (response.status === 200) { 
+            const productData = response.data;
             fetchedProducts.push(productData);
           } else {
             console.error(`Error fetching product details for ID ${productId}`);
@@ -40,10 +41,10 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
           console.error(`Error fetching product details for ID ${productId}`, error);
         }
       }
-
+  
       setProductsDetails(fetchedProducts);
     };
-
+  
     if (isOpen && selectedOrder) {
       fetchProductsDetails();
       setNumProducts(selectedOrder.products.length);

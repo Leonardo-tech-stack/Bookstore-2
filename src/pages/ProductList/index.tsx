@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
-import { noHeader } from '../../services/mainAPI/config';
+import { noHeader, getImageUrl } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import Category from '../../types/Category';
 import Sobre from '../../components/About';
@@ -142,7 +142,11 @@ const ProductList: React.FC = () => {
                 <li key={product.id}>
                   <div className="products-container">
                     <Link to={`/product/${product.id}`}>
-                      <img src={Book} alt="Book" />
+                      {/* <img
+                        src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
+                        alt={`Imagem do produto ${product.name}`}
+                      /> */}
+                      <img src={Book}></img>
                       <h1 className="name">
                         <strong>{product.name}</strong>
                       </h1>

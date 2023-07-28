@@ -8,6 +8,7 @@ interface ProductAPI {
   category: string;
   categories: string[];
   image: string;
+  images: { id: number; filename: string; productId: number }[];
 }
 
 export default ProductAPI;
