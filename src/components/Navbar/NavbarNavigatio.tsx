@@ -1,10 +1,10 @@
 import { Disclosure, Menu } from '@headlessui/react';
 import { Bars3Icon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
-import { StyledIconWrapper, Login } from './styles';
+import { StyledIconWrapper } from './styles';
 import CartItemCount from '../CartCounter';
 
 interface CartResponse {
@@ -13,8 +13,12 @@ interface CartResponse {
 
 const navigation = [
   { name: 'Comprar', href: '/lista-de-produtos', current: true },
-  { name: 'Stories', href: '#', current: false },
-  { name: 'Sobre', href: '#', current: false },
+  { name: 'Login', href: '/login', current: false },
+  { name: 'Alterar Dados', href: '/meus-dados', current: false },
+  { name: 'Pedidos', href: '/pedidos', current: false },
+  // { name: 'Stories', href: '#', current: false },
+  // { name: 'Sobre', href: '#', current: false },
+  // { name: 'Sair', href: '/', action: handleLogout },
 ];
 
 function classNames(...classes: string[]) {
@@ -24,7 +28,22 @@ function classNames(...classes: string[]) {
 const NavbarNavigation: React.FC = ({}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cartItemCount, setCartItemCount] = useState<number>(0);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth >= 320 && window.innerWidth <= 480);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleSearch = () => {
     navigate(`/search-results?query=${encodeURIComponent(searchTerm)}`);
@@ -81,7 +100,7 @@ const NavbarNavigation: React.FC = ({}) => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-1 mr-10 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
                   <a href="/" className="text-white font-bold">
                     ChapterOne
@@ -105,16 +124,18 @@ const NavbarNavigation: React.FC = ({}) => {
                   </div>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className="relative">
+                  <div className="relative ml-2">
                     <button
                       type="button"
-                      className="ml-2 rounded-md bg-gray-800 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                      className="ml-1 rounded-md bg-gray-800 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                       onClick={handleSearch}
                     >
                       <MagnifyingGlassIcon className="absolute top-2 left-2 h-5 w-5 text-gray-400" aria-hidden="false" />
                     </button>
                     <input
-                      className="pl-8 pr-2 py-2 rounded-md text-sm bg-[#0D0D0D] text-white placeholder-gray-400"
+                      className={`pl-8 pr-2 py-2 rounded-md text-sm bg-[#0D0D0D] text-white placeholder-gray-400 ${
+                        isSmallScreen ? 'w-20' : 'w-50'
+                      }`}
                       type="text"
                       placeholder="Procurar produtos"
                       value={searchTerm}
@@ -138,69 +159,6 @@ const NavbarNavigation: React.FC = ({}) => {
                     </Link>
                   </StyledIconWrapper>
                 </button>
-
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3 d-flex justify-content-center">
-                  <Menu.Button className="flex rounded-full text-white font-bold  text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span className="sr-only">Open user menu</span>
-                    Minha Conta
-                  </Menu.Button>
-                  <Menu.Items className="absolute text-black font-bold right-0 mt-2 w-40 bg-black rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none"><Menu.Item>
-                      {({ active }) => (
-                        <Link
-                        to="/login"
-                        className={classNames(
-                          active ? 'text-white bg-gray-800' : 'text-white',
-                          'block px-4 py-2 text-sm'
-                        )}
-                        >
-                          Login
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link
-                          to="/meus-dados"
-                          className={classNames(
-                            active ? 'bg-gray-800 text-white' : 'text-white',
-                            'block px-4 py-2 text-sm'
-                          )}
-                        >
-                          Alterar Dados
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link
-                          to="/pedidos"
-                          className={classNames(
-                            active ? 'bg-gray-800 text-white' : 'text-white',
-                            'block px-4 py-2 text-sm'
-                          )}
-                        >
-                          Pedidos
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    {/* <Menu.Item>
-                      {({ active }) => (
-                          <a 
-                            href="/"
-                            type="button" 
-                            onClick={handleLogout}
-                            className={classNames(
-                              active ? 'bg-gray-800 text-white' : 'text-white',
-                              'block px-4 py-2 text-sm'
-                            )}
-                          >
-                            Sair
-                          </a>
-                      )}
-                    </Menu.Item> */}
-                  </Menu.Items>
-                </Menu>
               </div>
             </div>
           </div>

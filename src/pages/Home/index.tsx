@@ -8,8 +8,8 @@ import Book from '../../assets/images/Book-1.png';
 const Home: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
   const [bannerIndex, setBannerIndex] = useState(0);
-  // const bannerInterval = 6000;
-  const bannerInterval = 2000;
+  const bannerInterval = 6000;
+  // const bannerInterval = 2000;
 
   const getBannerProducts = () => {
     const isSmallScreen = window.innerWidth >= 320 && window.innerWidth <= 480;

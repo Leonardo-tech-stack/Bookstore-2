@@ -10,18 +10,3 @@ export const StyledIconWrapper = styled.div<{ itemCount: number }>`
     text-decoration: none;
   }
 `;
-
-export const CartItemCount = styled.span<{ itemCount: number }>`
-  position: absolute;
-  top: 0px;
-  right: 5px;
-  background-color: ${colors.bgButton};
-  color: #fff;
-  border-radius: 50%;
-  padding: ${({ itemCount }) => (itemCount > 9 ? '2px 4px' : '2px 9px')};
-  left: ${({ itemCount }) => (itemCount > 9 ? '31px' : '33px')};
-`;
-
-export const Login = styled(Link)`
-  color: white;
-`;
