@@ -23,6 +23,10 @@ margin-left: 20%;
     font-size: 1.6rem;
     font-weight: 600;
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-left: 7%;
+  }
 `;
 
 export const PDiv = styled.div`
@@ -33,5 +37,11 @@ margin-bottom: 3%;
   p {
     font-size: 1.1rem;
     line-height: 1.6;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 80%;
+    margin-bottom: 9%;
+    margin-left: 7%;
   }
 `;

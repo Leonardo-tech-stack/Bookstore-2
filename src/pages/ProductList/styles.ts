@@ -42,6 +42,40 @@ margin: 2% 0;
     border: 1px solid ${colors.bgButton};
     border-radius: 35px;
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+
+    .filter {
+      margin-top: 8%;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    li {
+      display: flex;
+      justify-content: center;
+      margin: 0 2%;
+
+      h1 {
+        font-size: 1rem;
+        margin: 2% 0;
+      }
+    }
+
+    .products-container {
+      margin: 10% 0;
+    }
+
+    img {
+      max-width: 18rem;
+      max-height: 20rem;
+      border-radius: 15px;
+      margin: auto;
+    }
+  }
 `;
 
 export const Limiter = styled.div`

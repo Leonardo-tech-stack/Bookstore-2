@@ -1,16 +1,11 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { AxiosError } from 'axios';
 import { mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
+import Category from '../../../types/Category';
 import { Flex, Div, Title, Form } from './styles';
 import Produto from '../../../assets/images/produto.png';
 import Modal from '../../../components/Modal';
 import Swal from 'sweetalert2';
-
-interface Category {
-  id: string;
-  name: string;
-  description: string;
-}
 
 const ProductRegistrationPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -56,9 +51,8 @@ const ProductRegistrationPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check if a category is selected before updating the productData
     const updatedProductData = selectedCategory
-      ? { ...productData, categories: [String(selectedCategory)] } // Converta o ID para uma string
+      ? { ...productData, categories: [String(selectedCategory)] } 
       : productData;
 
     const formData = new FormData();

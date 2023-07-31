@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ProductAPI from '../../../types/productAPI';
 import { mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
 
+// Interface para representar os tipos esperados do objeto formData
+interface FormDataInterface {
+  name: string;
+  description: string;
+  price: string;
+  inventory: string;
+}
+
 const EditProductPage: React.FC = () => {
   const { product_id } = useParams<{ product_id: string }>();
   const [product, setProduct] = useState<ProductAPI | null>(null);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataInterface>({
     name: '',
     description: '',
     price: '',
     inventory: '',
   });
-
+  const [images, setImages] = useState<File | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,19 +45,25 @@ const EditProductPage: React.FC = () => {
     fetchProductDetails();
   }, [product_id]);
 
-  // Função para lidar com as mudanças nos campos do formulário
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = event.target;
-    console.log(`Handling input change for "${name}": ${value}`);
-    setFormData({
-      ...formData,
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const updatedProduct = {
+  const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const image = event.target.files[0];
+      setImages(image);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const updatedProductData = {
       data: {
         name: formData.name,
         description: formData.description,
@@ -58,22 +72,25 @@ const EditProductPage: React.FC = () => {
       },
     };
 
-    console.log('Submitting form with updated product:', updatedProduct);
+    const formDataToSend = new FormData();
+    formDataToSend.append('data', JSON.stringify(updatedProductData));
 
-    mainApiMultipart
-      .put(`/admin/product/${product_id}`, updatedProduct)
-      .then((response) => {
-        console.log('Response from the server:', response);
-        if (response.status === 200) {
-          console.log('Produto atualizado com sucesso!');
-          // navigate('/homeadm');
-        } else {
-          console.error('Erro ao atualizar o produto');
-        }
-      })
-      .catch((error) => {
-        console.error('Erro ao atualizar o produto:', error);
-      });
+    if (images) {
+      formDataToSend.append('images', images);
+    }
+
+    try {
+      const response = await mainApiMultipart.put(`/admin/product/${product_id}`, formDataToSend);
+
+      if (response.status === 200) {
+        console.log('Produto atualizado com sucesso!');
+        // navigate('/homeadm');
+      } else {
+        console.error('Erro ao atualizar o produto');
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar o produto:', error);
+    }
   };
 
   return (
@@ -115,6 +132,10 @@ const EditProductPage: React.FC = () => {
               value={formData.inventory}
               onChange={handleInputChange}
             />
+          </div>
+          <div>
+            <label>Imagem:</label>
+            <input type="file" onChange={handleImagesChange} />
           </div>
           <button type="submit">Salvar Alterações</button>
         </form>

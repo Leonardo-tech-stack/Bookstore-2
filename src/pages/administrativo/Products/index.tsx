@@ -47,10 +47,6 @@ const App: React.FC = () => {
     }
   };
 
-  const getImageUrl = (filename: string) => {
-    return `/images/${filename}`;
-  };
-
   const handleDeleteProduct = (id: number) => {
     Swal.fire({
       title: 'Tem certeza?',

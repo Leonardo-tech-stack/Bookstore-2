@@ -9,6 +9,10 @@ export const Body = styled.body`
   background-size: cover; */
   background-color: ${colors.fundo};
   height: 1400px;
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    height: 900px;
+  }
 `;
 
 export const Products = styled.div`
@@ -63,6 +67,34 @@ export const Products = styled.div`
     border: 1px solid ${colors.bgButton};
     border-radius: 35px;
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+
+    .products-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .product {
+      display: flex;
+      justify-content: center;
+      width: 100vw;
+
+      h1, p {
+        font-size: 1.5rem;
+      }
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    img {
+      max-width: 16rem;
+      height: 22rem;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export const Desc = styled.div`
@@ -93,6 +125,19 @@ export const Desc = styled.div`
 
     &:hover {
       box-shadow: 0px 2px 4px #000;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    p, span {
+      font-size: 0.8rem;
+      margin-top: 5px;
+    }
+
+    button {
+      font-size: 0.8rem;
+      height: 45px;
+      width: 85px;
     }
   }
 `;
