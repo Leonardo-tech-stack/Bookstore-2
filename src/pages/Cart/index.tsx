@@ -180,35 +180,35 @@ const CartPage: React.FC = () => {
                 <a href="/lista-de-produtos">Não está pronto para finalizar a compra? Continue comprando</a>
               </Voltar>
               <DivFlex>
-              <div>
-                {cartItems.map((item, index) => (
-                  <Div key={index}>
-                  <Ul>
-                    <li>
-                      <div>
-                        {/* <img src={item.product.image} /> */}
-                        <img src={Book} />
-                      </div>
+                <div>
+                  {cartItems.map((item, index) => (
+                    <Div key={index}>
+                      <Ul>
+                        <li>
+                          <div>
+                            {/* <img src={item.product.image} /> */}
+                            <img src={Book} />
+                          </div>
 
-                      <div className="strings">
-                        <p><strong>Produto: </strong>{item.product.name}</p>
-                        <p><strong>Preço: </strong>${item.product.price}</p>
-                        <p>
-                          <strong>Quantidade: </strong>
-                          <button className="less" onClick={() => handleDecreaseQuantity(item.product.id)}>-</button>
-                          <span>{item.quantity}</span>
-                          <button onClick={() => handleIncreaseQuantity(item.product.id)}>+</button>
-                        </p>
-                      </div>
-                    </li>
-                  </Ul>
+                          <div className="strings">
+                            <p><strong>Produto: </strong>{item.product.name}</p>
+                            <p><strong>Preço: </strong>${item.product.price}</p>
+                            <p>
+                              <strong>Quantidade: </strong>
+                              <button className="less" onClick={() => handleDecreaseQuantity(item.product.id)}>-</button>
+                              <span>{item.quantity}</span>
+                              <button onClick={() => handleIncreaseQuantity(item.product.id)}>+</button>
+                            </p>
+                          </div>
+                        </li>
+                      </Ul>
 
-                  <div className="remove">
-                    <button onClick={() => handleRemoveFromCart(item.product.id)}>X Remover</button>
-                  </div>
-                </Div>
-              ))}
-              </div>
+                      <div className="remove">
+                        <button onClick={() => handleRemoveFromCart(item.product.id)}>X Remover</button>
+                      </div>
+                    </Div>
+                  ))}
+                </div>
               
                 <Detalhes>
                   <div className="details"> 

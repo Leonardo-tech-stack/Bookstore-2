@@ -43,5 +43,9 @@ margin-bottom: 3%;
     width: 80%;
     margin-bottom: 9%;
     margin-left: 7%;
+
+    p {
+      font-size: 1rem;
+    }
   }
 `;

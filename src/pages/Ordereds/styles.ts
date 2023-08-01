@@ -15,6 +15,12 @@ export const Title = styled.h2`
         font-size: 1.6rem;
         font-weight: 500;
     }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        justify-content: left;
+        margin-left: 4%;
+        margin-bottom: 8%;
+    }
 `;
 
 export const Pedidos = styled.div`
@@ -22,7 +28,6 @@ export const Pedidos = styled.div`
     justify-content: center;
     flex-wrap: wrap;
     align-items: baseline;
-    /* width: 85%; */
 
     .all {
         display: flex;
@@ -73,10 +78,6 @@ export const Pedidos = styled.div`
             width: 100%;
             padding: 12px 70px;
             border-bottom: 1px solid ${colors.bgButton};
-
-            b {
-                
-            }
         }
     }
 
@@ -119,7 +120,6 @@ export const Pedidos = styled.div`
             font-weight: 500;
             color: white;
             background-color: ${colors.warning};   
-            /* background-color: ${colors.principal}; */
             border-radius: 10px;
 
             &:hover {
@@ -128,6 +128,57 @@ export const Pedidos = styled.div`
             }
         }
     } 
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        .all {
+            width: 93%;
+            font-size: 1rem;
+            margin-bottom: 12%;
+        }
+
+        table {
+            td {
+                padding: 12px 40px;
+            }
+        }
+
+        .img {
+            width: 25%;
+            padding: 2px 5px 2px 3px;
+
+            img {
+                width: 100%;
+                padding: 1px;
+                border-radius: 5px;
+            }
+        }
+
+        .name {
+            right: -3%;
+            width: 26%;
+            padding: 5px 18px 5px 0px;
+            border-right: 1px solid ${colors.bgButton};
+        }
+
+        .price {
+            width: 25%;
+            padding: 5px 2px 5px 6px;
+            border-right: 1px solid ${colors.bgButton};
+
+        }
+
+        .quantity {
+            width: 25%;
+            padding: 10px 0px 10px 30px;
+        }
+
+        .cancel {
+
+            button {
+                width: 45%;
+            }
+        } 
+    }
 `;
 
 export const Margin = styled.div`
