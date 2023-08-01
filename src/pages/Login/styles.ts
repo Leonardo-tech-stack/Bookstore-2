@@ -11,6 +11,10 @@ background-color: ${colors.fundo};
 export const Main = styled.main`
 width: 42rem;
 margin: 8% 0;
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+   width: 85%;
+}
 `;
 
 export const Form = styled.form`
@@ -46,6 +50,7 @@ margin-top: 5%;
       width: 2%;
       margin-left: 15%;
       margin-right: 1%;
+      color: red;
 
       &:hover {
          cursor: pointer;
@@ -70,14 +75,56 @@ margin-top: 5%;
       margin-top: 2%;
       margin-left: 15%;
    }
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+      height: 27.3rem;
+
+      .form-control {
+         margin-left: 6%;
+      }
+
+      input {
+         width: 65%;
+      }
+
+      .checkbox {
+         display: flex;
+         flex-direction: column;
+
+         input {
+            width: 20px;
+            margin: 0;
+         }
+
+         label {
+            margin-left: 2%;
+         }
+
+         .remember {
+            margin: 10% 0;
+            margin-left: 6%;
+         }
+
+         .esqueceu-a-senha {
+            margin-left: 6%;
+            margin-top: 2%;
+         }
+      }
+
+   }
 `;
 
-export const H1 = styled.h1`
+export const H2 = styled.h2`
 font-size: 1.6rem;
 font-weight: 600;
 margin-top: 9%;
 margin-bottom: 10%;
 margin-left: 15%;
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+   margin-left: 6%;
+}
+
 `;
 
 export const Validation = styled.p`
@@ -92,8 +139,12 @@ color: red;
 
       &:hover{
          text-decoration: underline;
-         
       }
+   }
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-left: 6%;
+      margin-bottom: 5%;
    }
 `;
 
@@ -110,6 +161,11 @@ margin-left: 15%;
    &:hover{
       transition: 0.5s;
       background-color: ${props => lighten(0.11, colors.principal)};
+   }
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-top: 1%;
+      margin-left: 53%;
    }
 `;
 
@@ -130,5 +186,9 @@ justify-content: center;
             text-decoration: underline;
          }
       }
+   }
+
+   @media only screen and (min-width: 320px) and (max-width: 480px) {
+      margin-left: 6%;
    }
 `;

@@ -1,7 +1,7 @@
 import React, { FormEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { mainApiJson } from "../../services/mainAPI/config";
-import { Body, Logar, Register, Form, H1, Validation, Main } from "./styles";
+import { Body, Logar, Register, Form, H2, Validation, Main } from "./styles";
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState("");
@@ -56,7 +56,7 @@ export default function Login(): JSX.Element {
     <Body>
       <Main className="container-card">
         <Form onSubmit={submit}>
-          <H1>Login</H1>
+          <H2>Login</H2>
           {isInvalidLogin && (
             <Validation>
               Cadastro não encontrado. Verifique suas credenciais ou
@@ -81,21 +81,25 @@ export default function Login(): JSX.Element {
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
-          <div>
-            <input
-              type="checkbox"
-              className="remember"
-              checked={rememberMe}
-              onChange={(event) => setRememberMe(event.target.checked)}
-            />
-            <label>Lembre-me</label>
-            <a className="esqueceu-a-senha" title="Desabilitado">esqueceu a senha?</a>
+          <div className="checkbox">
+            <div>
+              <input
+                type="checkbox"
+                className="remember"
+                checked={rememberMe}
+                onChange={(event) => setRememberMe(event.target.checked)}
+              />
+              <label>Lembre-me</label>
+            </div>
+            {/* <a className="esqueceu-a-senha" title="Desabilitado">esqueceu a senha?</a> */}
           </div>
           <div>
             {isLoading ? (
               <p className="loading"><strong>Realizando login...</strong></p>
             ) : (
-              <Logar type="submit">Logar</Logar>
+              <Logar>
+                <button type="submit">Logar</button>
+              </Logar>
             )}
           </div>
         </Form>
