@@ -97,7 +97,9 @@ const AdminRegistrationPage: React.FC = () => {
               <label htmlFor="password">Senha:</label>
               <input type="password" id="password" placeholder="senha" required={true} onChange={handlePasswordChange} />
             </div>
-            <button type="submit">Cadastrar</button>
+            <div className='button'>
+              <button type="submit">Cadastrar</button>
+            </div>
           </Form>
         </Div>
       </Flex>

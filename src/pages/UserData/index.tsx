@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import User from '../../types/User';
-import { Flex, Form, Title, Div } from '../administrativo/AdmRegister/styles';
-import { Alternate } from './styles';
+import { Flex, Form, Title, Div, Alternate } from './styles';
 import Swal from 'sweetalert2';
 
 const UserPage: React.FC = () => {
@@ -17,6 +16,7 @@ const UserPage: React.FC = () => {
 
   const navigate = useNavigate();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [showUpdateButton, setShowUpdateButton] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -65,10 +65,12 @@ const UserPage: React.FC = () => {
 
   const handleDeleteConfirmation = () => {
     setConfirmDelete(true);
+    setShowUpdateButton(false); 
   };
 
   const handleDeleteCancel = () => {
     setConfirmDelete(false);
+    setShowUpdateButton(true); 
   };
 
   const handleDeleteUser = async () => {
@@ -120,19 +122,23 @@ const UserPage: React.FC = () => {
               />
             </div>
             <Alternate>
-              <button className="update" type="submit">Atualizar Dados</button>
+              <div className="button">
+                {showUpdateButton && (
+                  <button className="update" type="submit">Atualizar Dados</button>
+                )}
 
-              {confirmDelete ? (
-                <div>
-                  <p>Tem certeza de que deseja excluir o cadastro?</p>
-                  <Alternate>
-                    <button onClick={handleDeleteUser}>Sim</button>
-                    <button onClick={handleDeleteCancel}>Não</button>
-                  </Alternate>
-                </div>
-              ) : (
-                <button onClick={handleDeleteConfirmation}>Excluir Cadastro</button>
-              )}
+                {confirmDelete ? (
+                  <div>
+                    <p>Tem certeza de que deseja excluir o cadastro?</p>
+                    <Alternate>
+                      <button onClick={handleDeleteUser}>Sim</button>
+                      <button onClick={handleDeleteCancel}>Não</button>
+                    </Alternate>
+                  </div>
+                ) : (
+                  <button className="delete" onClick={handleDeleteConfirmation}>Excluir Cadastro</button>
+                )}
+              </div>
             </Alternate>
           </Form>
         </Div>
