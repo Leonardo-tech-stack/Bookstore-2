@@ -4,7 +4,8 @@ import { BarLoader } from 'react-spinners';
 import ProductAPI from '../../types/productAPI';
 import { Loading } from '../../styles/loading';
 import Book from '../../assets/images/Book-1.png'
-import { Body, Title, Pedidos, Margin, Vazio } from './styles';
+import { Body, Title, Pedidos, Margin } from './styles';
+import { Vazio } from '../Cart/styles';
 import Swal from 'sweetalert2';
 
 const OrderPage: React.FC = () => {
@@ -95,9 +96,11 @@ const OrderPage: React.FC = () => {
         </Loading>
       ) : (
         <Body>
-          <Title>
-            <h2>Meus Pedidos</h2>
-          </Title>
+          {orders.length > 0 && (  
+            <Title>
+              <h2>Meus Pedidos</h2>
+            </Title>
+          )}
 
           <Pedidos>
             {orders.length > 0 ? (
@@ -111,9 +114,6 @@ const OrderPage: React.FC = () => {
                       <strong>Cupom: </strong>
                       {order.couponId}
                     </p> */}
-                    {/* <h3>
-                      <strong>Produtos:</strong>
-                    </h3> */}
                   </div>
                   <table>
                     <thead>
@@ -153,7 +153,6 @@ const OrderPage: React.FC = () => {
                         <td>
                           <b>Total</b>
                         </td>
-                        {/* <td/> */}
                         <td>
                           <b>R${order.totalValue}</b>
                         </td>

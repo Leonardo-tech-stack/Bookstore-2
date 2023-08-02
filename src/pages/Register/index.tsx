@@ -8,8 +8,6 @@ import { DivForm, Cadastrar } from "./styles";
 import Swal from "sweetalert2";
 
 export default function CadastroCliente() {
-  const [passwordError, setPasswordError] = useState<string>("");
-
   const navigate = useNavigate();
 
   async function criarCadastro(values: {
@@ -52,15 +50,15 @@ export default function CadastroCliente() {
           validate={(values) => {
             const errors: any = {};
             if (!values.name) {
-              errors.name = "O nome é obrigatório";
+              errors.name = "O nome é obrigatório.";
             } else if (values.name.trim().split(" ").length < 2) {
               errors.name = "Insira o nome completo.";
             }
 
             if (!values.email) {
-              errors.email = "O email é obrigatório";
+              errors.email = "O email é obrigatório.";
             } else if (!/^\S+@\S+\.\S+$/.test(values.email)) {
-              errors.email = "Insira um email válido";
+              errors.email = "Insira um email válido.";
             }
 
             if (values.password !== values.confirmPassword) {

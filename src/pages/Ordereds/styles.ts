@@ -4,6 +4,10 @@ import { colors } from "../../styles/themes";
 
 export const Body = styled.div`
     margin-bottom: 5%;
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        margin-bottom: 17%;
+    }
 `;
 
 export const Title = styled.h2`
@@ -183,34 +187,4 @@ export const Pedidos = styled.div`
 
 export const Margin = styled.div`
     margin: 4% 0;
-`;
-
-export const Vazio = styled.div`
-  text-align: center;
-  padding: 7% 0%;
-
-  p {
-    font-size: 2rem;
-    margin-bottom: 15%;
-  }
-
-  a {
-    border: none;
-    font-weight: 500;
-
-    button {
-        padding: 10px 60px;
-        border: none;
-        background-color: ${colors.principal};
-        color: #fff;
-        font-size: 1.6rem;
-        margin-bottom: 15%;
-
-        &:hover {
-            transition: 0.5s;
-            background-color: ${props => lighten(0.07, colors.principal)};
-            cursor: pointer;
-        }
-    }
-  }
 `;

@@ -52,6 +52,33 @@ margin-top: 5%;
         margin-left: 15%;
     }
 
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        height: 33rem;
+
+        h2 {
+            margin-left: 10%;
+        }
+
+        .form-control {
+            margin-left: 10%;
+        }
+
+        label {
+            display: none;
+        }
+
+        input {
+            width: 89%;
+        }
+
+        #confirm {
+            width: 89%;
+        }
+
+        .error-message {
+            margin-left: 10%;
+        }
+    }
 `;
 
 export const Cadastrar = styled.button`
@@ -69,5 +96,10 @@ cursor: pointer;
     &:hover{
       transition: 0.5s;
       background-color: ${props => lighten(0.11, colors.principal)};
+    }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 69%;
+        margin-top: 15%;
     }
 `;

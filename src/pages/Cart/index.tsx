@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
 import CartItem from '../../types/CartItem';
 import CuponBar from '../../components/Bars/CuponBar/CuponBar';
-import NavbarNavigation from '../../components/Navbar/NavbarNavigatio';
 import Footer from '../../components/Footer/Footer';
 import Swal from 'sweetalert2';
 import Book from '../../assets/images/Book-1.png';

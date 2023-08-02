@@ -91,14 +91,14 @@ export const Vazio = styled.div`
     margin-top: 15%;
 
     p {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         margin-bottom: 15%;
     }
 
     a {
         button {
         padding: 5px 10px;
-        font-size: 1rem;
+        font-size: 1.5rem;
         }
     }
   }
