@@ -13,6 +13,13 @@ export const Li = styled.li`
     margin: 6% 5%;
     border-bottom: 1px solid white;
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-top: -115px;
+    a {
+      width: 60%;
+    }
+  }
 `;
 
 export const Logout = styled.button`
@@ -30,6 +37,11 @@ export const ArrowButton = styled.button`
   background-color: #0d0d0d;
   color: white;
   padding: 0.2% 0.6%;
+  
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 65%;
+    padding: 4% 2%;
+  }
 `;
 
 export const ModalContent = styled.div<{ isOpen: boolean }>`
@@ -50,6 +62,14 @@ export const ModalContent = styled.div<{ isOpen: boolean }>`
     margin-top: 20%;
     border: 1px solid white;
     padding: 15px 20px;
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 100vw;
+
+    .back {
+      margin-left: 88%;
+    }
   }
 `;
 

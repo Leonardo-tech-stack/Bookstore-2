@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import ProductAPI from '../../../types/productAPI';
 import Category from '../../../types/Category';
 import { noHeader, getImageUrl } from '../../../services/mainAPI/config';
-import { Lista, Excluir, Tabela, Linha1, Linha2, TbTitulo, Unidade, NEncontrado } from './styles';
+import { Lista, Table, Tr, Tr2, Th, Td, NEncontrado } from './styles';
 import Modal from '../../../components/Modal';
 import { Loading } from '../../../styles/loading';
 import Book from '../../../assets/images/Book-1.png';
@@ -13,8 +14,9 @@ import Swal from 'sweetalert2';
 const App: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [productsPerPage] = useState<number>(10);
+  const [productsPerPage, setProductsPerPage] = useState<number>(10); 
   const [filteredProducts, setFilteredProducts] = useState<ProductAPI[]>([]);
+  const [originalProducts, setOriginalProducts] = useState<ProductAPI[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,6 +26,7 @@ const App: React.FC = () => {
   useEffect(() => {
     fetchProducts();
     fetchCategories();
+    setProductsPerPage(window.innerWidth >= 320 && window.innerWidth <= 480 ? 6 : 10);
   }, []);
 
   const fetchProducts = async () => {
@@ -31,11 +34,12 @@ const App: React.FC = () => {
       const response = await noHeader.get('/product');
       const data = response.data;
       setProducts(data);
-      setIsLoading(false); 
+      setOriginalProducts(data); 
+      setIsLoading(false);
     } catch (error) {
       console.error('Error fetching products:', error);
     }
-  };
+  };  
   
   const fetchCategories = async () => {
     try {
@@ -147,8 +151,9 @@ const App: React.FC = () => {
       setCurrentPage(1);
     } catch (error) {
       console.error('Error searching products:', error);
+      setProducts(originalProducts); 
     }
-  };
+  };  
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -170,10 +175,20 @@ const App: React.FC = () => {
       ) : (
         <>
           <Lista>
-            <h2>Lista de Produtos</h2>
 
             <div className="search">
               
+              <div className="search-bar">
+                <input
+                  type="text"
+                  placeholder="Pesquisar por nome"
+                  value={searchTerm}
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPress}
+                />
+                <button className="searchBtn" onClick={handleSearch}>Pesquisar</button>
+              </div>
+
               <div className='filter'>
                 <p>Filtrar por categoria: </p>
                 <select
@@ -192,61 +207,55 @@ const App: React.FC = () => {
                 </select>
               </div>
 
-              <Link to={`/cadastro-de-produto`}>
+              <Link className="register" to={`/cadastro-de-produto`}>
                 <button>Adicionar produtos</button>
               </Link>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Pesquisar por nome"
-                  value={searchTerm}
-                  onChange={handleInputChange}
-                  onKeyPress={handleKeyPress}
-                />
-                <button className="searchBtn" onClick={handleSearch}>Pesquisar</button>
-              </div>
             </div>
-            
-            {filteredProducts.length > 0 ? (
-              <Tabela>
-                <Linha1>
-                  <TbTitulo className="t-img"></TbTitulo>
-                  <TbTitulo className="t-nome">Nome</TbTitulo>
-                  <TbTitulo className="t-valor">Valor (R$)</TbTitulo>
-                  <TbTitulo className="t-quantidade">Quantidade em estoque</TbTitulo>
-                  <TbTitulo className="t-ações">Ações</TbTitulo>
-                </Linha1>
 
-                {filteredProducts.map((product: ProductAPI) => (
-                  <Linha2 key={product.id}>
-                    <Unidade className="img">
-                      <img src={getImageUrl(product.image)} />
-                      {/* <img
-                        src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
-                        alt={``}
-                      /> */}
-                    </Unidade>
-                    <Unidade className="nome">
-                      <h1>{product.name}</h1>
-                    </Unidade>
-                    <Unidade className="valor">
-                      <p>{product.price}</p>
-                    </Unidade>
-                    <Unidade className="quantidade">
-                      <p>{product.inventory}</p>
-                    </Unidade>
-                    <Unidade>
-                      {/* <Link to={`/edit-product/${product.id}`}>
-                        <button>Editar</button>
-                      </Link> */}
-                      <button title="Desabilitado">Editar</button>
-                      <Excluir className="btn-excluir" onClick={() => handleDeleteProduct(product.id)}>
-                        Excluir
-                      </Excluir>
-                    </Unidade>
-                  </Linha2>
-                ))}
-              </Tabela>
+            {filteredProducts.length > 0 ? (
+              <Table>
+                <tbody>
+                  <tr className="t-titulo">
+                    <Th colSpan={5}>
+                      <h2>Lista de produtos</h2>
+                    </Th>
+                  </tr>
+                  <Tr>
+                    <Th className="t-img"></Th>
+                    <Th className="t-nome">Nome</Th>
+                    <Th className="t-valor">Valor (R$)</Th>
+                    <Th className="t-quantidade">Quantidade em estoque</Th>
+                    <Th className="t-ações">Ações</Th>
+                  </Tr>
+
+                  {filteredProducts.map((product: ProductAPI) => (
+                    <Tr2 key={product.id}>
+                      <Td className="img">
+                        <img src={getImageUrl(product.image)} />
+                        {/* <img
+                          src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
+                          alt={``}
+                        /> */}
+                      </Td>
+                      <Td className="nome">
+                        <h1>{product.name}</h1>
+                      </Td>
+                      <Td className="valor">
+                        <p>{product.price}</p>
+                      </Td>
+                      <Td className="quantidade">
+                        <p>{product.inventory}</p>
+                      </Td>
+                      <Td>
+                        <div className="ações">
+                          <FaEdit className="btn-editar" title="Editar (desabilitado)" />
+                          <FaTrash className="btn-excluir" title="Excluir" onClick={() => handleDeleteProduct(product.id)} />
+                        </div>
+                      </Td>
+                    </Tr2>
+                  ))}
+                </tbody>
+              </Table>
             ) : (
               <NEncontrado>Nenhum produto encontrado.</NEncontrado>
             )}

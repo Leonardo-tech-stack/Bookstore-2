@@ -5,10 +5,14 @@ import { colors } from '../../../styles/themes';
 export const Lista = styled.div`
 height: 100vh;
 
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin: 2% 14%;
+  .t-titulo {
+    background-color: ${colors.titulo};
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0.6% 0;
+    }
   }
 
   .page-numbers {
@@ -31,7 +35,7 @@ height: 100vh;
   .search {
     display: flex;
     justify-content: space-evenly;
-    margin-bottom: 1%;
+    margin-top: 3%;
 
     .filter {
       display: flex;
@@ -75,18 +79,95 @@ height: 100vh;
       margin-right: 1%;
     }
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    margin-top: 40px;
+    margin-bottom: 500px;
+
+    .search {
+      width: 100%;
+      margin: 5%;
+      padding-right: 9%;
+
+      .search-bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+      }
+
+      .register {
+        display: none;
+      }
+
+      .filter {
+        justify-content: end;
+        width: 100%;
+        margin-bottom: 2%;
+
+        p {
+          width: 30%;
+        }
+
+        select {
+          margin-left: 15%;
+        }
+      }
+
+      div {
+        width: 100%;
+      }
+
+      a, .searchBtn {
+        padding: 3px 8px;
+        margin-bottom: 15%;
+      }
+    }
+
+    div {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+
+      a,
+      .searchBtn {
+        margin-top: 1%;
+      }
+
+      input {
+        margin-top: 1%;
+      }
+    }
+
+    .page-numbers {
+      margin-left: 5%;
+      margin-top: 10%;
+
+      button {
+        padding: 2% 4.5%;
+        margin-right: 0.8rem; 
+        margin-bottom: 5%;
+        margin-right: 5%;
+      }
+    }
+  }
 `;
 
-export const Tabela = styled.table`
+export const Table = styled.table`
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 2%;
   margin-bottom: 5%;
   border-collapse: collapse;
   border: 1px solid ${colors.bgButton};
   /* background-color: ${colors.fundo}; */
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    max-width: 95%;
+    overflow: auto;
+  }
 `;
 
-export const Linha1 = styled.tr`
+export const Tr = styled.tr`
 border-right: 1px solid ${colors.bgButton};
 background-color: ${colors.titulo};
 
@@ -105,9 +186,23 @@ background-color: ${colors.titulo};
   .t-ações {
     padding: 1.25rem 3.75rem;
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .t-img,
+    .t-nome,
+    .t-ações {
+      padding: 0.6rem 0.3rem;
+    }
+
+    .t-valor,
+    .t-quantidade {
+      display: none;
+    }
+  }
+
 `;
 
-export const Linha2 = styled.tr`
+export const Tr2 = styled.tr`
 border-right: 1px solid ${colors.bgButton};
 background-color: ${colors.fundo};
 
@@ -116,41 +211,45 @@ background-color: ${colors.fundo};
     font-size: 1.1rem;
     font-weight: 500;
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    .img,
+    .nome {
+      padding: 10px 15px;
+    }
+
+    .valor,
+    .quantidade {
+      display: none;
+    }
+  }
 `;
 
-export const TbTitulo = styled.th`
+export const Th = styled.th`
   font-size: 1.2rem;
   font-weight: 600;
   border-bottom: 1px solid ${colors.bgButton};
 `;
 
-export const Unidade = styled.td`
+export const Td = styled.td`
   border-bottom: 1px solid ${colors.bgButton};
 
-  button {
-    padding: 3px 12px;
-    margin-left: 6%;
-    font-weight: 500;
-    color: white;
-    /* background-color: #f3a43e; */   //cor 1
-    background-color: #ebe5e5;
-    border-radius: 14px;
-  } 
-`;
+  .ações {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 
-export const Excluir = styled.button`
-   
-  &.btn-excluir {
-    padding: 3px 8px;
-    margin-left: 6%;
-    font-weight: 500;
-    background-color: ${colors.principal};
-    color: white;
-    border-radius: 14px;
+    .btn-editar,
+    .btn-excluir {
+      margin-right: 10px;
+      font-size: 21px; 
+      cursor: pointer;
+      color: ${colors.principal};
+      transition: color 0.3s;
 
-    &:hover {
-      transition: 0.5s;
-      background-color: ${props => lighten(0.11, colors.principal)};
+      &:hover {
+        color: ${props => lighten(0.11, colors.principal)};
+      }
     }
   }
 `;
@@ -161,4 +260,8 @@ export const NEncontrado = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   margin-top: 7%;
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    text-align: center;
+  }
 `;

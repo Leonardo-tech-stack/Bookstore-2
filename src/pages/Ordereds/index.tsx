@@ -4,8 +4,7 @@ import { BarLoader } from 'react-spinners';
 import ProductAPI from '../../types/productAPI';
 import { Loading } from '../../styles/loading';
 import Book from '../../assets/images/Book-1.png'
-import { Body, Title, Pedidos, Margin } from './styles';
-import { Vazio } from '../Cart/styles';
+import { Body, Title, Pedidos, Margin, Vazio } from './styles';
 import Swal from 'sweetalert2';
 
 const OrderPage: React.FC = () => {
