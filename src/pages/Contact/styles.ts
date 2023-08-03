@@ -47,4 +47,20 @@ border-radius: 35px;
         width: 4rem;
         height: 4rem;
     }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 85%;
+
+        div {
+            a {
+                &:focus {
+                    box-shadow: 0px 2px 4px #000;
+                }
+
+                strong {
+                    margin-left: 10%;
+                }
+            }
+        }
+    }
 `;

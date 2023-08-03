@@ -94,8 +94,8 @@ label {
         border-radius: 30px;
 
         &:hover {
-        transition: 0.5s;
-        background-color: ${props => lighten(0.11, colors.principal)};
+            transition: 0.5s;
+            background-color: ${props => lighten(0.11, colors.principal)};
         }
     }
 }

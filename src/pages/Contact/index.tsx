@@ -13,7 +13,7 @@ export default function Contato() {
                     className="text-gray-400 hover:text-black"
                     >
                         <img src={Linkedin} alt="linkedin" />
-                        <strong>Linkedin</strong>
+                        <strong>LinkedIn</strong>
                     </a>
                 </div>
 
