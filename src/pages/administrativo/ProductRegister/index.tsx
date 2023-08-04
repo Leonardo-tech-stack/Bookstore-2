@@ -190,13 +190,15 @@ const ProductRegistrationPage: React.FC = () => {
                 ))}
               </select>
             </div> */}
-            <div>
+            <div className='img'>
               <label className="img-label" htmlFor="images">
                 Imagem:
               </label>
               <input type="file" id="images" onChange={handleImagesChange} />
             </div>
-            <button type="submit">Cadastrar</button>
+            <div className="register">
+              <button type="submit">Cadastrar</button>
+            </div>
           </Form>
         </Div>
       </Flex>

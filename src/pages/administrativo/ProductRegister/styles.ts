@@ -15,6 +15,17 @@ img {
     margin-left: -25%;
     margin-top: 21%;
 }
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 100%;
+    margin: 10% 0;
+    margin-left: 10%;  
+    /* font-size: 1rem; */
+
+    img {
+        display: none;
+    }
+}
 `;
 
 export const Div = styled.div`
@@ -24,6 +35,12 @@ margin-left: -15%;
 margin-right: 10%;
 border: 1px solid ${colors.bgButton};
 border-radius: 35px;
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 95%;
+    height: auto;
+    margin-right: 12.5%;
+}
 `;
 
 export const Title = styled.h2`
@@ -36,12 +53,6 @@ export const DiVCadastroProduto = styled.div`
 margin: 2%;
 border: 1px solid ${colors.bgButton};
 border-radius: 35px;
-
-h1 {
-    font-size: 1.6rem;
-    font-weight: 500;
-    margin: 2% 0 2% 5%;
-}
 `;
 
 export const Form = styled.form`
@@ -123,5 +134,72 @@ button {
     padding-bottom: 4%;
     margin-left: 11.8%;
     border: none;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    label {
+        margin: 10% 0;
+        margin-left: 5%;
+    }
+
+    textarea {
+        padding: 1%;
+    }
+
+    input, textarea {
+        margin: 5% 0;
+        margin-left: 0.5%;
+        padding-left: 1%;
+        height: 5vh;
+    }
+
+    #name {
+        width: 67vw;
+        margin-left: 2.8%;
+    }
+
+    #description {
+        width: 60vw;
+        height: 18vh;
+        margin-left: 3%;
+    }
+
+    #price {
+        width: 20vw;
+    }
+
+    #inventory {
+        width: 20vw;
+    }
+
+    .textarea-label {
+        top: -75px;
+    }
+
+    .img-label {
+        top: -15px;
+    }
+
+    #images {
+        position: relative;
+        top: 0;
+        left: -30px;
+        padding-bottom: 14%;
+    }
+
+    .img {
+        display: flex;
+    }
+
+    .register {
+        display: flex;
+        justify-content: end;
+        
+        button {
+            margin: 0;
+            margin-right: 5%;
+            margin-bottom: 7%;
+        }
+    }
 }
 `;

@@ -13,10 +13,6 @@ export const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 9999;
-
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
-
-  }
 `;
 
 export const ModalContent = styled.div`
@@ -108,6 +104,7 @@ font-size: 1.2rem;
     }
 
     table {
+      width: 100%;
       font-size: 0.9rem;
       thead {
         tr {

@@ -45,8 +45,9 @@ const OrderModal: React.FC<OrderModalProps> = ({
                     ))}
                     </tbody>
                 </table>
-                
-                <button onClick={onRequestClose}>Fechar</button>
+                <div className="close">
+                    <button onClick={onRequestClose}>Fechar</button>
+                </div>
             </div>
         </StyledModal>
     );

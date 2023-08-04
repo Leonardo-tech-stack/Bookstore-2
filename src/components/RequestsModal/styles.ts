@@ -70,5 +70,11 @@ border: 1px solid #000;
     table {
       width: 65vw;
     }
+
+    .close {
+      display: flex;
+      justify-content: end;
+      margin-right: 0;
+    }
   }
 `;
