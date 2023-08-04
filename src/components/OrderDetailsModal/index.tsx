@@ -89,7 +89,9 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                   </tr>
                 </tbody>
               </table>
-              <button onClick={onRequestClose}>Fechar</button>
+              <div className="close">
+                <button onClick={onRequestClose}>Fechar</button>
+              </div>
             </Div>
           </ModalContent>
         </ModalOverlay>

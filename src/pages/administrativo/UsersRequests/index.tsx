@@ -20,6 +20,8 @@ const OrderList: React.FC = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [ordersPerPage] = useState<number>(10);
+  const [isEmptyList, setIsEmptyList] = useState<boolean>(false);
+
 
   useEffect(() => {
     noHeader
@@ -27,6 +29,7 @@ const OrderList: React.FC = () => {
       .then((response) => {
         setOrders(response.data);
         setIsLoading(false);
+        setIsEmptyList(response.data.length === 0);
       })
       .catch(error => {
         console.error(error);
@@ -113,6 +116,9 @@ const OrderList: React.FC = () => {
             <BarLoader color="#000" loading={isLoading} />
           </Loading>
         ) : (
+          isEmptyList ? (
+            <p>Nenhum pedido por enquanto.</p>
+          ) : (
           <table>
             <thead>
               <tr>
@@ -141,7 +147,7 @@ const OrderList: React.FC = () => {
               ))}
             </tbody>
           </table>
-        )}
+        ))}
       </Div>
       <OrderModal
         isOpen={Boolean(selectedUserOrders.length)}

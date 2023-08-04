@@ -61,4 +61,14 @@ border: 1px solid #000;
       background-color: ${props => lighten(0.11, colors.principal)};
     }
   }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    height: 85%;
+    width: 85%;
+    margin-left: 7.8%;
+
+    table {
+      width: 65vw;
+    }
+  }
 `;

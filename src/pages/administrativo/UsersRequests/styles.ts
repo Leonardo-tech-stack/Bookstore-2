@@ -8,6 +8,11 @@ justify-content: center;
 margin-top: 4%;
 font-size: 1.6rem;
 font-weight: 600;
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        margin-top: 12%;
+        margin-bottom: 10%;
+    }
 `;
 
 export const Div = styled.div`
@@ -58,6 +63,48 @@ margin: 5% 0;
             }
         }
     }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+        width: 95%;
+        margin: 5% 0;
+        margin-left: 2.5%;
+                
+        table {
+
+            thead {
+                tr {
+
+                    th {
+                        font-size: 1rem;
+                        padding: 10px 5px;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    text-align: center;
+                    td {
+                        font-size: 0.8rem;
+                        padding: 10px 5px;
+
+                        button {
+                            text-decoration: underline;
+
+                            &:focus {
+                                text-shadow: 0px 2px 2px #c4c4c4;
+                            }
+                        }
+                    }
+
+                    .user {
+                        padding-left: 2px;
+
+                    }
+                }
+            }
+        }
+    }
 `;
 
 export const Pages = styled.div`
@@ -78,4 +125,18 @@ export const Pages = styled.div`
       color: black; 
     }
   }
+
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+
+        .page-numbers {
+            margin-top: 10%;
+            margin-bottom: 15%;
+            margin-left: 2%;
+           
+            button {
+                padding: 0.5% 3.5%;
+                margin-right: 0.8rem; 
+            }
+        }
+    }
 `;

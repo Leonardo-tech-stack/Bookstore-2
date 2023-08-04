@@ -13,6 +13,10 @@ export const ModalOverlay = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 9999;
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+
+  }
 `;
 
 export const ModalContent = styled.div`
@@ -23,6 +27,12 @@ export const ModalContent = styled.div`
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 90vw; 
+    height: auto; 
+    max-height: 90vh;
+  }
 `;
 
 export const Div = styled.div`
@@ -86,6 +96,50 @@ font-size: 1.2rem;
     &:hover {
       transition: 0.5s;
       background-color: ${props => lighten(0.11, colors.principal)};
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 480px) {
+    font-size: 1rem;
+
+    h2 {
+      font-size: 1.3rem;
+      margin-bottom: 2%;
+    }
+
+    table {
+      font-size: 0.9rem;
+      thead {
+        tr {
+          th {
+            padding: 5px;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          img {
+            border-radius: 25px;
+            padding: 15px;
+          }
+
+          .total {
+            display: none;
+          }
+          
+          td {
+            max-width: 120px;
+            padding: 10px 5px;
+            padding-left: 5px;
+          }
+        }
+      }
+    }
+
+    .close {
+      display: flex;
+      justify-content: end;
     }
   }
 `;

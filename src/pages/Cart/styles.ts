@@ -45,6 +45,8 @@ export const Voltar = styled.div`
 
         a {
             font-size: 1rem;
+            text-decoration: underline;
+            font-weight: 600;
         }
     }
 `;
@@ -208,8 +210,10 @@ export const Detalhes = styled.section`
             width: 100%;
 
             button {
-                padding: 3% 35%;
+                width: 100%;
+                padding: 6% 28.2%;
                 margin-top: 5%;
+                white-space: nowrap;
             }
         }
     }
