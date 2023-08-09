@@ -19,6 +19,15 @@ export const H1 = styled.h1`
     margin-top: 20%;
     margin-bottom: 15%;
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    margin-top: 13%;
+    margin-bottom: 12%;
+    font-size: 2rem;
+  }
+
 `;
 
 export const Search = styled.div`
@@ -43,6 +52,21 @@ export const Search = styled.div`
       }
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+   
+    input {
+      width: 70%;
+      height: 45px;
+      font-size: 1.3rem;
+
+      :focus {
+        outline: none;
+        box-shadow: 0px 2px 4px #000;
+      }
+    }
+  }
+
 `;
 
 export const Tabelas = styled.div<TabelasProps>`
@@ -195,6 +219,92 @@ export const Tabelas = styled.div<TabelasProps>`
       }
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    flex-direction: column;
+    font-weight: 500;
+
+    table {
+      align-items: center;
+      text-align: center;
+      width: 95%;
+      
+      thead {
+        
+        tr {
+          display: none;
+          th {
+            border: none;
+          }
+        }
+      }
+
+      tbody {
+        border: none;
+
+        .name, .email, .role {
+          border-bottom: 1px solid ${colors.bgButton};
+        }
+
+        tr {
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+          margin-bottom: 20px;
+          border: none;
+          width: 100%;
+          border: none;
+          padding: 5px 0;
+          border: 1px solid ${colors.bgButton};
+
+          td {
+            display: block;
+            width: 100%;
+            border: none;
+            padding: 10px 0;
+          }
+        }
+      }
+    }
+
+    .page-numbers {
+      margin-top: 3%;
+      margin-bottom: 15%;
+      margin-left: 3%;
+
+      button {
+        padding: 1% 4%;
+        margin-right: 0.8rem;
+        background-color: ${colors.principal};
+        color: white;
+        font-weight: 600;
+      }
+
+      button.current-page {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    table {
+      width: 80%;
+      tbody {
+        tr {
+          td {
+            font-size: 1.3rem;
+          }
+        }
+      }
+    }
+
+    .page-numbers {
+      button {
+        font-size: 1.3rem;
+      }
+    }
+  }
 `;
 
 export const Administradores = styled.div`
@@ -233,7 +343,7 @@ export const Administradores = styled.div`
     }
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
+  @media only screen and (min-width: 320px) and (max-width: 768px) {
     display: flex;
     justify-content: center;
     font-weight: 500;
@@ -287,7 +397,7 @@ export const Clientes = styled.div`
     }
   }
 
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
+  @media only screen and (min-width: 320px) and (max-width: 768px) {
     display: flex;
     justify-content: center;
 

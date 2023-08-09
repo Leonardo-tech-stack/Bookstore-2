@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
-import { StyledIconWrapper } from './styles';
+import { Input, StyledIconWrapper } from './styles';
 import CartItemCount from '../CartCounter';
 
 interface CartResponse {
@@ -29,11 +29,13 @@ const NavbarNavigation: React.FC = ({}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cartItemCount, setCartItemCount] = useState<number>(0);
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+  const [isMediumScreen, setIsMediumScreen] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth >= 320 && window.innerWidth <= 480);
+      setIsMediumScreen(window.innerWidth >= 481 && window.innerWidth <= 768);
     };
 
     window.addEventListener('resize', handleResize);
@@ -87,7 +89,7 @@ const NavbarNavigation: React.FC = ({}) => {
     <Disclosure as="nav" className="bg-[#0D0D0D]">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-1 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-1 sm:px-1 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -100,9 +102,12 @@ const NavbarNavigation: React.FC = ({}) => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 mr-10 items-center justify-center sm:items-stretch sm:justify-start">
+              <div className="flex flex-1 mr-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <a href="/" className="text-white font-bold">
+                  <a href="/" className={`text-white font-bold ${
+                    isSmallScreen ? '' : isMediumScreen ? 'ml-1' : ''  
+                  }`}
+                  >
                     ChapterOne
                   </a>
                 </div>
@@ -114,7 +119,7 @@ const NavbarNavigation: React.FC = ({}) => {
                         href={item.href}
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
+                          'rounded-md px-1 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >
@@ -124,7 +129,10 @@ const NavbarNavigation: React.FC = ({}) => {
                   </div>
                 </div>
                 <div className="flex-shrink-0">
-                  <div className="relative ml-2">
+                  <div className={`relative ml-2 sm:ml-1 ${
+                    isSmallScreen ? '' : isMediumScreen ? 'ml-8' : ''  
+                  }`}
+                  >
                     <button
                       type="button"
                       className="ml-1 rounded-md bg-gray-800 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -132,9 +140,9 @@ const NavbarNavigation: React.FC = ({}) => {
                     >
                       <MagnifyingGlassIcon className="absolute top-2 left-2 h-5 w-5 text-gray-400" aria-hidden="false" />
                     </button>
-                    <input
+                    <Input
                       className={`pl-8 pr-2 py-2 rounded-md text-sm bg-[#0D0D0D] text-white placeholder-gray-400 ${
-                        isSmallScreen ? 'w-20' : 'w-50'
+                        isSmallScreen ? 'w-20' : 'w-50'                      
                       }`}
                       type="text"
                       placeholder="Procurar produtos"

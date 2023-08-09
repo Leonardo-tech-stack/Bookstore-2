@@ -1,17 +1,16 @@
 import styled from "styled-components";
 import { colors } from '../../styles/themes'
-import Bg from '../../assets/images/background.jpg'
-import { Description } from "../ProductPage/styles";
 
 export const Body = styled.body`
-  /* background-image: url(${Bg});
-  background-position: center;
-  background-size: cover; */
   background-color: ${colors.fundo};
   height: 1400px;
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     height: 900px;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    height: 1200px;
   }
 `;
 
@@ -95,6 +94,34 @@ export const Products = styled.div`
       margin: 0 auto;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    
+    .products-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .product {
+      display: flex;
+      justify-content: center;
+      width: 100vw;
+
+      h1, p {
+        font-size: 1.5rem;
+      }
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    img {
+      max-width: 18rem;
+      height: 22rem;
+      margin: 0 auto;
+    }
+  }
 `;
 
 export const Desc = styled.div`
@@ -138,6 +165,19 @@ export const Desc = styled.div`
       font-size: 0.8rem;
       height: 45px;
       width: 85px;
+    }
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    p, span {
+      font-size: 1.3rem;
+      margin-top: 5px;
+    }
+
+    button {
+      font-size: 1rem;
+      height: 38px;
+      width: 120px;
     }
   }
 `;

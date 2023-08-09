@@ -80,7 +80,7 @@ const AdminRegistrationPage: React.FC = () => {
       <Modal />
       <Flex>
         <div>
-          <img src={Adm} ></img>
+          <img src={Adm} />
         </div>
         <Div>
           <Form onSubmit={handleSubmit}>

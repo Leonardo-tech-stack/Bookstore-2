@@ -39,4 +39,19 @@ margin: 12% 0;
             font-size: 1.2rem;
         }
     }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin: 12% 1%;
+        text-align: center;
+
+        .n-1 {
+            font-size: 1.4rem;
+            margin-bottom: 11%;
+        }
+
+        .n-2 {
+            font-size: 1.6rem;
+        }
+    }
+
 `;

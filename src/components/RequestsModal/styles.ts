@@ -77,4 +77,29 @@ border: 1px solid #000;
       margin-right: 0;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    height: 85%;
+    width: 85%;
+    margin-left: 7.8%;
+
+    h2 {
+      font-size: 1.7rem;
+    }
+
+    table {
+      width: 65vw;
+    }
+
+    th, td {
+      font-size: 1.3rem;
+    }
+
+    .close {
+      display: flex;
+      justify-content: end;
+      margin-right: 0;
+    }
+  }
+
 `;

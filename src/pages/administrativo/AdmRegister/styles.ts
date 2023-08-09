@@ -6,6 +6,7 @@ export const Flex = styled.div`
 display: flex;
 justify-content: space-evenly;
 margin-left: -20%;
+overflow-y: hidden;
 
 img {
     width: 210px;
@@ -14,6 +15,12 @@ img {
 }
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
+    img {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
     img {
         display: none;
     }
@@ -36,6 +43,13 @@ border-radius: 35px;
     margin-bottom: 12%;
     margin-left: 20%;
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 85%;
+    margin-top: 8%;
+    margin-bottom: 12%;
+    margin-left: 20%;
+}
 `;
 
 export const Title = styled.h2`
@@ -45,6 +59,12 @@ font-weight: 500;
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
     font-size: 1.1rem;
+    margin: 12% 0;
+    margin-top: 8%;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    font-size: 1.7rem;
     margin: 12% 0;
     margin-top: 8%;
 }
@@ -124,4 +144,31 @@ label {
     }
 
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 100%;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin: 5% 10%;
+
+    label {
+        display: none;
+    }
+
+    input {
+        width: 100%;
+        height: 50px;
+        font-size: 1.3rem;
+        margin: 5% 0;
+    }
+
+    .button {
+        button {
+            font-size: 1.3rem;
+            margin-right: 0;
+        }
+    }
+}
+
 `;

@@ -79,6 +79,38 @@ margin-top: 5%;
             margin-left: 10%;
         }
     }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        height: auto;
+        padding-bottom: 18px;
+
+        h2 {
+            margin-left: 10%;
+            font-size: 1.8rem;
+        }
+
+        .form-control {
+            margin-left: 10%;
+        }
+
+        label {
+            display: none;
+        }
+
+        input {
+            width: 89%;
+            font-size: 1.3rem;
+        }
+
+        #confirm {
+            width: 89%;
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            margin-left: 10%;
+        }
+    }
 `;
 
 export const Cadastrar = styled.button`
@@ -100,6 +132,12 @@ cursor: pointer;
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
         width: 69%;
+        margin-top: 15%;
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        width: 69%;
+        font-size: 1.3rem;
         margin-top: 15%;
     }
 `;

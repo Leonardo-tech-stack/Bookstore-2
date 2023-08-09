@@ -26,6 +26,17 @@ img {
         display: none;
     }
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 100%;
+    margin: 10% 0;
+    margin-left: 10%;  
+    /* font-size: 1rem; */
+
+    img {
+        display: none;
+    }
+}
 `;
 
 export const Div = styled.div`
@@ -41,6 +52,13 @@ border-radius: 35px;
     height: auto;
     margin-right: 12.5%;
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 95%;
+    height: auto;
+    margin-right: 12.5%;
+}
+
 `;
 
 export const Title = styled.h2`
@@ -202,4 +220,79 @@ button {
         }
     }
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    font-size: 1.3rem;
+
+    label {
+        margin: 10% 0;
+        margin-left: 5%;
+    }
+
+    textarea {
+        padding: 1%;
+    }
+
+    input, textarea {
+        font-size: 1.3rem;
+        margin: 3% 0;
+        margin-left: 0.5%;
+        padding-left: 1%;
+        height: 4vh;
+    }
+
+    #name {
+        width: 67vw;
+        margin-left: 2.8%;
+    }
+
+    #description {
+        width: 60vw;
+        height: 18vh;
+        font-size: 1.3rem;
+        margin-left: 3%;
+    }
+
+    #price {
+        width: 20vw;
+    }
+
+    #inventory {
+        width: 20vw;
+    }
+
+    .textarea-label {
+        top: -120px;
+    }
+
+    .img-label {
+        top: -15px;
+    }
+
+    #images {
+        position: relative;
+        top: 25px;
+        left: -55px;
+        padding-bottom: 14%;
+    }
+
+    .img {
+        display: flex;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .register {
+        display: flex;
+        justify-content: end;
+        
+        button {
+            font-size: 1.3rem;
+            margin: 0;
+            margin-right: 5%;
+            margin-bottom: 7%;
+        }
+    }
+}
+
 `;

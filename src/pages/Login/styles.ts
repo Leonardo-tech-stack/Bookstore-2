@@ -15,6 +15,11 @@ margin: 8% 0;
 @media only screen and (min-width: 320px) and (max-width: 480px) {
    width: 85%;
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+   width: 85%;
+}
+
 `;
 
 export const Form = styled.form`
@@ -110,7 +115,55 @@ margin-top: 5%;
             margin-top: 2%;
          }
       }
+   }
 
+   @media only screen and (min-width: 481px) and (max-width: 768px) {
+      height: auto;
+      padding-bottom: 15px;
+
+      .form-control {
+         margin-left: 6%;
+      }
+
+      label, .remember {
+         font-size: 1.3rem;
+      }
+
+      input {
+         width: 75%;
+         font-size: 1.3rem;
+      }
+
+      .checkbox {
+         display: flex;
+         flex-direction: column;
+
+         input {
+            width: 20px;
+            margin: 0;
+         }
+
+         label {
+            margin-left: 2%;
+         }
+
+         .remember {
+            margin: 10% 0;
+            margin-left: 6%;
+         }
+
+         .esqueceu-a-senha {
+            margin-left: 6%;
+            margin-top: 2%;
+         }
+      }
+      
+      .loading {
+         display: flex;
+         justify-content: center;
+         font-size: 1.3rem;
+         margin-left: 0;
+      }
    }
 `;
 
@@ -122,6 +175,11 @@ margin-bottom: 10%;
 margin-left: 15%;
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {
+   margin-left: 6%;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+   font-size: 2rem;
    margin-left: 6%;
 }
 
@@ -146,6 +204,14 @@ color: red;
       margin-left: 6%;
       margin-bottom: 5%;
    }
+
+   @media only screen and (min-width: 481px) and (max-width: 768px) {
+      width: 85%;
+      font-size: 1.3rem;
+      margin-left: 6%;
+      margin-bottom: 5%;
+   }
+
 `;
 
 export const Logar = styled.button`
@@ -167,6 +233,13 @@ margin-left: 15%;
       margin-top: 1%;
       margin-left: 53%;
    }
+
+   @media only screen and (min-width: 481px) and (max-width: 768px) {
+      font-size: 1.3rem;
+      margin-top: 1%;
+      margin-left: 65%;
+   }
+
 `;
 
 export const Register = styled.div`
@@ -190,5 +263,12 @@ justify-content: center;
 
    @media only screen and (min-width: 320px) and (max-width: 480px) {
       margin-left: 6%;
+   }
+
+   @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+      p {
+         font-size: 1.3rem;
+      }
    }
 `;

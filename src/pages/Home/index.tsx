@@ -9,10 +9,10 @@ const Home: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
   const [bannerIndex, setBannerIndex] = useState(0);
   const bannerInterval = 6000;
-  // const bannerInterval = 2000;
+  // const bannerInterval = 1000;
 
   const getBannerProducts = () => {
-    const isSmallScreen = window.innerWidth >= 320 && window.innerWidth <= 480;
+    const isSmallScreen = window.innerWidth >= 320 && window.innerWidth <= 768;
     if (isSmallScreen) {
       return products.length > 0 ? [products[bannerIndex]] : [];
     } else {

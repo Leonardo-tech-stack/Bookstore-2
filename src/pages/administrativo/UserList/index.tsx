@@ -56,7 +56,7 @@ const UserList: React.FC = () => {
 
   useEffect(() => {
     const handleWindowResize = () => {
-      setShowRoleColumn(window.innerWidth >= 320 && window.innerWidth <= 480);
+      setShowRoleColumn(window.innerWidth >= 320 && window.innerWidth <= 768);
     };
 
     window.addEventListener("resize", handleWindowResize);
@@ -185,7 +185,7 @@ const UserList: React.FC = () => {
           </Search>
 
           <Tabelas
-            isMobile={window.innerWidth >= 320 && window.innerWidth <= 480}
+            isMobile={window.innerWidth >= 320 && window.innerWidth <= 768}
             showRoleColumn={true} 
           >
             <div className='flex'>

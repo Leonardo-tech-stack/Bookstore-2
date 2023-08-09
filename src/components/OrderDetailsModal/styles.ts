@@ -24,11 +24,12 @@ export const ModalContent = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
-  @media only screen and (min-width: 320px) and (max-width: 480px) {
+  @media only screen and (min-width: 320px) and (max-width: 768px) {
     width: 90vw; 
     height: auto; 
     max-height: 90vh;
   }
+
 `;
 
 export const Div = styled.div`
@@ -139,4 +140,59 @@ font-size: 1.2rem;
       justify-content: end;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    font-size: 1rem;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 2%;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+
+    table {
+      width: 100%;
+      font-size: 1.2rem;
+      margin-top: 2%;
+      thead {
+        tr {
+          th {
+            padding: 5px;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          img {
+            border-radius: 45px;
+            padding: 35px;
+          }
+
+          .total {
+            display: none;
+          }
+          
+          td {
+            max-width: 120px;
+            padding: 10px 5px;
+            padding-left: 25px;
+          }
+        }
+      }
+    }
+
+    .close {
+      display: flex;
+      justify-content: end;
+
+      button {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
 `;

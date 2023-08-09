@@ -81,6 +81,36 @@ export const Div = styled.div`
       width: 98%;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 5% 0;
+    margin-bottom: 15%;
+
+    .img {
+      display: flex;
+      justify-content: start;
+      margin: 0;
+    }
+
+    img {
+      width: 10rem;
+      height: 15rem;
+      margin-left: 6%;
+    }
+
+    h1 {
+      width: 98%;
+      font-size: 1.8rem;
+    }
+
+    p, .hide, strong, select {
+      font-size: 1.3rem;
+    }
+  }
+
 `;
 
 interface DescriptionProps {
@@ -98,7 +128,7 @@ export const Description = styled.p<DescriptionProps>`
     -webkit-line-clamp: unset;
   `}
 
-@media only screen and (min-width: 320px) and (max-width: 480px) {
+  @media only screen and (min-width: 320px) and (max-width: 768px) {
     width: 96%;
   }
 `;

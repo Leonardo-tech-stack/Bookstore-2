@@ -63,4 +63,27 @@ border-radius: 35px;
             }
         }
     }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        width: 90%;
+
+        div {
+            a {
+                &:focus {
+                    box-shadow: 0px 2px 4px #000;
+                }
+
+                strong {
+                    font-size: 1.6rem;
+                    margin-left: 8%;
+                }
+            }
+        }
+
+        img {
+            width: 5rem;
+            height: 5rem;
+        }
+    }
+
 `;

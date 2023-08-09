@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { lighten } from 'polished';
 import { colors } from "../../../styles/themes";
 
 export const Title = styled.h2`
@@ -9,7 +8,7 @@ margin-top: 4%;
 font-size: 1.6rem;
 font-weight: 600;
 
-    @media only screen and (min-width: 320px) and (max-width: 480px) {
+    @media only screen and (min-width: 320px) and (max-width: 768px) {
         margin-top: 12%;
         margin-bottom: 10%;
     }
@@ -70,7 +69,7 @@ margin: 5% 0;
         margin-left: 2.5%;
                 
         table {
-
+            width: 100%;
             thead {
                 tr {
 
@@ -86,6 +85,48 @@ margin: 5% 0;
                     text-align: center;
                     td {
                         font-size: 0.8rem;
+                        padding: 10px 5px;
+
+                        button {
+                            text-decoration: underline;
+
+                            &:focus {
+                                text-shadow: 0px 2px 2px #c4c4c4;
+                            }
+                        }
+                    }
+
+                    .user {
+                        padding-left: 2px;
+
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        width: 95%;
+        margin: 5% 0;
+        margin-left: 2.5%;
+                
+        table {
+            width: 100%;
+            thead {
+                tr {
+
+                    th {
+                        font-size: 1.2rem;
+                        padding: 10px 5px;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    text-align: center;
+                    td {
+                        font-size: 1.1rem;
                         padding: 10px 5px;
 
                         button {
@@ -135,6 +176,20 @@ export const Pages = styled.div`
            
             button {
                 padding: 0.5% 3.5%;
+                margin-right: 0.8rem; 
+            }
+        }
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+        .page-numbers {
+            margin-top: 10%;
+            margin-bottom: 15%;
+            margin-left: 2%;
+           
+            button {
+                padding: 0.5% 2%;
                 margin-right: 0.8rem; 
             }
         }

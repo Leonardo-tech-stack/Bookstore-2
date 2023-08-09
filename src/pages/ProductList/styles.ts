@@ -76,6 +76,48 @@ margin: 2% 0;
       margin: auto;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+    .filter {
+      margin-top: 8%;
+      font-size: 1.3rem;
+      
+      p {
+        font-size: 1.5rem;
+      }
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+    }
+
+    li {
+      display: flex;
+      justify-content: center;
+      margin: 0 2%;
+
+      h1 {
+        margin: 2% 0;
+      }
+
+      h1, p{
+        font-size: 1.2rem;
+      }
+    }
+
+    .products-container {
+      margin: 6% 0;
+    }
+
+    img {
+      max-width: 20rem;
+      max-height: 22rem;
+      border-radius: 15px;
+      margin: auto;
+    }
+  }
 `;
 
 export const Limiter = styled.div`
@@ -95,6 +137,27 @@ margin-bottom: 2%;
     button.current-page {
       background-color: white;
       color: black; 
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 768px) {
+    /* margin-bottom: 10%;
+
+    .page-numbers {
+
+      button {
+        padding: 0.8% 4%;
+        margin-right: 1rem; 
+      }
+    } */
+    .scroll-down-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      background-color: #EFF2F6;
+      border-radius: 50%;
     }
   }
 `;

@@ -16,10 +16,21 @@ export const Li = styled.li`
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     margin-top: -115px;
+
     a {
       width: 60%;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    font-size: 1.3rem;
+    margin-top: -115px;
+
+    a {
+      width: 60%;
+    }
+  }
+
 `;
 
 export const Logout = styled.button`
@@ -42,6 +53,13 @@ export const ArrowButton = styled.button`
     width: 65%;
     padding: 4% 2%;
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 55%;
+    font-size: 1.3rem;
+    padding: 2%;
+  }
+
 `;
 
 export const ModalContent = styled.div<{ isOpen: boolean }>`
@@ -71,5 +89,15 @@ export const ModalContent = styled.div<{ isOpen: boolean }>`
       margin-left: 88%;
     }
   }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 481px;
+
+    .back {
+      margin-left: 90%;
+      padding: 20px 25px;
+    }
+  }
+
 `;
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
+import { FiArrowDownCircle } from 'react-icons/fi'; 
 import { noHeader, getImageUrl } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import Category from '../../types/Category';
@@ -18,6 +19,7 @@ const ProductList: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [categories, setCategories] = useState<Category[]>([]);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [isInfiniteScroll, setIsInfiniteScroll] = useState<boolean>(false); 
 
   useEffect(() => {
     fetchProducts();
@@ -42,14 +44,55 @@ const ProductList: React.FC = () => {
         })
       : products;
 
-    const slicedProducts = currentProducts.slice(
-      indexOfFirstProduct,
-      indexOfLastProduct
-    );
+      if (isInfiniteScroll) {
+        const newProducts = currentProducts.slice(0, currentPage * productsPerPage);
+        setFilteredProducts(chunk(newProducts, 3));
+      } else {
+        const indexOfLastProduct = currentPage * productsPerPage;
+        const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+        const slicedProducts = currentProducts.slice(
+          indexOfFirstProduct,
+          indexOfLastProduct
+        );
+        setFilteredProducts(chunk(slicedProducts, 3));
+      }
+    }, [currentPage, products, productsPerPage, selectedCategory, isInfiniteScroll]);
 
-    setFilteredProducts(chunk(slicedProducts, 3));
-  }, [currentPage, products, productsPerPage, selectedCategory]);
-
+    useEffect(() => {
+      
+      const handleScroll = () => {
+        if (
+          window.innerHeight + window.scrollY >= document.body.offsetHeight - 100
+        ) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      };
+  
+      if (isInfiniteScroll) {
+        window.addEventListener('scroll', handleScroll);
+      }
+  
+      return () => {
+        if (isInfiniteScroll) {
+          window.removeEventListener('scroll', handleScroll);
+        }
+      };
+    }, [isInfiniteScroll]);
+  
+    useEffect(() => {
+      const handleResize = () => {
+        setIsInfiniteScroll(window.innerWidth <= 768);
+      };
+  
+      handleResize(); 
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+    
   const fetchProducts = async () => {
     try {
       setIsLoading(true);
@@ -161,9 +204,17 @@ const ProductList: React.FC = () => {
       )}
 
       <Limiter>
-        <div className="page-numbers">
-          {getPageNumbers()}
-        </div>
+        {!isInfiniteScroll && (
+          <div className="page-numbers">
+            {getPageNumbers()}
+          </div>
+        )}
+
+        {isInfiniteScroll && (
+          <div className="scroll-down-icon">
+            <FiArrowDownCircle size={45} onClick={() => window.scrollTo(0, document.body.scrollHeight)} />
+          </div>
+        )}
       </Limiter>
     </div>
   );

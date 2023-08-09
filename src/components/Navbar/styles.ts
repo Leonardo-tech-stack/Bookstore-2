@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import Link from '../../types/Link';
-import { colors } from '../../styles/themes'
 
 export const StyledIconWrapper = styled.div<{ itemCount: number }>`
   position: relative;
@@ -8,5 +6,12 @@ export const StyledIconWrapper = styled.div<{ itemCount: number }>`
 
   a {
     text-decoration: none;
+  }
+`;
+
+
+export const Input = styled.input`
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 140px;
   }
 `;

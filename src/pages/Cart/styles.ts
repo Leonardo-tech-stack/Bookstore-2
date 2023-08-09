@@ -8,6 +8,10 @@ export const Body = styled.div`
     @media only screen and (min-width: 320px) and (max-width: 480px) {
         margin-bottom: 45%;
     }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin-bottom: 55%;
+    }
 `;
 
 export const Titulo = styled.div`
@@ -20,6 +24,14 @@ export const Titulo = styled.div`
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
         h2 {
+            margin-top: 6%;
+            margin-left: 4%;
+        }
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        h2 {
+            font-size: 1.8rem;
             margin-top: 6%;
             margin-left: 4%;
         }
@@ -49,12 +61,28 @@ export const Voltar = styled.div`
             font-weight: 600;
         }
     }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        text-align: center;
+        margin-top: 10%;
+
+        a {
+            font-size: 1.3rem;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+    }
 `;
 
 export const DivFlex = styled.div`
   display: flex;
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
+    flex-direction: column;
+    margin-top: 8%;
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
     flex-direction: column;
     margin-top: 8%;
   }
@@ -133,6 +161,16 @@ export const Div = styled.div`
         display: flex;
         flex-direction: column;
         margin-bottom: 15%;
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        margin-bottom: 10%;
+
+        .remove {
+            button {
+                font-size: 1.3rem;
+            }
+        }
     }
 `;
 
@@ -218,6 +256,41 @@ export const Detalhes = styled.section`
         }
     }
 
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        width: 90%;
+        height: 620px;
+        margin: 0 5%;
+
+        .details {
+            h3 {
+                font-size: 2.3rem;
+            }
+
+            p {
+                font-size: 1.6rem;
+            }
+
+            b {
+                font-size: 2rem;
+
+                span {
+                    margin-left: 43%;
+                }
+            }
+        }
+
+        .checkout {
+            width: 100%;
+
+            button {
+                width: 100%;
+                font-size: 1.5rem;
+                padding: 6% 28.2%;
+                margin-top: 5%;
+                white-space: nowrap;
+            }
+        }
+    }
 `;
 
 export const Ul = styled.ul`
@@ -270,6 +343,28 @@ export const Ul = styled.ul`
         }
 
         img {
+            margin-bottom: 5%;
+        }
+
+        P {
+            margin: 1% 0;
+        }
+
+        .strings {
+            width: 92vw;
+        }
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        li {
+            width: 100vw;
+            flex-direction: column;
+            font-size: 1.3rem;
+        }
+
+        img {
+            width: 9rem;
+            height: auto;
             margin-bottom: 5%;
         }
 

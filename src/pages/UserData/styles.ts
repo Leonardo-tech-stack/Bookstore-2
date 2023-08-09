@@ -36,6 +36,13 @@ border-radius: 35px;
     margin-bottom: 12%;
     margin-left: 20%;
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 75%;
+    margin-top: 8%;
+    margin-bottom: 12%;
+    margin-left: 20%;
+}
 `;
 
 export const Title = styled.h2`
@@ -47,6 +54,12 @@ font-weight: 500;
     font-size: 1.4rem;
     margin: 12% 0;
     margin-top: 8%;
+    margin-left: 5%;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-top: 5%;
     margin-left: 5%;
 }
 `;
@@ -122,7 +135,31 @@ label {
             margin-right: 0;
         }
     }
+}
 
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+    width: 100%;
+    margin: 5% 10%;
+    margin-left: 4%;
+
+    label {
+        font-size: 1.3rem;
+        margin: 5%;
+        margin-right: 0;
+    }
+
+    input {
+        width: 70%;
+        font-size: 1.3rem;
+        margin: 5% 2%;
+    }
+
+    .button {
+        button {
+            font-size: 1.3rem;
+            margin-right: 0;
+        }
+    }
 }
 `;
 
@@ -186,6 +223,28 @@ export const Alternate = styled.div`
                     background-color: ${props => lighten(0.11, colors.principal)};
                 }
 
+            }
+        }
+    }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        
+        .button {
+            flex-direction: column;
+            justify-content: center;
+            margin-top: 11%;
+
+            .update {
+                margin-right: 0;
+            }
+
+            .delete {
+                margin-right: 0;
+            }
+
+            button {
+                padding: 6px 20px;
+                margin-right: 5%;
             }
         }
     }

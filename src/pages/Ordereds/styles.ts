@@ -183,6 +183,48 @@ export const Pedidos = styled.div`
             }
         } 
     }
+
+    @media only screen and (min-width: 481px) and (max-width: 768px) {
+        .all {
+            font-size: 1.3rem;
+            margin-bottom: 10%;
+        }
+
+        .img {
+            width: 25%;
+            padding: 5px 5px 5px 33px;
+
+            img {
+                width: 65%;
+                padding: 1px;
+                border-radius: 5px;
+            }
+        }
+
+        .name {
+            right: -3%;
+            width: 26%;
+            padding: 5px 18px 5px 0px;
+        }
+
+        .price {
+            width: 25%;
+            padding: 5px 2px 5px 15px;
+        }
+
+        .quantity {
+            width: 25%;
+            padding: 10px 20px 10px 45px;
+        }
+
+        .cancel {
+
+        button {
+            width: 35%;
+        }
+} 
+    }
+
 `;
 
 export const Margin = styled.div`

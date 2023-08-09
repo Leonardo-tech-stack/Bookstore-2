@@ -123,7 +123,7 @@ const ProductRegistrationPage: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ overflowX: "hidden" }}>
       <Modal />
       <Flex>
         <div>
@@ -190,7 +190,7 @@ const ProductRegistrationPage: React.FC = () => {
                 ))}
               </select>
             </div> */}
-            <div className='img'>
+            <div className="img">
               <label className="img-label" htmlFor="images">
                 Imagem:
               </label>
