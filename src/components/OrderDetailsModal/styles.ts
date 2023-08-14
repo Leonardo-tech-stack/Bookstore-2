@@ -7,7 +7,7 @@ export const ModalOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
@@ -18,7 +18,7 @@ export const ModalOverlay = styled.div`
 export const ModalContent = styled.div`
   background-color: #fff;
   width: 53.800rem;
-  height: 37.5rem;
+  max-height: 90vh;
   margin: 0 auto;
   padding: 20px;
   border-radius: 5px;
@@ -26,7 +26,6 @@ export const ModalContent = styled.div`
 
   @media only screen and (min-width: 320px) and (max-width: 768px) {
     width: 90vw; 
-    height: auto; 
     max-height: 90vh;
   }
 
@@ -55,26 +54,36 @@ font-size: 1.2rem;
 
     tbody {
       tr {
-        img {
-          border-radius: 5px;
+        .name {
+          padding-left: 0;
         }
 
-        .total {
-          padding: 1%;
-          padding-left: 50px;
+        .price {
+          padding-left: 10%;
         }
         
         td {
+          white-space: nowrap;
           font-weight: 500;
-          padding: 10px 80px;
-          padding-left: 110px;
+          padding: 1% 12%;
+          padding-left: 4%;
           border-bottom: 1px solid ${colors.bgButton};
+
+          img {
+            padding: 20%;
+            border-radius: 25%;
+          }
 
           button {
             &:hover {
               text-decoration: underline;
               text-shadow: 0px 2px 2px #c4c4c4;
             }
+          }
+
+          .total {
+            padding: 1%;
+            padding-left: 50px;
           }
         }
       }
@@ -117,9 +126,26 @@ font-size: 1.2rem;
 
       tbody {
         tr {
+          .image {
+            padding-left: 1%;
+            border-right: 1px solid ${colors.bgButton};
+          }
+
+          .name {
+            border-right: 1px solid ${colors.bgButton};
+            padding-left: 3%;
+            max-width: 40%; 
+            white-space: normal; 
+          }
+
+          .price {
+            border-right: 1px solid ${colors.bgButton};
+            padding-left: 2%;
+          }
+
           img {
-            border-radius: 25px;
-            padding: 15px;
+            border-radius: 45px;
+            padding: 35px;
           }
 
           .total {
@@ -167,6 +193,23 @@ font-size: 1.2rem;
 
       tbody {
         tr {
+          .image {
+            padding-left: 1%;
+            border-right: 1px solid ${colors.bgButton};
+          }
+
+          .name {
+            border-right: 1px solid ${colors.bgButton};
+            padding-left: 3%;
+            max-width: 40%; 
+            white-space: normal; 
+          }
+
+          .price {
+            border-right: 1px solid ${colors.bgButton};
+            padding-left: 2%;
+          }
+
           img {
             border-radius: 45px;
             padding: 35px;

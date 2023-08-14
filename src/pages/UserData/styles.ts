@@ -78,7 +78,7 @@ input, label {
 }
 
 input {
-    width: 85%;
+    width: 82%;
     margin-left: 1.5%;
     padding: 0.6% 1.4%;
     border: 1px solid ${colors.bgButton};
@@ -94,6 +94,10 @@ label {
     font-weight: 600;
 }
 
+#name {
+    margin-bottom: 8%;
+}
+
 .button {
     display: flex;
     justify-content: end;
@@ -103,7 +107,6 @@ label {
         margin: 7% 0;
         margin-right: 5%;
         color: white;
-        /* background-color: #17a99b; */
         background-color: ${colors.principal};
         border-radius: 30px;
 
@@ -170,9 +173,10 @@ export const Alternate = styled.div`
     .button {
         display: flex;
         align-items: center; 
+        margin-top: 11%;
 
         .update {
-            margin-right: 40%;
+            margin-right: 20%;
         }
 
         .delete {
@@ -180,7 +184,7 @@ export const Alternate = styled.div`
         }
 
         button {
-            padding: 6px 30px;
+            padding: 6px 12px;
             margin-right: 5%;
             color: white;
             background-color: ${colors.principal};

@@ -3,7 +3,7 @@ import { lighten } from 'polished';
 import { colors } from '../../../styles/themes';
 
 export const Lista = styled.div`
-height: 100vh;
+height: auto;
 
   .t-titulo {
     background-color: ${colors.titulo};
@@ -16,10 +16,11 @@ height: 100vh;
   }
 
   .page-numbers {
-    margin-left: 16%;
+    margin-left: 6%;
+    margin-bottom: 6%;
 
     button {
-      padding: 0.2% 0.6%;
+      padding: 0.2% 1%;
       margin-right: 0.8rem; 
       background-color: ${colors.principal};
       color: white;
@@ -43,6 +44,7 @@ height: 100vh;
       flex-direction: row;
       width: 30%;
       font-weight: 500;
+      margin-left: 10%;
 
       p {
         font-size: 1.1rem;
@@ -89,6 +91,7 @@ height: 100vh;
       width: 100%;
       margin: 5%;
       padding-right: 9%;
+      white-space: normal;
 
       .search-bar {
         display: flex;
@@ -104,6 +107,7 @@ height: 100vh;
         justify-content: end;
         width: 100%;
         margin-bottom: 2%;
+        margin-left: 0;
 
         p {
           width: 30%;
@@ -180,6 +184,7 @@ height: 100vh;
         justify-content: center;
         width: 100%;
         margin-bottom: 2%;
+        margin-left: 1%;
 
         p {
           width: 30%;
@@ -224,7 +229,7 @@ height: 100vh;
     }
 
     .page-numbers {
-      margin-left: 5%;
+      margin-left: 15%;
       margin-top: 10%;
 
       button {
@@ -239,7 +244,8 @@ height: 100vh;
 `;
 
 export const Table = styled.table`
-  max-width: 1200px;
+  /* max-width: 1200px; */
+  width: 90%;
   margin: 0 auto;
   margin-top: 2%;
   margin-bottom: 5%;
@@ -261,7 +267,7 @@ background-color: ${colors.titulo};
     padding: 0 3%;
   }
   .t-nome {
-    padding: 1.25rem 16.625rem;
+    padding: 1.25rem 11.625rem;
   }
   .t-quantidade {
     padding: 1.25rem 0.625rem;
@@ -303,7 +309,7 @@ border-right: 1px solid ${colors.bgButton};
 background-color: ${colors.fundo};
 
   .img, .nome, .valor, .quantidade {
-    padding: 10px 80px;
+    padding: 10px 40px;
     font-size: 1.1rem;
     font-weight: 500;
   }
@@ -369,6 +375,7 @@ export const NEncontrado = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   margin-top: 7%;
+  margin-bottom: 13%;
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     text-align: center;

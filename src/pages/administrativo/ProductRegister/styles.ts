@@ -10,7 +10,7 @@ margin: 4% 0;
 margin-left: 10%;
 
 img {
-    width: 70%;
+    width: 75%;
     height: 70%;
     margin-left: -25%;
     margin-top: 21%;
@@ -41,9 +41,9 @@ img {
 
 export const Div = styled.div`
 width: 70%;
-height: 630px;
+height: auto;
 margin-left: -15%;
-margin-right: 10%;
+margin-right: 5%;
 border: 1px solid ${colors.bgButton};
 border-radius: 35px;
 
@@ -86,7 +86,7 @@ textarea {
 }
 
 input, textarea {
-    margin: 1% 0;
+    margin: 2% 0;
     margin-left: 0.5%;
     padding-left: 0.7%;
     height: 3vh;
@@ -98,6 +98,10 @@ input, textarea {
         outline: none;
         box-shadow: 0px 2px 4px #000;
     }
+}
+
+input {
+    height: 5vh;
 }
 
 button {
@@ -116,24 +120,24 @@ button {
 
 #name {
     width: 38vw;
-    margin-left: 2.8%;
+    margin-left: 5.2%;
 }
 
 #description {
     width: 38vw;
-    height: 10vh;
-    margin-left: 0.5%;
+    height: 15vh;
+    margin-left: 1%;
     font-size: 1rem;
 }
 
 #price {
-    width: 5vw;
-    margin-left: 3.2%;
+    width: 7vw;
+    margin-left: 6%;
 }
 
 #inventory {
-    width: 5vw;
-    margin-left: 1.6%;
+    width: 7vw;
+    margin-left: 3.1%;
 }
 
 .textarea-label {
@@ -148,9 +152,9 @@ button {
 
 #images {
     position: relative;
-    top: -18px;
-    padding-bottom: 4%;
-    margin-left: 11.8%;
+    top: -27px;
+    padding-bottom: 6%;
+    margin-left: 16%;
     border: none;
 }
 

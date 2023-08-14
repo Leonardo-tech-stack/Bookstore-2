@@ -104,7 +104,7 @@ export const Pedidos = styled.div`
 
     .price {
         width: 25%;
-        padding: 10px 80px 10px 80px;
+        padding: 10px 80px 10px 110px;
     }
 
     .quantity {
@@ -209,7 +209,7 @@ export const Pedidos = styled.div`
 
         .price {
             width: 25%;
-            padding: 5px 2px 5px 15px;
+            padding: 5px 2px 5px 33px;
         }
 
         .quantity {

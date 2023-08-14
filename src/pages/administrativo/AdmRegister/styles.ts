@@ -53,7 +53,8 @@ border-radius: 35px;
 `;
 
 export const Title = styled.h2`
-margin-bottom: 9%;
+white-space: nowrap;
+margin-bottom: 13%;
 font-size: 1.6rem;
 font-weight: 500;
 
@@ -76,7 +77,7 @@ margin-top: 5%;
 margin-right: 10%;
 
 div {
-    margin: 1% 0;
+    margin-bottom: 5%;
 }
 
 input, label {
@@ -84,7 +85,7 @@ input, label {
 }
 
 input {
-    width: 85%;
+    width: 81%;
     margin-left: 1.5%;
     padding: 0.6% 1.4%;
     border: 1px solid ${colors.bgButton};

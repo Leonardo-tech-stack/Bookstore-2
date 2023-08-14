@@ -11,7 +11,7 @@ export const Div = styled.div`
   margin-right: 0;
 
   img {
-    width: 25rem;
+    width: 20rem;
     height: 25rem;
     border: 1px solid ${colors.bgButton};
     border-radius: 35px;
@@ -22,7 +22,6 @@ export const Div = styled.div`
   }
 
   h1 {
-    width: 75%;
     font-size: 1.6rem;
     font-weight: 600;
     margin-bottom: 5%;
@@ -118,7 +117,6 @@ interface DescriptionProps {
 }
 
 export const Description = styled.p<DescriptionProps>`
-  width: 75%;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

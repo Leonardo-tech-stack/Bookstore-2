@@ -3,7 +3,7 @@ import { BarLoader } from 'react-spinners';
 import { mainApiJson } from '../../../services/mainAPI/config';
 import User from '../../../types/User';
 import Modal from '../../../components/Modal';
-import { H1, Search, Tabelas, Administradores, Clientes } from './styles';
+import { H1, Search, Tabelas, Administradores, Clientes, Paginas, Paginas2 } from './styles';
 import { Loading } from '../../../styles/loading';
 import Swal from 'sweetalert2';
 
@@ -16,6 +16,7 @@ const UserList: React.FC = () => {
   const usersPerPage = 5;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showRoleColumn, setShowRoleColumn] = useState<boolean>(false);
+  const [activeTable, setActiveTable] = useState<"admin" | "client" | "both">("admin");
 
   const filterUsersByName = (users: User[], query: string) => {
     return users.filter((user) =>
@@ -121,48 +122,30 @@ const UserList: React.FC = () => {
     setCurrentClientPage(page);
   };
 
-  const getAdminPageNumbers = () => {
+  const getPageNumbers = (totalPages: number, currentPage: number, onPageChange: (page: number) => void) => {
     const pageNumbers = [];
-  
-    for (let i = 1; i <= adminTotalPages; i++) {
+
+    for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
         <button
           key={i}
-          onClick={() => changeAdminPage(i)}
-          className={currentAdminPage === i ? 'current-page' : ''}
+          onClick={() => onPageChange(i)}
+          className={currentPage === i ? 'current-page' : ''}
         >
           {i}
         </button>
       );
     }
-  
+
     return (
       <div className="page-numbers">
         {pageNumbers}
       </div>
     );
   };
-  
-  const getClientPageNumbers = () => {
-    const pageNumbers = [];
-  
-    for (let i = 1; i <= clientTotalPages; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          onClick={() => changeClientPage(i)}
-          className={currentClientPage === i ? 'current-page' : ''}
-        >
-          {i}
-        </button>
-      );
-    }
-  
-    return (
-      <div className="page-numbers">
-        {pageNumbers}
-      </div>
-    );
+
+  const toggleActiveTable = (table: "admin" | "client") => {
+    setActiveTable(table);
   };
 
   return (
@@ -175,7 +158,16 @@ const UserList: React.FC = () => {
       ) : (
         <>
           <H1>Lista de Usuários</H1>
-          <Search>
+
+          <Search>               
+            <div className='trade'>
+              <select value={activeTable} onChange={(e) => setActiveTable(e.target.value as "admin" | "client")}>
+                <option value="both">Ambos</option>
+                <option value="admin">Administradores</option>
+                <option value="client">Clientes</option>
+              </select>
+            </div>
+
             <input
               type="text"
               placeholder="Pesquisar por nome..."
@@ -188,61 +180,137 @@ const UserList: React.FC = () => {
             isMobile={window.innerWidth >= 320 && window.innerWidth <= 768}
             showRoleColumn={true} 
           >
-            <div className='flex'>
-              <Administradores>
-                <table>
-                  <thead>
-                    <h2>Administradores</h2>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Email</th>
-                      {showRoleColumn && <th className='role'></th>}
-                      <th className='actions'>Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentAdminUsers.map((user) => (
-                      <tr key={user.email}>
-                        <td className="name">{user.name}</td>
-                        <td className="email">{user.email}</td>
-                        {showRoleColumn && <td className="role">{user.role}</td>}
-                        <td>
-                          <button onClick={() => handleDeleteUser(user.id)}>Excluir Usuário</button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </Administradores>
-              
-              <div className="page-numbers">{getAdminPageNumbers()}</div>
-            </div>
 
-            <div className='flex'>
-              <Clientes>
-                <table>
-                  <thead>
-                    <h2>Clientes</h2>
-                    <tr>
-                      <th>Nome</th>
-                      <th>Email</th>
-                      {showRoleColumn && <th className='role'></th>}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentClientUsers.map((user) => (
-                      <tr key={user.email}>
-                        <td className="name">{user.name}</td>
-                        <td className="email">{user.email}</td>
-                        {showRoleColumn && <td>{user.role}</td>}
+            {activeTable === "both" && (
+              <>
+               <div>
+                  <Administradores>
+                    <table>
+                      <thead>
+                        <h2>Administradores</h2>
+                        <tr>
+                          <th>Nome</th>
+                          <th>Email</th>
+                          {showRoleColumn && <th className='role'></th>}
+                          <th className='actions'>Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {currentAdminUsers.map((user) => (
+                          <tr key={user.email}>
+                            <td className="name">{user.name}</td>
+                            <td className="email">{user.email}</td>
+                            {showRoleColumn && <td className="role">{user.role}</td>}
+                            <td>
+                              <button onClick={() => handleDeleteUser(user.id)}>Excluir Usuário</button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </Administradores>
+                  <Paginas>
+                    {getPageNumbers(adminTotalPages, currentAdminPage, changeAdminPage)}
+                  </Paginas>
+                </div>
+                <div>
+                  <Clientes>
+                    <table>
+                      <thead>
+                        <h2>Clientes</h2>
+                        <tr>
+                          <th>Nome</th>
+                          <th>Email</th>
+                          {showRoleColumn && <th className='role'></th>}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {currentClientUsers.map((user) => (
+                          <tr key={user.email}>
+                            <td className="name">{user.name}</td>
+                            <td className="email">{user.email}</td>
+                            {showRoleColumn && <td>{user.role}</td>}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </Clientes>
+                  <Paginas>
+                    {getPageNumbers(clientTotalPages, currentClientPage, changeClientPage)}
+                  </Paginas>
+                </div>
+              </>
+            )}
+
+            {activeTable === "admin" && (
+              <>
+                <Administradores>
+                  <table>
+                    <thead>
+                      <h2>Administradores</h2>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        {showRoleColumn && <th className='role'></th>}
+                        <th className='actions'>Ações</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </Clientes>
-              <div className="page-numbers">{getClientPageNumbers()}</div>
-            </div>
+                    </thead>
+                    <tbody>
+                      {currentAdminUsers.map((user) => (
+                        <tr key={user.email}>
+                          <td className="name">{user.name}</td>
+                          <td className="email">{user.email}</td>
+                          {showRoleColumn && <td className="role">{user.role}</td>}
+                          <td>
+                            <button onClick={() => handleDeleteUser(user.id)}>Excluir Usuário</button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </Administradores>
+              </>
+            )}
+
+            {activeTable === "client" && (
+              <>
+                <Clientes>
+                  <table>
+                    <thead>
+                      <h2>Clientes</h2>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        {showRoleColumn && <th className='role'></th>}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentClientUsers.map((user) => (
+                        <tr key={user.email}>
+                          <td className="name">{user.name}</td>
+                          <td className="email">{user.email}</td>
+                          {showRoleColumn && <td>{user.role}</td>}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </Clientes>
+              </>
+            )}
           </Tabelas>
+          <Paginas2>
+            {activeTable === "admin" && (
+              <div className='page-numbers'>
+                {getPageNumbers(adminTotalPages, currentAdminPage, changeAdminPage)}
+              </div>
+            )}
+
+            {activeTable === "client" && (
+              <div className='page-numbers'>
+                {getPageNumbers(clientTotalPages, currentClientPage, changeClientPage)}
+              </div>
+            )}
+          </Paginas2>
         </>
       )}
     </div>

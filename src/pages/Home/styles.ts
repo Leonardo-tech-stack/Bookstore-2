@@ -3,7 +3,7 @@ import { colors } from '../../styles/themes'
 
 export const Body = styled.body`
   background-color: ${colors.fundo};
-  height: 1400px;
+  height: auto;
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     height: 900px;
@@ -49,20 +49,22 @@ export const Products = styled.div`
 
   h1 {
     margin: 3% 0;
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 600;
   }
 
   p {
     max-width: 25rem;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     margin: 1% 0;
     font-weight: 600;
   }
 
   img {
-    width: 25rem;
-    height: 27rem;
+    /* width: 25rem;
+    height: 27rem; */
+    width: 100%;
+    height: auto;
     border: 1px solid ${colors.bgButton};
     border-radius: 35px;
   }
@@ -133,7 +135,7 @@ export const Desc = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    margin-top: -15%;
+    margin-top: -10%;
   }
 
   span {

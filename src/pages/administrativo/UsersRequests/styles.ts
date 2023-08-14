@@ -21,6 +21,7 @@ font-size: 1.2rem;
 margin: 5% 0;
         
     table {
+        max-width: 95%;
         background-color: ${colors.fundo};
         border: 1px solid ${colors.bgButton};
         thead {
@@ -28,7 +29,7 @@ margin: 5% 0;
                 background-color: ${colors.titulo};
                 border-bottom: 1px solid ${colors.bgButton};
                 th {
-                    padding: 10px 80px;
+                    padding: 10px 8px;
                 }
             }
         }
@@ -38,10 +39,11 @@ margin: 5% 0;
                 td {
                     font-weight: 500;
                     padding: 10px 80px;
-                    padding-left: 110px;
+                    padding-left: 60px;
                     border-bottom: 1px solid ${colors.bgButton};
 
                     button {
+                        padding-left: 15px;
                         &:hover {
                             text-decoration: underline;
                             text-shadow: 0px 2px 2px #c4c4c4;
@@ -72,7 +74,6 @@ margin: 5% 0;
             width: 100%;
             thead {
                 tr {
-
                     th {
                         font-size: 1rem;
                         padding: 10px 5px;

@@ -10,8 +10,8 @@ height: 100vh;
 
 export const Div = styled.div`
 background-color: white;
-width: 30%;
-height: 30%;
+width: 40%;
+height: 45%;
 margin: 10%;
 border-radius: 35px;
 

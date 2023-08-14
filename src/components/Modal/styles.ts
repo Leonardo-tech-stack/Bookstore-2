@@ -6,15 +6,17 @@ export const Li = styled.li`
   display: flex;
   flex-direction: column;
   font-weight: 700;
-  margin-top: -130px;
+  margin-top: -110px;
 
   a {
-    width: 35%;
-    margin: 6% 5%;
+    width: 65%;
+    font-size: 1.1rem;
+    margin: 8% 5%;
     border-bottom: 1px solid white;
   }
 
   @media only screen and (min-width: 320px) and (max-width: 480px) {
+    width: 95%;
     margin-top: -115px;
 
     a {
@@ -44,10 +46,10 @@ export const Login = styled.button`
 `;
 
 export const ArrowButton = styled.button`
-  width: 12%;
+  width: 18%;
   background-color: #0d0d0d;
   color: white;
-  padding: 0.2% 0.6%;
+  padding: 0.8% 0.6%;
   
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     width: 65%;
@@ -76,7 +78,7 @@ export const ModalContent = styled.div<{ isOpen: boolean }>`
   left: ${({ isOpen }) => (isOpen ? '0' : '-100%')};
   
   .back {
-    margin-left: 91%;
+    margin-left: 83%;
     margin-top: 20%;
     border: 1px solid white;
     padding: 15px 20px;

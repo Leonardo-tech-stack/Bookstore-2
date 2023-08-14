@@ -32,10 +32,19 @@ export const H1 = styled.h1`
 
 export const Search = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 5%;
+
+  .trade {
+    select {
+      padding: 10px;
+      border: 1px solid #000;
+      border-radius: 5px;
+    }
+  }
 
   input {
-    width: 15%;
+    width: 25%;
     padding: 5px;
     border: 1px solid #000;
     border-radius: 5px;
@@ -71,13 +80,15 @@ export const Search = styled.div`
 
 export const Tabelas = styled.div<TabelasProps>`
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center;
   margin: 4% 0;
 
   .flex {
     flex-direction: column;
 
-    .page-numbers {
+    /* .page-numbers {
       margin-top: 2%;
 
       button {
@@ -92,7 +103,7 @@ export const Tabelas = styled.div<TabelasProps>`
         background-color: white;
         color: black;
       }
-    }
+    } */
   }
 
   h2 {
@@ -140,7 +151,7 @@ export const Tabelas = styled.div<TabelasProps>`
       tr {
         th {
           border: 1px solid ${colors.bgButton};
-          padding: 15px 160px;
+          padding: 15px 140px;
 
           ${props =>
             props.isMobile &&
@@ -308,6 +319,11 @@ export const Tabelas = styled.div<TabelasProps>`
 `;
 
 export const Administradores = styled.div`
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center;
+
   .page-numbers {
     margin-top: 3%;
 
@@ -346,6 +362,7 @@ export const Administradores = styled.div`
   @media only screen and (min-width: 320px) and (max-width: 768px) {
     display: flex;
     justify-content: center;
+    width: 90vw;
     font-weight: 500;
     margin-left: 2%;
 
@@ -380,11 +397,34 @@ export const Administradores = styled.div`
 `;
 
 export const Clientes = styled.div`
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  text-align: center;
+
+  @media only screen and (min-width: 320px) and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    width: 90vw;
+
+    .page-numbers {
+      button {
+        padding: 0.2% 2%;
+      }
+    }
+    
+  }
+`;
+
+export const Paginas = styled.div`
+
   .page-numbers {
-    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    margin-top: 5%;
 
     button {
-      padding: 0.2% 1.6%;
+      padding: 0.5% 2%;
       margin-right: 0.8rem;
       background-color: ${colors.principal};
       color: white;
@@ -398,14 +438,39 @@ export const Clientes = styled.div`
   }
 
   @media only screen and (min-width: 320px) and (max-width: 768px) {
-    display: flex;
-    justify-content: center;
-
     .page-numbers {
+
       button {
-        padding: 0.2% 2%;
+        padding: 0.1% 3%;
       }
     }
-    
   }
 `;
+
+export const Paginas2 = styled.div`
+
+  .page-numbers {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5%;
+    margin-left: 10%;
+
+    button {
+      padding: 5% 30%;
+      margin-right: 0.8rem;
+      background-color: ${colors.principal};
+      color: white;
+      font-weight: 600;
+    }
+
+    button.current-page {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  @media only screen and (min-width: 481px) and (max-width: 768px) {
+
+  }
+`;
+

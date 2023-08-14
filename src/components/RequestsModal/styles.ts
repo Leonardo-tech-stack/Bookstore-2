@@ -6,15 +6,19 @@ import ReactModal from "react-modal";
 export const StyledModal = styled(ReactModal)`
 display: flex;
 justify-content: center;
-height: 55%;
+height: auto;
 width: 45%;
-margin-top: 10%;
+margin-top: 6%;
 margin-left: 25%;
 background-color: white;
 border: 1px solid #000;
 
   div {
     margin: 5%;
+
+    .close {
+      margin-left: 0;
+    }
 
     span {
       font-weight: 500;
@@ -50,7 +54,6 @@ border: 1px solid #000;
     font-weight: 500;
     margin-top: 20px;
     padding: 8px 16px;
-    /* background-color: #f0f0f0; */
     background-color: ${colors.principal};
     color: white;
     border: none;

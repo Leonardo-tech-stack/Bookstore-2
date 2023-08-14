@@ -179,7 +179,8 @@ export const Detalhes = styled.section`
   flex-direction: column;
   background-color: #d3d3d3;
   margin-top: 2%;
-  margin-left: 25%;
+  margin-left: 10%;
+  margin-bottom: 5%;
 
   .details {
     text-align: start;
@@ -308,14 +309,14 @@ export const Ul = styled.ul`
 
     img {
         width: 6rem;
-        height: 6rem;
+        height: auto;
         border: 1px solid ${colors.bgButton};
         border-radius: 15px;
     }
 
     .strings {
         width: 35vw;
-        margin-left: 1%;
+        margin-left: 3%;
 
         button {
             background-color: ${colors.fundo};
@@ -365,6 +366,7 @@ export const Ul = styled.ul`
         img {
             width: 9rem;
             height: auto;
+            margin-left: 2%;
             margin-bottom: 5%;
         }
 

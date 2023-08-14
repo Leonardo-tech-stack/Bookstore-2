@@ -33,7 +33,6 @@ const Modal: React.FC = () => {
   return (
     <div>
       <ArrowButton
-        // isOpen={isModalOpen}
         className="arrow-button"
         onClick={() => setIsModalOpen(!isModalOpen)}
       >
@@ -43,7 +42,6 @@ const Modal: React.FC = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         className="modal-content"
-        // overlayClassName="modal-overlay"
         closeTimeoutMS={200}
       >
         <ModalContent isOpen={isModalOpen}>
