@@ -5,6 +5,9 @@ intuito de colocar em prática todo o conhecimento
 adquirido na Gama Academy. A idéia é
 trazer o máximo de imersão em relação ao mercado de
 trabalho.
+Obs.: as imagens dos produtos são a mesma porque o servidor 
+usado é um servidor gratuito e as imagens hospedadas ficam
+lá por muito pouco tempo.
 
 > E-comerce de venda de livros ChapterOne (empresa fictícia).
 

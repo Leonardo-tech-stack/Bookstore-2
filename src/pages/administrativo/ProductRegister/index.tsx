@@ -30,8 +30,9 @@ const ProductRegistrationPage: React.FC = () => {
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedCategoryId = e.target.value;
+    console.log('Selected Category ID:', selectedCategoryId); 
     setSelectedCategory(selectedCategoryId);
-  };
+  };  
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
@@ -50,10 +51,13 @@ const ProductRegistrationPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const updatedProductData = selectedCategory
-      ? { ...productData, categories: [String(selectedCategory)] } 
+      ? { ...productData, categories: [selectedCategory] } 
       : productData;
+
+      console.log('Updated Product Data:', updatedProductData);
+
 
     const formData = new FormData();
     formData.append('data', JSON.stringify(updatedProductData));
@@ -83,7 +87,7 @@ const ProductRegistrationPage: React.FC = () => {
             });
           },
         }).then(() => {
-          window.location.reload();
+          // window.location.reload();
         });
       } else {
         Swal.fire({

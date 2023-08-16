@@ -156,6 +156,10 @@ button {
     padding-bottom: 6%;
     margin-left: 16%;
     border: none;
+
+    :focus {
+        box-shadow: none;
+    }
 }
 
 @media only screen and (min-width: 320px) and (max-width: 480px) {

@@ -164,6 +164,10 @@ const App: React.FC = () => {
       handleSearch();
     }
   };
+
+  const handleEditProduct = (productId: number) => {
+    navigate(`/edit-product/${productId}`);
+  };  
   
   return (
     <div>
@@ -248,7 +252,7 @@ const App: React.FC = () => {
                       </Td>
                       <Td>
                         <div className="ações">
-                          <FaEdit className="btn-editar" title="Editar (desabilitado)" />
+                          <FaEdit className="btn-editar" title="Editar" onClick={() => handleEditProduct(product.id)} />
                           <FaTrash className="btn-excluir" title="Excluir" onClick={() => handleDeleteProduct(product.id)} />
                         </div>
                       </Td>
