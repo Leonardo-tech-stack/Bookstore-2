@@ -9,6 +9,7 @@ import { Title, Div, Pages } from "./styles";
 import { BarLoader } from "react-spinners";
 import OrderDetailsModal from "../../../components/OrderDetailsModal";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const OrderList: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -21,7 +22,7 @@ const OrderList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [ordersPerPage] = useState<number>(10);
   const [isEmptyList, setIsEmptyList] = useState<boolean>(false);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     noHeader
@@ -40,6 +41,7 @@ const OrderList: React.FC = () => {
             text: 'Faça login como administrador',
             timer: 2000,
           });
+          navigate('/login');
         }
       });
   }, []);

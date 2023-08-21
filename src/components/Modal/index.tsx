@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { noHeader } from '../../services/mainAPI/config';
 import ReactModal from 'react-modal';
 import { Li, Logout, Login, ArrowButton, ModalContent } from './styles';
@@ -22,13 +22,13 @@ const Modal: React.FC = () => {
   const logout = async () => {
     try {
       await noHeader.get('/user/logout');
-      setIsLoggedOut(true);
-      alert('sucesso')
+      setIsLoggedOut(true); 
+      navigate('/login');
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
-      alert('catch')
+      alert('Ocorreu um erro ao fazer logout');
     }
-  };
+  };    
 
   return (
     <div>
@@ -51,12 +51,12 @@ const Modal: React.FC = () => {
           <nav>
             <ul>
               <Li>
-                <a href="/">ChapterOne</a>
-                <a href="/homeadm">Produtos</a>
-                <a href="/lista-de-pedidos">Pedidos</a>
-                <a href="/lista-de-usuarios">Usuários</a>
-                <a href="/cadastroadm">Cadastrar novo adm</a>
-                <a href="/cadastro-de-produto">Cadastrar Produto</a>
+                <Link to="/">ChapterOne</Link>
+                <Link to="/homeadm">Produtos</Link>
+                <Link to="/lista-de-pedidos">Pedidos</Link>
+                <Link to="/lista-de-usuarios">Usuários</Link>
+                <Link to="/cadastroadm">Cadastrar novo adm</Link>
+                <Link to="/cadastro-de-produto">Cadastrar Produto</Link>
                 <div>
                   <Login onClick={() => navigate('/login')}>
                     Login

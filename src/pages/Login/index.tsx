@@ -39,7 +39,6 @@ export default function Login(): JSX.Element {
       };
 
       const response = await mainApiJson.post("/user/login", loginData);
-      console.log(response.data);
       navigate("/");
     } catch (error) {
       setIsInvalidLogin(true);

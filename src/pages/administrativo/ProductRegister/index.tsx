@@ -6,6 +6,7 @@ import { Flex, Div, Title, Form } from './styles';
 import Produto from '../../../assets/images/produto.png';
 import Modal from '../../../components/Modal';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const ProductRegistrationPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -17,7 +18,7 @@ const ProductRegistrationPage: React.FC = () => {
     inventory: '',
     categories: [] as string[], 
   });
-
+  const navigate = useNavigate();
   const [images, setImages] = useState<File | null>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,8 +30,7 @@ const ProductRegistrationPage: React.FC = () => {
   };
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategoryId = e.target.value;
-    console.log('Selected Category ID:', selectedCategoryId); 
+    const selectedCategoryId = e.target.value; 
     setSelectedCategory(selectedCategoryId);
   };  
 
@@ -55,9 +55,6 @@ const ProductRegistrationPage: React.FC = () => {
     const updatedProductData = selectedCategory
       ? { ...productData, categories: [selectedCategory] } 
       : productData;
-
-      console.log('Updated Product Data:', updatedProductData);
-
 
     const formData = new FormData();
     formData.append('data', JSON.stringify(updatedProductData));
@@ -87,7 +84,7 @@ const ProductRegistrationPage: React.FC = () => {
             });
           },
         }).then(() => {
-          // window.location.reload();
+          window.location.reload();
         });
       } else {
         Swal.fire({
@@ -107,6 +104,7 @@ const ProductRegistrationPage: React.FC = () => {
           text: 'Faça login como administrador',
           timer: 2000,
         });
+        navigate('/login');
       } else {
         console.error('Erro de conexão', error);
       }

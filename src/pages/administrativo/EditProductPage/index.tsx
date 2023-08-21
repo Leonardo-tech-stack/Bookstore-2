@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -23,16 +22,17 @@ const EditProductPage: React.FC = () => {
   });
   const [images, setImages] = useState<File[]>([]);
   const [deletedImageIds, setDeletedImageIds] = useState<number[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
-  const [categories, setCategories] = useState<Category[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [allCategories, setAllCategories] = useState<Category[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await noHeader.get(`/product/${product_id}`);
+        const response = await noHeader.get<ProductAPI>(`/product/${product_id}`);
         const data = response.data;
         setProduct(data);
+        setSelectedCategories(data.categories.map(category => category.name)); 
         setFormData({
           name: data.name,
           description: data.description,
@@ -48,13 +48,12 @@ const EditProductPage: React.FC = () => {
   }, [product_id]);
 
   useEffect(() => {
-
     const fetchCategories = async () => {
       try {
         const response = await noHeader.get('/category');
-        setCategories(response.data);
+        setAllCategories(response.data);
       } catch (error) {
-        console.error('Erro ao buscar categorias:', error);
+        console.error('Error fetching categories:', error);
       }
     };
 
@@ -77,44 +76,53 @@ const EditProductPage: React.FC = () => {
   };
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategoryId = e.target.value;
-    setSelectedCategory(selectedCategoryId);
+    const selectedCategoryIds = Array.from(e.target.selectedOptions, option => option.value);
+    setSelectedCategories(selectedCategoryIds);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     const updatedProductData = {
       name: formData.name,
       description: formData.description,
       price: parseFloat(formData.price),
       inventory: parseInt(formData.inventory),
-      // categories: [selectedCategory],
+      categories: selectedCategories,
     };
-
+  
     const formDataToSend = new FormData();
-
+  
     for (const image of images) {
       formDataToSend.append('images', image);
     }
-
+  
     formDataToSend.append('deletedImageIds', JSON.stringify(deletedImageIds));
-
+  
     formDataToSend.append('data', JSON.stringify(updatedProductData));
-
+  
     try {
       const response = await mainApiMultipart.put(`/admin/product/${product_id}`, formDataToSend);
-
+  
       if (response.status === 200) {
-        console.log('Produto atualizado com sucesso!');
         navigate('/homeadm');
+      } else if (response.status === 401 || response.status === 403) {
+        Swal.fire('Erro', 'Faça login como administrador', 'error');
+        navigate('/login');
       } else {
-        console.error('Erro ao atualizar o produto');
+        console.error('Error updating product');
       }
     } catch (error) {
-      console.error('Erro ao atualizar o produto:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Faça login como administrador.',
+        timer: 2000,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      })
+      navigate('/login');
     }
-  };
+  }; 
 
   const handleDeleteImage = (imageId: number) => {
     Swal.fire({
@@ -132,16 +140,22 @@ const EditProductPage: React.FC = () => {
       }
     });
   };
-  
+
   const deleteImage = async (imageId: number) => {
     try {
       const response = await mainApiMultipart.delete(`/admin/product/images/${imageId}`);
-      
+  
       if (response.status === 200 && product) {
         const updatedImages = product.images.filter((image) => image.id !== imageId);
         setProduct({ ...product, images: updatedImages });
         Swal.fire('Imagem excluída com sucesso!', '', 'success');
-      } 
+      } else if (response.status === 401 || response.status === 403) {
+        Swal.fire('Erro', 'Faça login como administrador', 'error');
+        navigate('/login');
+      } else {
+        Swal.fire('Erro', 'Faça login como administrador.', 'error');
+        navigate('/login');
+      }
       Swal.fire({
         icon: 'success',
         title: 'Sucesso!',
@@ -151,13 +165,20 @@ const EditProductPage: React.FC = () => {
         allowOutsideClick: false,
         allowEscapeKey: false,
         showLoaderOnConfirm: true,
-      })
+      });
       window.location.reload();
     } catch (error) {
       console.error('Erro ao excluir imagem:', error);
-      Swal.fire('Erro', 'Ocorreu um erro ao excluir a imagem.', 'error');
+      Swal.fire({
+        icon: 'error',
+        title: 'Faça login como administrador.',
+        timer: 2000,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      })
+      navigate('/login');
     }
-  };
+  }; 
   
   return (
     <div>
@@ -185,15 +206,15 @@ const EditProductPage: React.FC = () => {
               />
             </div>
             {/* <div>
-              <label>Categoria:</label>
+              <label>Categoria(s):</label>
               <select
-                name="category"
-                value={selectedCategory}
+                name="categories"
+                value={selectedCategories}
                 onChange={handleCategoryChange}
+                multiple
               >
-                <option value="">Selecione uma categoria</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
+                {allCategories.map(category => (
+                  <option key={category.id} value={category.id.toString()}>
                     {category.name}
                   </option>
                 ))}
@@ -246,8 +267,8 @@ const EditProductPage: React.FC = () => {
         </DivEditProduct>
       ) : (
         <Loading>
-         <BarLoader color="#000" loading={isLoading} />
-        </Loading>  
+          <BarLoader color="#000" loading={isLoading} />
+        </Loading>
       )}
     </div>
   );

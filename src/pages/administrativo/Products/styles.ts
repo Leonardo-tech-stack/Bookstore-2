@@ -314,6 +314,10 @@ background-color: ${colors.fundo};
     font-weight: 500;
   }
 
+  .quantidade {
+    padding-left: 6%;
+  }
+
   @media only screen and (min-width: 320px) and (max-width: 480px) {
     .img,
     .nome {

@@ -1,3 +1,5 @@
+import Category from "./Category";
+
 interface ProductAPI {
   id: number;
   name: string;
@@ -5,8 +7,8 @@ interface ProductAPI {
   price: number;
   inventory: number;
   quantity: number;
-  category: string;
-  categories: string[];
+  // category: string;
+  categories: Category[];
   image: string;
   images: { id: number; filename: string; productId: number }[];
 }

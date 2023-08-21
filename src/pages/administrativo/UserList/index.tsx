@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { mainApiJson } from '../../../services/mainAPI/config';
 import User from '../../../types/User';
@@ -17,6 +18,7 @@ const UserList: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showRoleColumn, setShowRoleColumn] = useState<boolean>(false);
   const [activeTable, setActiveTable] = useState<"admin" | "client" | "both">("admin");
+  const navigate = useNavigate();
 
   const filterUsersByName = (users: User[], query: string) => {
     return users.filter((user) =>
@@ -39,16 +41,16 @@ const UserList: React.FC = () => {
           setClientUsers(filteredClientUsers);
           setIsLoading(false);
         } else {
-          console.log('Erro ao obter a lista de usuários');
+          
         }
       } catch (error) {
-        console.log('Erro na requisição:', error);
         Swal.fire({
           icon: 'error',
           title: 'Erro na requisição',
           text: 'Faça login como administrador',
           timer: 2000,
         });
+        navigate('/login');
       }
     };
 
@@ -93,7 +95,7 @@ const UserList: React.FC = () => {
         timer: 2000,
       });
     } catch (error) {
-      console.log('Erro na exclusão do usuário:', error);
+      
       Swal.fire({
         icon: 'error',
         title: 'Erro na exclusão do usuário',

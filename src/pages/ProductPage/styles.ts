@@ -42,6 +42,11 @@ export const Div = styled.div`
     }
   }
 
+  select {
+    border: 1px solid ${colors.principal};
+    border-radius: 7%;
+  }
+
   .add {
     margin-top: 2%;
     padding: 5px 15px;

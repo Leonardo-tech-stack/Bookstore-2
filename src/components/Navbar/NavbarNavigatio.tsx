@@ -11,16 +11,6 @@ interface CartResponse {
   products: ProductAPI[];
 }
 
-const navigation = [
-  { name: 'Comprar', href: '/lista-de-produtos', current: true },
-  { name: 'Login', href: '/login', current: false },
-  { name: 'Alterar Dados', href: '/meus-dados', current: false },
-  { name: 'Pedidos', href: '/pedidos', current: false },
-  // { name: 'Stories', href: '#', current: false },
-  // { name: 'Sobre', href: '#', current: false },
-  // { name: 'Sair', href: '/', action: handleLogout },
-];
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
@@ -31,6 +21,26 @@ const NavbarNavigation: React.FC = ({}) => {
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
   const [isMediumScreen, setIsMediumScreen] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await noHeader.get('/user/logout');
+      console.log('Logout ok');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
+  };
+
+  const navigation = [
+    { name: 'Comprar', href: '/lista-de-produtos', current: true },
+    { name: 'Login', href: '/login', current: false },
+    { name: 'Alterar Dados', href: '/meus-dados', current: false },
+    { name: 'Pedidos', href: '/pedidos', current: false },
+    // { name: 'Stories', href: '#', current: false },
+    // { name: 'Sobre', href: '#', current: false },
+    // { name: 'Sair', href: '/', action: handleLogout },
+  ];
 
   useEffect(() => {
     const handleResize = () => {
@@ -53,16 +63,6 @@ const NavbarNavigation: React.FC = ({}) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
-  };
-
-  const handleLogout = async () => {
-    try {
-      await noHeader.get('/user/logout');
-      console.log('Logout ok');
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout failed', error);
-    }
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

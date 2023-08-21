@@ -65,7 +65,6 @@ const CartPage: React.FC = () => {
     mainApiJson
       .post('/client/order', body)
       .then((response) => {
-        console.log('Pedido gerado:', response.data);
 
         setCartItems([]);
 
@@ -83,7 +82,6 @@ const CartPage: React.FC = () => {
   };
 
   const handleRemoveFromCart = (productId: number) => {
-    console.log('productId:', productId);
 
     const body = {
       productId,
@@ -115,7 +113,6 @@ const CartPage: React.FC = () => {
   };
 
   const handleUpdateQuantity = (productId: number, newQuantity: number) => {
-    console.log('productId:', productId, 'newQuantity:', newQuantity);
 
     const body = {
       productId,
@@ -125,7 +122,7 @@ const CartPage: React.FC = () => {
     mainApiJson
       .post('client/cart/add', body)
       .then((response) => {
-        console.log('Quantity updated:', response.data);
+       
       })
       .catch((error) => {
         console.error('Erro ao atualizar a quantidade do produto:', error);

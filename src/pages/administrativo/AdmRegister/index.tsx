@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { mainApiJson } from '../../../services/mainAPI/config';
 import Adm from '../../../assets/images/adm.png'
 import { Flex, Div, Title, Form } from './styles';
@@ -10,6 +10,7 @@ const AdminRegistrationPage: React.FC = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -69,6 +70,7 @@ const AdminRegistrationPage: React.FC = () => {
           text: 'Faça login como administrador',
           timer: 2000,
         });
+        navigate('/login');
       } else {
         console.error('Erro de conexão', error);
       }

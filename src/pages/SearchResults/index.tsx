@@ -3,6 +3,7 @@ import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { noHeader, mainApiJson } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
+import Category from '../../types/Category';
 import { NFound } from './styles';
 import { Div, Description } from '../ProductPage/styles';
 import { Loading } from '../../styles/loading';
@@ -148,9 +149,16 @@ const SearchResultsPage = () => {
                     </button>
                   )}
 
+                  {product?.categories && product.categories.length > 0 && (
+                    <p>
+                      <strong>Categoria(s):</strong> {product.categories.map((category: Category) => category.name).join(', ')}
+                    </p>
+                  )}
+
                   <p>
                     <strong>Preço:</strong> R$ {product.price}
                   </p>
+
                   <label>
                     <strong>Quantidade: </strong>
                     <select

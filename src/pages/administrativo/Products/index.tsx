@@ -93,6 +93,7 @@ const App: React.FC = () => {
                 text: 'Faça login como administrador',
                 timer: 2000,
               });
+              navigate('/login');
             }
           });
       }

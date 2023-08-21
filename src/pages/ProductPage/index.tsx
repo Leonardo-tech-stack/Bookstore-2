@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
+import Category from '../../types/Category';
 import ProductAPI from '../../types/productAPI';
 import { Div, Description } from './styles';
 import { Loading } from '../../styles/loading'; 
@@ -94,6 +95,7 @@ const ProductPage: React.FC = () => {
           <div className='img'>
             {/* <img src={getImageUrl(product?.image || '')} alt={product?.name || ''} /> */}
             <img src={getImageUrl(product?.image || '')} />
+            {/* <img src={Book} /> */}
           </div>
           
           <div className='string'>
@@ -107,6 +109,12 @@ const ProductPage: React.FC = () => {
               <button className="hide" onClick={toggleFullDescription}>
                 {showFullDescription ? 'Mostrar menos' : 'Mostrar mais'}
               </button>
+            )}
+
+            {product?.categories && product.categories.length > 0 && (
+              <p>
+                <strong>Categoria(s):</strong> {product.categories.map((category: Category) => category.name).join(', ')}
+              </p>
             )}
 
             <p>
