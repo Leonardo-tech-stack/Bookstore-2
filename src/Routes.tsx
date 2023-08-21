@@ -8,12 +8,12 @@ import Ordereds from "./pages/Ordereds";
 import Login from "../src/pages/Login";
 import Register from "./pages/Register";
 import UserData from "./pages/UserData";
-import HomeAdmin from "./pages/administrativo/Products";
-import UserList from "./pages/administrativo/UserList";
-import RegisterAdm from "./pages/administrativo/AdmRegister";
-import RegisterProduct from "./pages/administrativo/ProductRegister/index";
-import EditProduct from "./pages/administrativo/EditProductPage/index";
-import UsersRequests from "./pages/administrativo/UsersRequests";
+import HomeAdmin from "./pages/administrative/Products";
+import UserList from "./pages/administrative/UserList";
+import RegisterAdm from "./pages/administrative/AdmRegister";
+import RegisterProduct from "./pages/administrative/ProductRegister/index";
+import EditProduct from "./pages/administrative/EditProductPage/index";
+import UsersRequests from "./pages/administrative/UsersRequests";
 import Contact from "./pages/Contact";
 
 export default function Routes() {

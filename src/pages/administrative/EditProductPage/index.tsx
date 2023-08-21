@@ -32,7 +32,7 @@ const EditProductPage: React.FC = () => {
         const response = await noHeader.get<ProductAPI>(`/product/${product_id}`);
         const data = response.data;
         setProduct(data);
-        setSelectedCategories(data.categories.map(category => category.name)); 
+        setSelectedCategories(data.categories.map(category => category.id.toString())); // Usar os IDs das categorias existentes
         setFormData({
           name: data.name,
           description: data.description,
@@ -42,7 +42,7 @@ const EditProductPage: React.FC = () => {
       } catch (error) {
         console.error('Error fetching product details:', error);
       }
-    };
+    };    
 
     fetchProductDetails();
   }, [product_id]);
@@ -76,10 +76,13 @@ const EditProductPage: React.FC = () => {
   };
 
   const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedCategoryIds = Array.from(e.target.selectedOptions, option => option.value);
+    const selectedCategoryIds = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
     setSelectedCategories(selectedCategoryIds);
   };
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
@@ -113,14 +116,7 @@ const EditProductPage: React.FC = () => {
         console.error('Error updating product');
       }
     } catch (error) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Faça login como administrador.',
-        timer: 2000,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-      })
-      navigate('/login');
+      console.error('catch')
     }
   }; 
 
@@ -134,51 +130,63 @@ const EditProductPage: React.FC = () => {
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        deleteImage(imageId);
+        try {
+          await deleteImage(imageId);
+        } catch (error) {
+          console.error('Erro ao excluir imagem:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Ocorreu um erro ao excluir a imagem.',
+            text: 'Por favor, tente novamente mais tarde.',
+            timer: 3000,
+            showConfirmButton: false,
+          });
+        }
       }
     });
   };
 
   const deleteImage = async (imageId: number) => {
     try {
+
       const response = await mainApiMultipart.delete(`/admin/product/images/${imageId}`);
   
-      if (response.status === 200 && product) {
+      if (response.status === 204 && product) {
+
         const updatedImages = product.images.filter((image) => image.id !== imageId);
         setProduct({ ...product, images: updatedImages });
-        Swal.fire('Imagem excluída com sucesso!', '', 'success');
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Imagem excluída com sucesso!',
+          timer: 1000,
+          showConfirmButton: false,
+        });
       } else if (response.status === 401 || response.status === 403) {
-        Swal.fire('Erro', 'Faça login como administrador', 'error');
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro',
+          text: 'Faça login como administrador.',
+          timer: 2000,
+          showConfirmButton: false,
+        });
         navigate('/login');
       } else {
-        Swal.fire('Erro', 'Faça login como administrador.', 'error');
-        navigate('/login');
+
       }
-      Swal.fire({
-        icon: 'success',
-        title: 'Sucesso!',
-        timer: 2000,
-        showConfirmButton: true,
-        showCancelButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        showLoaderOnConfirm: true,
-      });
-      window.location.reload();
     } catch (error) {
       console.error('Erro ao excluir imagem:', error);
       Swal.fire({
         icon: 'error',
-        title: 'Faça login como administrador.',
-        timer: 2000,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-      })
-      navigate('/login');
+        title: 'Erro',
+        text: 'Ocorreu um erro ao excluir a imagem.',
+        timer: 3000,
+        showConfirmButton: false,
+      });
     }
-  }; 
+  };
   
   return (
     <div>
@@ -209,7 +217,7 @@ const EditProductPage: React.FC = () => {
               <label>Categoria(s):</label>
               <select
                 name="categories"
-                value={selectedCategories}
+                defaultValue={selectedCategories}
                 onChange={handleCategoryChange}
                 multiple
               >

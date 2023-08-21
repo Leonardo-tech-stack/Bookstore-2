@@ -22,13 +22,16 @@ const Modal: React.FC = () => {
   const logout = async () => {
     try {
       await noHeader.get('/user/logout');
-      setIsLoggedOut(true); 
-      navigate('/login');
+      setIsLoggedOut(true);
+    
+      setTimeout(() => {
+        navigate('/login');
+      }, 1000);
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
       alert('Ocorreu um erro ao fazer logout');
     }
-  };    
+  };      
 
   return (
     <div>
