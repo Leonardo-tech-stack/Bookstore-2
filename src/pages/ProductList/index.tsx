@@ -37,7 +37,6 @@ const ProductList: React.FC = () => {
                 return category === selectedCategory;
               } else {
                 return category && category['name'] === selectedCategory;
-
               }
             }
           );

@@ -65,7 +65,6 @@ export const ArrowButton = styled.button`
 `;
 
 export const ModalContent = styled.div<{ isOpen: boolean }>`
-  /* background-color: #0d0d0d; */
   background-image: url(${Modal});
   background-position: center;
   background-size: cover;

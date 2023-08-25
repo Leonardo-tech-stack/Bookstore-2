@@ -1,4 +1,4 @@
-import React, { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { mainApiJson } from "../../services/mainAPI/config";
 import { Body, Logar, Register, Form, H2, Validation, Main } from "./styles";

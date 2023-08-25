@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { noHeader, mainApiJson } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
@@ -13,9 +13,7 @@ import Swal from 'sweetalert2';
 const SearchResultsPage = () => {
   const location = useLocation();
   const [searchResults, setSearchResults] = useState<ProductAPI[]>([]);
-  const { productId } = useParams<{ productId: string }>();
   const [isLoading, setIsLoading] = useState(true);
-  const [product, setProduct] = useState<ProductAPI | null>(null);
   const [selectedQuantities, setSelectedQuantities] = useState<{ [productId: string]: number }>({});
   const [productDescriptionVisibility, setProductDescriptionVisibility] = useState<{ [key: string]: boolean }>({});
   const navigate = useNavigate();

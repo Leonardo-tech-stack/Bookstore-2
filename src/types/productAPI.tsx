@@ -7,7 +7,6 @@ interface ProductAPI {
   price: number;
   inventory: number;
   quantity: number;
-  // category: string;
   categories: Category[];
   image: string;
   images: { id: number; filename: string; productId: number }[];

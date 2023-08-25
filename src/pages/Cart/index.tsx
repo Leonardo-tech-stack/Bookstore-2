@@ -21,14 +21,15 @@ const CartPage: React.FC = () => {
     noHeader
       .get('/client/cart')
       .then((response) => {
-        const products = response.data.products.map((item: any) => {
-          return mainApiJson
-            .get(`/product/${item.productId}`)
-            .then((productResponse) => productResponse.data)
-            .catch((error) => {
-              console.error('Erro ao obter informações do produto:', error);
-              return null;
-            });
+        const products = response.data.products.map(async (item: any) => {
+          try {
+            const productResponse = await mainApiJson
+              .get(`/product/${item.productId}`);
+            return productResponse.data;
+          } catch (error) {
+            console.error('Erro ao obter informações do produto:', error);
+            return null;
+          }
         });
 
         Promise.all(products)
@@ -96,20 +97,6 @@ const CartPage: React.FC = () => {
       .catch((error) => {
         console.error('Erro ao remover o produto do carrinho:', error);
       });
-  };
-
-  const handleQuantityChange = (productId: number, newQuantity: number) => {
-    const updatedCartItems = cartItems.map((item) => {
-      if (item.product.id === productId) {
-        return {
-          ...item,
-          quantity: newQuantity,
-        };
-      }
-      return item;
-    });
-
-    setCartItems(updatedCartItems);
   };
 
   const handleUpdateQuantity = (productId: number, newQuantity: number) => {
@@ -182,7 +169,6 @@ const CartPage: React.FC = () => {
                       <Ul>
                         <li>
                           <div>
-                            {/* <img src={item.product.image} /> */}
                             <img src={Book} />
                           </div>
 

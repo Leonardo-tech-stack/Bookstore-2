@@ -32,7 +32,7 @@ const EditProductPage: React.FC = () => {
         const response = await noHeader.get<ProductAPI>(`/product/${product_id}`);
         const data = response.data;
         setProduct(data);
-        setSelectedCategories(data.categories.map(category => category.id.toString())); // Usar os IDs das categorias existentes
+        setSelectedCategories(data.categories.map(category => category.id.toString())); 
         setFormData({
           name: data.name,
           description: data.description,
@@ -81,18 +81,18 @@ const EditProductPage: React.FC = () => {
       (option) => option.value
     );
     setSelectedCategories(selectedCategoryIds);
-  };
+  };  
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
     const updatedProductData = {
       name: formData.name,
       description: formData.description,
       price: parseFloat(formData.price),
       inventory: parseInt(formData.inventory),
-      categories: selectedCategories,
-    };
+      categories: selectedCategories, 
+    };    
   
     const formDataToSend = new FormData();
   

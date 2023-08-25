@@ -45,7 +45,7 @@ const Modal: React.FC = () => {
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         className="modal-content"
-        closeTimeoutMS={200}
+        closeTimeoutMS={50}
       >
         <ModalContent isOpen={isModalOpen}>
           <button className="back" onClick={() => setIsModalOpen(false)}>

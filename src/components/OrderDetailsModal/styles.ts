@@ -47,7 +47,8 @@ font-size: 1.2rem;
         background-color: ${colors.titulo};
         border-bottom: 1px solid ${colors.bgButton};
         th {
-          padding: 10px 80px;
+          padding: 10px 70px;
+          white-space: nowrap;
         }
       }
     }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { AxiosError } from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
 import Category from '../../../types/Category';
 import { Flex, Div, Title, Form } from './styles';
 import Produto from '../../../assets/images/produto.png';
 import Modal from '../../../components/Modal';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom';
 
 const ProductRegistrationPage: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -19,7 +19,7 @@ const ProductRegistrationPage: React.FC = () => {
     categories: [] as string[], 
   });
   const navigate = useNavigate();
-  const [images, setImages] = useState<File | null>(null);
+  const [images, setImages] = useState<File[]>([]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,25 +44,25 @@ const ProductRegistrationPage: React.FC = () => {
 
   const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      const image = event.target.files[0];
-      setImages(image);
+      const newImages = Array.from(event.target.files);
+      setImages(newImages);
     }
-  };
+  };  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
   
     const updatedProductData = selectedCategory
-      ? { ...productData, categories: [selectedCategory] } 
+      ? { ...productData, categories: [selectedCategory] }
       : productData;
-
+  
     const formData = new FormData();
     formData.append('data', JSON.stringify(updatedProductData));
-
-    if (images) {
-      formData.append('images', images);
-    }
   
+    for (const image of images) {
+      formData.append('images', image);
+    }
+
     try {
       const response = await mainApiMultipart.post('/admin/product', formData);
 
@@ -194,9 +194,9 @@ const ProductRegistrationPage: React.FC = () => {
             </div> */}
             <div className="img">
               <label className="img-label" htmlFor="images">
-                Imagem:
+                Imagens:
               </label>
-              <input type="file" id="images" onChange={handleImagesChange} />
+              <input type="file" id="images" multiple onChange={handleImagesChange} />
             </div>
             <div className="register">
               <button type="submit">Cadastrar</button>

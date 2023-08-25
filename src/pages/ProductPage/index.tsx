@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { mainApiJson, noHeader } from '../../services/mainAPI/config';
@@ -6,7 +6,7 @@ import Category from '../../types/Category';
 import ProductAPI from '../../types/productAPI';
 import { Div, Description } from './styles';
 import { Loading } from '../../styles/loading'; 
-import Book from '../../assets/images/Book-1.png'
+import Book from '../../assets/images/Book-1.png';
 import Swal from 'sweetalert2';
 
 const ProductPage: React.FC = () => {
