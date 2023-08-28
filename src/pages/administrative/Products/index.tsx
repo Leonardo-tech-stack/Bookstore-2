@@ -10,6 +10,8 @@ import Modal from '../../../components/Modal';
 import { Loading } from '../../../styles/loading';
 import Book from '../../../assets/images/Book-1.png';
 import Swal from 'sweetalert2';
+import toastr from 'toastr'; 
+import 'toastr/build/toastr.min.css';
 
 const App: React.FC = () => {
   const [products, setProducts] = useState<ProductAPI[]>([]);
@@ -68,17 +70,11 @@ const App: React.FC = () => {
           .then(response => {
             if (response.status === 204) {
               setProducts(prevProducts => prevProducts.filter(product => product.id !== id));
-              Swal.fire({
-                icon: 'success',
-                title: 'Produto deletado com sucesso!',
-                timer: 2000,
-                showConfirmButton: true,
-                showCancelButton: false,
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                showLoaderOnConfirm: true,
-              }).then(() => {
-                // window.location.reload();
+              toastr.info('Produto deletado com sucesso!', '', {
+                timeOut: 2000,
+                onHidden: () => {
+                  // window.location.reload();
+                }
               });
             } else {
               console.error('Failed to delete product');

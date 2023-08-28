@@ -1,5 +1,7 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 import Swal from 'sweetalert2';
 import ProductAPI from '../../../types/productAPI';
 import Category from '../../../types/Category';
@@ -109,6 +111,10 @@ const EditProductPage: React.FC = () => {
   
       if (response.status === 200) {
         navigate('/homeadm');
+        toastr.success('Dados atualizados!', '', {
+          timeOut: 2000,
+          progressBar: true,
+        });
       } else if (response.status === 401 || response.status === 403) {
         Swal.fire('Erro', 'Faça login como administrador', 'error');
         navigate('/login');
@@ -158,11 +164,8 @@ const EditProductPage: React.FC = () => {
         const updatedImages = product.images.filter((image) => image.id !== imageId);
         setProduct({ ...product, images: updatedImages });
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Imagem excluída com sucesso!',
-          timer: 1000,
-          showConfirmButton: false,
+        toastr.info('Imagem excluída!', '', {
+          timeOut: 1000,
         });
       } else if (response.status === 401 || response.status === 403) {
         Swal.fire({

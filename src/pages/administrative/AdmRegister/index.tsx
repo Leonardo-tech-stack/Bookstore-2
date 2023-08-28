@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainApiJson } from '../../../services/mainAPI/config';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 import Adm from '../../../assets/images/adm.png'
 import { Flex, Div, Title, Form } from './styles';
 import Modal from '../../../components/Modal';
@@ -35,32 +37,18 @@ const AdminRegistrationPage: React.FC = () => {
   
     try {
       const response = await mainApiJson.post('/admin/register', data);
-  
+    
       if (response.status === 201) {
-
-        if (response.status === 201) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Administrador cadastrado com sucesso!',
-            timer: 2000,
-            showConfirmButton: true,
-            showCancelButton: false,
-            allowOutsideClick: true,
-            allowEscapeKey: false,
-            showLoaderOnConfirm: true,
-            preConfirm: (): Promise<void> => {
-              return new Promise<void>((resolve) => {
-                setTimeout(() => {
-                  resolve();
-                });
-              });
-            },
-          }).then(() => {
+        toastr.success('Administrador cadastrado com sucesso!', '', {
+          timeOut: 2000,
+          onHidden: () => {
             window.location.reload();
-          });      
-        }
+          }
+        });
       } else {
-        alert('Erro ao cadastrar administrador!');
+        toastr.error('Erro ao cadastrar administrador!', '', {
+          timeOut: 2000,
+        });
       }
     } catch (error: any) {
       if (error.response && (error.response.status === 401 || error.response.status === 403)) {

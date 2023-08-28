@@ -6,6 +6,8 @@ import User from '../../../types/User';
 import Modal from '../../../components/Modal';
 import { H1, Search, Tabelas, Administradores, Clientes, Paginas, Paginas2 } from './styles';
 import { Loading } from '../../../styles/loading';
+import toastr from 'toastr'; 
+import 'toastr/build/toastr.min.css';
 import Swal from 'sweetalert2';
 
 const UserList: React.FC = () => {
@@ -88,11 +90,8 @@ const UserList: React.FC = () => {
     try {
       await mainApiJson.delete(`/admin/user/${userId}`);
       setAdminUsers(adminUsers.filter((user) => user.id !== userId));
-      Swal.fire({
-        icon: 'success',
-        title: 'Usuário excluído',
-        text: 'O usuário foi excluído com sucesso.',
-        timer: 2000,
+      toastr.success('Usuário excluído!', '', {
+        timeOut: 2000,
       });
     } catch (error) {
       

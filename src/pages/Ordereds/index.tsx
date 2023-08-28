@@ -5,6 +5,8 @@ import ProductAPI from '../../types/productAPI';
 import { Loading } from '../../styles/loading';
 import Book from '../../assets/images/Book-1.png'
 import { Body, Title, Pedidos, Margin, Vazio } from './styles';
+import toastr from 'toastr'; 
+import 'toastr/build/toastr.min.css';
 import Swal from 'sweetalert2';
 
 const OrderPage: React.FC = () => {
@@ -66,17 +68,11 @@ const OrderPage: React.FC = () => {
         noHeader
           .delete(`/client/order/${orderId}`)
           .then((response) => {
-            Swal.fire({
-              icon: 'info',
-              title: 'Pedido cancelado',
-              timer: 2000,
-              showConfirmButton: true,
-              showCancelButton: false,
-              allowOutsideClick: false,
-              allowEscapeKey: false,
-              showLoaderOnConfirm: true,
-            }).then(() => {
-              window.location.reload();
+            toastr.info('Pedido cancelado!', '', {
+              timeOut: 2000,
+              onHidden: () => {
+                // window.location.reload();
+              }
             });
             setOrders(orders.filter((order: any) => order.id !== orderId));
           })

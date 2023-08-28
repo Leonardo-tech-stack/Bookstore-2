@@ -2,9 +2,10 @@ import { AxiosError } from "axios";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import { mainApiJson } from "../../services/mainAPI/config";
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 import { Body, Main } from '../Login/styles';
 import { DivForm, Cadastrar } from "./styles";
-import Swal from "sweetalert2";
 
 export default function CadastroCliente() {
   const navigate = useNavigate();
@@ -23,16 +24,17 @@ export default function CadastroCliente() {
         password,
       });
       if (res.status === 201) {
-        Swal.fire({
-          icon: "success",
-          text: "Cadastro concluído",
-          timer: 1000,
-        }).then(() => {
-          navigate('/login')
+        toastr.success('Cadastro concluído', '', {
+          timeOut: 1000,
+          onHidden: () => {
+            navigate('/login');
+          }
         });
       }
     } catch (error: any | AxiosError) {
-      alert(error.response.data);
+      toastr.error(error.response.data, '', {
+        timeOut: 5000,
+      });
     }
   }
 

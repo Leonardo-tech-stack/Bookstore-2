@@ -3,6 +3,8 @@ import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { mainApiMultipart, noHeader } from '../../../services/mainAPI/config';
 import Category from '../../../types/Category';
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 import { Flex, Div, Title, Form } from './styles';
 import Produto from '../../../assets/images/produto.png';
 import Modal from '../../../components/Modal';
@@ -65,32 +67,17 @@ const ProductRegistrationPage: React.FC = () => {
 
     try {
       const response = await mainApiMultipart.post('/admin/product', formData);
-
+    
       if (response.status === 201) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Produto cadastrado com sucesso!',
-          timer: 2000,
-          showConfirmButton: true,
-          showCancelButton: false,
-          allowOutsideClick: true,
-          allowEscapeKey: false,
-          showLoaderOnConfirm: true,
-          preConfirm: (): Promise<void> => {
-            return new Promise<void>((resolve) => {
-              setTimeout(() => {
-                resolve();
-              });
-            });
-          },
-        }).then(() => {
-          window.location.reload();
+        toastr.success('Produto cadastrado com sucesso!', '', {
+          timeOut: 1000,
+          onHidden: () => {
+            window.location.reload();
+          }
         });
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro ao cadastrar produto!',
-          timer: 2000,
+        toastr.error('Erro ao cadastrar produto!', '', {
+          timeOut: 2000,
         });
       }
     } catch (error) {
