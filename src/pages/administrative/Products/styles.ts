@@ -244,7 +244,6 @@ height: auto;
 `;
 
 export const Table = styled.table`
-  /* max-width: 1200px; */
   width: 90%;
   margin: 0 auto;
   margin-top: 2%;

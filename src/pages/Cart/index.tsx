@@ -169,7 +169,7 @@ const CartPage: React.FC = () => {
                       <Ul>
                         <li>
                           <div>
-                            <img src={Book} />
+                            <img src={Book} alt={item.product.name}/>
                           </div>
 
                           <div className="strings">

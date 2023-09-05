@@ -77,7 +77,7 @@ const OrderDetailsModal: React.FC<OrderDetailsModalProps> = ({
                 <tbody>
                   {productsDetails.map((product) => (
                     <tr key={product.id}>
-                      <td className="image"><img src={Book}/></td>
+                      <td className="image"><img src={Book} alt={product.name}/></td>
                       <td className="name">{product.name}</td>
                       <td className="price">${product.price}</td>
                     </tr>

@@ -9,7 +9,6 @@ import 'toastr/build/toastr.min.css';
 import { NFound } from './styles';
 import { Div, Description } from '../ProductPage/styles';
 import { Loading } from '../../styles/loading';
-import Book from '../../assets/images/Book-1.png'
 
 const SearchResultsPage = () => {
   const location = useLocation();

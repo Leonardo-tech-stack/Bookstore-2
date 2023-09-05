@@ -42,8 +42,8 @@ const Footer = () => {
           <div>
             <h2 className="text-black text-2xl font-semibold mb-6">Contato</h2>
             <ul className="space-y-2">
-              <li><a href="https://linkedin.com/in/leonardo-carvalho-3708bb260/" target="_blank" className="text-gray-400 hover:text-black">Linkedin</a></li>
-              <li><a href="https://github.com/Leonardo-tech-stack" target="_blank" className="text-gray-400 hover:text-black">Github</a></li>
+              <li><a href="https://linkedin.com/in/leonardo-carvalho-3708bb260/" target="_blank" className="text-gray-400 hover:text-black" rel="noreferrer">Linkedin</a></li>
+              <li><a href="https://github.com/Leonardo-tech-stack" target="_blank" className="text-gray-400 hover:text-black" rel="noreferrer">Github</a></li>
               <li><a href="#" className="text-gray-400 hover:text-black">Retorno</a></li>
               <li><a href="#" className="text-gray-400 hover:text-black">Termos de serviço</a></li>
             </ul>

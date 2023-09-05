@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductAPI from '../../types/productAPI';
 import { Body, Products, Desc } from './styles';
-import { noHeader, getImageUrl } from '../../services/mainAPI/config';
+import { noHeader } from '../../services/mainAPI/config';
 import Book from '../../assets/images/Book-1.png';
 
 const Home: React.FC = () => {

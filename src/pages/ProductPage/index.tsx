@@ -8,7 +8,6 @@ import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 import { Div, Description } from './styles';
 import { Loading } from '../../styles/loading'; 
-import Book from '../../assets/images/Book-1.png';
 
 const ProductPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>();

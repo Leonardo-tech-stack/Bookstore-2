@@ -145,10 +145,6 @@ const UserList: React.FC = () => {
     );
   };
 
-  const toggleActiveTable = (table: "admin" | "client") => {
-    setActiveTable(table);
-  };
-
   return (
     <div>
       <Modal />

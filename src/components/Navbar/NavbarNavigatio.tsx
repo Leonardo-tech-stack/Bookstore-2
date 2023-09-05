@@ -1,4 +1,4 @@
-import { Disclosure, Menu } from '@headlessui/react';
+import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
@@ -15,22 +15,12 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-const NavbarNavigation: React.FC = ({}) => {
+const NavbarNavigation: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cartItemCount, setCartItemCount] = useState<number>(0);
   const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
   const [isMediumScreen, setIsMediumScreen] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await noHeader.get('/user/logout');
-
-      navigate('/login');
-    } catch (error) {
-      console.error('Logout failed', error);
-    }
-  };
 
   const navigation = [
     { name: 'Comprar', href: '/lista-de-produtos', current: true },

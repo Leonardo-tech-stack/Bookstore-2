@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BarLoader } from 'react-spinners';
 import { FiArrowDownCircle } from 'react-icons/fi'; 
-import { noHeader, getImageUrl } from '../../services/mainAPI/config';
+import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import Category from '../../types/Category';
 import Sobre from '../../components/About';
@@ -188,7 +188,7 @@ const ProductList: React.FC = () => {
                         src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
                         alt={`Imagem do produto ${product.name}`}
                       /> */}
-                      <img src={Book}></img>
+                      <img src={Book} alt={product.name}></img>
                       <h1 className="name">
                         <strong>{product.name}</strong>
                       </h1>

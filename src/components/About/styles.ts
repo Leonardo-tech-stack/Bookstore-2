@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Link from '../../types/Link';
 import { colors } from '../../styles/themes'
 
 export const Div = styled.div`

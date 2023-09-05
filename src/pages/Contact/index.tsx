@@ -10,7 +10,7 @@ export default function Contato() {
                 <div>
                     <a href="https://linkedin.com/in/leonardo-carvalho-3708bb260/" 
                     target="_blank" 
-                    className="text-gray-400 hover:text-black"
+                    className="text-gray-400 hover:text-black" rel="noreferrer"
                     >
                         <img src={Linkedin} alt="linkedin" />
                         <strong>LinkedIn</strong>
@@ -20,7 +20,7 @@ export default function Contato() {
                 <div>
                     <a href="https://github.com/Leonardo-tech-stack" 
                     target="_blank" 
-                    className="text-gray-400 hover:text-black"
+                    className="text-gray-400 hover:text-black" rel="noreferrer"
                     >
                         <img src={Github} alt="github" />
                         <strong>Github</strong>

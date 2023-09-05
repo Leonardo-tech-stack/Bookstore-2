@@ -30,22 +30,22 @@ export default function Login(): JSX.Element {
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const loginData = {
         email,
         password,
         rememberMe,
       };
-
-      const response = await mainApiJson.post("/user/login", loginData);
+  
+      await mainApiJson.post("/user/login", loginData);
       navigate("/");
     } catch (error) {
       setIsInvalidLogin(true);
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
 
   const redirectToCadastro = () => {
     navigate("/cadastro");

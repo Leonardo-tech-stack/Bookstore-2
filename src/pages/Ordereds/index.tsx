@@ -127,7 +127,7 @@ const OrderPage: React.FC = () => {
                         );
                         return (
                           <tr key={product.productId}>
-                            <td className='img'><img src={Book} /></td>
+                            <td className='img'><img src={Book} alt={product.name}/></td>
                             <td className='name'>{details?.name}</td>
                             <td className='price'>R${details?.price}</td>
                             <td className='quantity'>{product.quantity}</td>

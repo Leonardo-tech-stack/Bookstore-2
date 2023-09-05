@@ -8,7 +8,6 @@ import { noHeader, getImageUrl } from '../../../services/mainAPI/config';
 import { Lista, Table, Tr, Tr2, Th, Td, NEncontrado } from './styles';
 import Modal from '../../../components/Modal';
 import { Loading } from '../../../styles/loading';
-import Book from '../../../assets/images/Book-1.png';
 import Swal from 'sweetalert2';
 import toastr from 'toastr'; 
 import 'toastr/build/toastr.min.css';
@@ -232,6 +231,7 @@ const App: React.FC = () => {
                   {filteredProducts.map((product: ProductAPI) => (
                     <Tr2 key={product.id}>
                       <Td className="img">
+                        {/* <img src={Book} alt={product.name} /> */}
                         <img src={getImageUrl(product.image)} />
                         {/* <img
                           src={product.images && product.images.length > 0 ? getImageUrl(product.images[0].filename) : Book}
