@@ -70,9 +70,12 @@ const NavbarNavigation: React.FC = () => {
       } catch (error) {
         console.error('Erro ao buscar a quantidade total de produtos no carrinho:', error);
       }
-    };
+    };    
 
     fetchCartItemCount();
+    const pollingInterval = setInterval(fetchCartItemCount, 1000);
+
+    return () => clearInterval(pollingInterval);
   }, []);
 
   return (
