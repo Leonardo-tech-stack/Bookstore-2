@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Footer1 } from "./styles";
 
 const Footer = () => {
@@ -23,9 +24,9 @@ const Footer = () => {
             <h2 className="text-black text-2xl font-semibold mb-6">Links rápidos</h2>
             <ul className="space-y-2">
               <li><a href="#" className="text-gray-400 hover:text-black">Início da página</a></li>
-              <li><a href="/lista-de-produtos" className="text-gray-400 hover:text-black">Comprar</a></li>
+              <li><Link to="/lista-de-produtos" className="text-gray-400 hover:text-black">Comprar</Link></li>
               <li><a href="#" className="text-gray-400 hover:text-black">Sobre</a></li>
-              <li><a href="/contato" className="text-gray-400 hover:text-black">Contato</a></li>
+              <li><Link to="/contato" className="text-gray-400 hover:text-black">Contato</Link></li>
             </ul>
           </div>
 
