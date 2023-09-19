@@ -100,12 +100,12 @@ const NavbarNavigation: React.FC = () => {
               </div>
               <div className="flex flex-1 mr-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <a href="/" className={`text-white font-bold ${
+                  <Link to="/" className={`text-white font-bold ${
                     isSmallScreen ? '' : isMediumScreen ? 'ml-1' : ''  
                   }`}
                   >
                     ChapterOne
-                  </a>
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block flex-grow">
                   <div className="flex space-x-4">
