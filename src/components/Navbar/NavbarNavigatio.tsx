@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { noHeader } from '../../services/mainAPI/config';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, ShoppingCartIcon, MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { noHeader } from '../../services/mainAPI/config';
 import ProductAPI from '../../types/productAPI';
 import { Input, StyledIconWrapper } from './styles';
 import CartItemCount from '../CartCounter';
@@ -68,7 +68,6 @@ const NavbarNavigation: React.FC = () => {
         const itemCount = response.data.products.reduce((total, item) => total + item.quantity, 0);
         setCartItemCount(itemCount);
       } catch (error) {
-        console.error('Erro ao buscar a quantidade total de produtos no carrinho:', error);
       }
     };    
 
@@ -77,6 +76,10 @@ const NavbarNavigation: React.FC = () => {
 
     return () => clearInterval(pollingInterval);
   }, []);
+
+  const handleNavigation = (href: string) => {
+    navigate(href, { replace: true }); 
+  };
 
   return (
     <Disclosure as="nav" className="bg-[#0D0D0D]">
@@ -107,9 +110,10 @@ const NavbarNavigation: React.FC = () => {
                 <div className="hidden sm:ml-6 sm:block flex-grow">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
+                        to={item.href}
+                        onClick={() => handleNavigation(item.href)} 
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                           'rounded-md px-1 py-2 text-sm font-medium'
@@ -117,7 +121,7 @@ const NavbarNavigation: React.FC = () => {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -167,10 +171,10 @@ const NavbarNavigation: React.FC = () => {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
-                <Disclosure.Button
+                <Link
                   key={item.name}
-                  as="a"
-                  href={item.href}
+                  to={item.href}
+                  onClick={() => handleNavigation(item.href)} 
                   className={classNames(
                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'block rounded-md px-3 py-2 text-base font-medium'
@@ -178,7 +182,7 @@ const NavbarNavigation: React.FC = () => {
                   aria-current={item.current ? 'page' : undefined}
                 >
                   {item.name}
-                </Disclosure.Button>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>
