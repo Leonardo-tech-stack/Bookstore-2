@@ -1,4 +1,4 @@
-import { Routes as RouterRoutes, Route } from "react-router-dom";
+import { Routes as RouterRoutes, Route, useNavigate, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import ProductPage from "../src/pages/ProductPage/index";
@@ -17,6 +17,7 @@ import UsersRequests from "./pages/administrative/UsersRequests";
 import Contact from "./pages/Contact";
 
 export default function Routes() {
+
   return (
     <RouterRoutes>
       <Route path="/" element={<Home />} />
@@ -36,6 +37,15 @@ export default function Routes() {
       <Route path="/lista-de-pedidos" element={<UsersRequests />} />
       <Route path="/lista-de-usuarios" element={<UserList />} />
       <Route path="/contato" element={<Contact />} />
+      <Route
+        path="*"
+        element={
+          <Navigate
+            to="/"
+            replace={true} 
+          />
+        }
+      />
     </RouterRoutes>
   );
 }
